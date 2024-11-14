@@ -26,6 +26,25 @@ android {
             )
         }
     }
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationId = "com.xvantage.rental.dev"
+            versionCode = 1
+            versionName = "1.0"
+        }
+
+        create("live") {
+            dimension = "environment"
+            applicationId = "com.xvantage.rental"
+            versionCode = 1
+            versionName = "1.0"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -33,10 +52,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    dataBinding {
+        enable = true
+    }
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -48,5 +73,4 @@ dependencies {
 
     implementation(libs.ssp.android)
     implementation(libs.sdp.android)
-
 }
