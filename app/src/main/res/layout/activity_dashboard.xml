@@ -10,15 +10,19 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <include
-                    android:id="@+id/toolbar"
-                    layout="@layout/toolbar_layout"/>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/white"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
             <!-- Content Frame -->
             <FrameLayout
@@ -29,16 +33,26 @@
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 app:menu="@menu/bottom_navigation_menu"
                 app:labelVisibilityMode="labeled"
-                app:backgroundTint="@color/white" />
+                app:backgroundTint="@color/whisper_gray"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bottom_navigation_background"
+                android:layout_gravity="bottom"
+                android:clipToOutline="true"
+            android:outlineProvider="background" />
+
         </RelativeLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
-            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start">
 
@@ -66,6 +80,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/more_apps_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -84,12 +99,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:text="@string/more_apps"
+                            android:textStyle="normal"
+                            style="@style/OnboardingTitlePermissionTextStyle"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
+                        android:id="@+id/premium_tv"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="12dp"
@@ -107,11 +125,84 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:text="@string/go_premium"
+                            android:textStyle="normal"
+                            style="@style/OnboardingTitlePermissionTextStyle"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/shaer_app_tv"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/export" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/share_app"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/rate_us_tv"
+                        android:padding="12dp"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/rate_us" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/rate_us"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/policy_tv"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/document" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/privacy_policy"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/feedback_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -123,17 +214,17 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/google"
-                            app:tint="@color/black" />
+                            android:src="@drawable/feedback" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="Logout"
+                            android:text="@string/feedback"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.navigation.NavigationView>
