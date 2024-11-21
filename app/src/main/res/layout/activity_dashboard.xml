@@ -12,21 +12,13 @@
         android:layout_height="match_parent"
         tools:openDrawer="start">
 
-        <!-- Main Content -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Toolbar -->
-            <!-- Toolbar -->
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:elevation="4dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                <include
+                    android:id="@+id/toolbar"
+                    layout="@layout/toolbar_layout"/>
 
             <!-- Content Frame -->
             <FrameLayout
@@ -44,62 +36,30 @@
                 app:backgroundTint="@color/white" />
         </RelativeLayout>
 
-        <!-- Navigation Drawer -->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/bottom_navigation_menu">
+            android:layout_gravity="start">
 
-            <!-- Custom Drawer Content -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <!-- Header Card -->
-                <com.google.android.material.card.MaterialCardView
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:background="@color/black_cole">
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
+                        android:src="@drawable/rent_master_nav"
+                        android:layout_gravity="center"
+                        android:padding="50dp"/>
+                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/google" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="8dp"
-                            android:text="John Doe"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="john.doe@example.com"
-                            android:textColor="@color/gray_sub"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Drawer Options -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,14 +77,13 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/google"
-                            app:tint="@color/black" />
+                            android:src="@drawable/more_apps" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="Home"
+                            android:text="@string/more_apps"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -141,14 +100,13 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/google"
-                            app:tint="@color/black" />
+                            android:src="@drawable/premium" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="Settings"
+                            android:text="@string/go_premium"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
