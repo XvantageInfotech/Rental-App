@@ -1,7 +1,10 @@
 package com.xvantage.rental.utils.extension
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 enum class DateFormats(val label: String) {
@@ -31,7 +34,11 @@ enum class DateFormats(val label: String) {
 }
 
 // Extension function to format date & time to UTC from String
-fun String.formatDateTimeToUTC(sourceDateFormat: String, targetDateFormat: String, timeZone: String): String {
+fun String.formatDateTimeToUTC(
+    sourceDateFormat: String,
+    targetDateFormat: String,
+    timeZone: String
+): String {
     if (this.isEmpty() || sourceDateFormat.isEmpty() || targetDateFormat.isEmpty() || timeZone.isEmpty()) return ""
 
     return try {
@@ -85,7 +92,11 @@ fun Date.formatDateTimeToUTC(targetDateFormat: String): String {
 }
 
 // Extension function to convert UTC into date from String
-fun String.formatUTCToDate(sourceDateFormat: String, targetDateFormat: String, timeZone: String): String {
+fun String.formatUTCToDate(
+    sourceDateFormat: String,
+    targetDateFormat: String,
+    timeZone: String
+): String {
     if (this.isEmpty() || sourceDateFormat.isEmpty() || targetDateFormat.isEmpty() || timeZone.isEmpty()) return ""
 
     return try {

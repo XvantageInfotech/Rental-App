@@ -27,6 +27,29 @@
         <item name="android:fontFamily">@font/outfit_regular</item>
     </style>
 
+
+    <!-- Title permissionText Style -->
+    <style name="OnboardingTitlePermissionTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/outfit_regular</item>
+    </style>
+    <!-- Subtitle Permission Text Style -->
+    <style name="OnboardingSubtitlePermissionTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/gray_sub</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/outfit_regular</item>
+    </style>
     <!-- Subtitle Text Style -->
     <style name="OnboardingSubtitleTextStyle">
         <item name="android:layout_width">match_parent</item>

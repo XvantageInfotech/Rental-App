@@ -3,11 +3,10 @@ package com.xvantage.rental.ui.onboarding.fragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.xvantage.rental.R
+import androidx.fragment.app.Fragment
 import com.xvantage.rental.databinding.FragmentBoarding4Binding
 import com.xvantage.rental.ui.onboarding.BoardingPermissionActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity

@@ -2,26 +2,25 @@ package com.xvantage.rental.utils.libs.toggle
 
 
 import android.animation.Animator
-import android.widget.Checkable
-import android.annotation.TargetApi
-import android.os.Build
-import android.content.res.TypedArray
-import android.animation.ValueAnimator
-import android.view.MotionEvent
-import android.graphics.RectF
-import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.animation.Animator.AnimatorListener
 import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.animation.ValueAnimator.AnimatorUpdateListener
+import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Resources
+import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.MotionEvent
 import android.view.View
+import android.widget.Checkable
 import com.xvantage.rental.R
-import java.lang.RuntimeException
 import kotlin.math.max
 import kotlin.math.min
 
@@ -311,7 +310,15 @@ class SwitchButton : View, Checkable {
         paint?.style = Paint.Style.FILL
         paint?.strokeWidth = 1f
         drawArc(canvas, left, top, left + 2 * viewRadius, top + 2 * viewRadius, 90f, 180f, paint)
-        paint?.let { canvas.drawRect(left + viewRadius, top, viewState?.buttonX ?: 0f, top + 2 * viewRadius, it) }
+        paint?.let {
+            canvas.drawRect(
+                left + viewRadius,
+                top,
+                viewState?.buttonX ?: 0f,
+                top + 2 * viewRadius,
+                it
+            )
+        }
 
         //绘制小线条
         if (showIndicator) {
@@ -557,6 +564,7 @@ class SwitchButton : View, Checkable {
                 //预设100ms进入拖动状态
                 postDelayed(postPendingDrag, 100)
             }
+
             MotionEvent.ACTION_MOVE -> {
                 val eventX = event.x
                 if (isPendingDragState) {
@@ -581,6 +589,7 @@ class SwitchButton : View, Checkable {
                     postInvalidate()
                 }
             }
+
             MotionEvent.ACTION_UP -> {
                 isTouchingDown = false
                 //取消准备进入拖动状态
@@ -605,6 +614,7 @@ class SwitchButton : View, Checkable {
                     pendingCancelDragState()
                 }
             }
+
             MotionEvent.ACTION_CANCEL -> {
                 isTouchingDown = false
                 removeCallbacks(postPendingDrag)
@@ -971,6 +981,7 @@ class SwitchButton : View, Checkable {
                         ) as Int
                     }
                 }
+
                 ANIMATE_STATE_PENDING_RESET -> {
                     run {}
                     run {
@@ -992,6 +1003,7 @@ class SwitchButton : View, Checkable {
                         ) as Int
                     }
                 }
+
                 ANIMATE_STATE_PENDING_DRAG -> {
                     viewState!!.checkedLineColor = argbEvaluator.evaluate(
                         value,
@@ -1010,6 +1022,7 @@ class SwitchButton : View, Checkable {
                         afterState!!.checkStateColor
                     ) as Int
                 }
+
                 ANIMATE_STATE_SWITCH -> {
                     viewState?.buttonX = (beforeState!!.buttonX
                             + (afterState!!.buttonX - beforeState!!.buttonX) * value)
@@ -1026,10 +1039,12 @@ class SwitchButton : View, Checkable {
                         checkLineColor
                     ) as Int
                 }
+
                 ANIMATE_STATE_DRAGING -> {
                     run {}
                     run {}
                 }
+
                 ANIMATE_STATE_NONE -> {}
                 else -> {
                     run {}
@@ -1050,21 +1065,25 @@ class SwitchButton : View, Checkable {
                     viewState?.radius = viewRadius
                     postInvalidate()
                 }
+
                 ANIMATE_STATE_PENDING_RESET -> {
                     animateState = ANIMATE_STATE_NONE
                     postInvalidate()
                 }
+
                 ANIMATE_STATE_PENDING_SETTLE -> {
                     animateState = ANIMATE_STATE_NONE
                     postInvalidate()
                     broadcastEvent()
                 }
+
                 ANIMATE_STATE_SWITCH -> {
                     isChecked = !isChecked
                     animateState = ANIMATE_STATE_NONE
                     postInvalidate()
                     broadcastEvent()
                 }
+
                 ANIMATE_STATE_NONE -> {}
                 else -> {}
             }

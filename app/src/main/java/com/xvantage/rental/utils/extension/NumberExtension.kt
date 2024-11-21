@@ -47,6 +47,6 @@ fun Double.toFormattedString(locale: Locale = Locale.getDefault()): String {
     return formatter.format(this)
 }
 
-fun Double.roundToDecimalPlaces(decimalPlace : Int = 2): String {
+fun Double.roundToDecimalPlaces(decimalPlace: Int = 2): String {
     return String.format("%.${decimalPlace}f", this)
 }

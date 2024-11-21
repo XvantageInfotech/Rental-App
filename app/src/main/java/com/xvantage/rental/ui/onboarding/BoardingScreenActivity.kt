@@ -3,13 +3,10 @@ package com.xvantage.rental.ui.onboarding
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityBoardingScreenBinding
-import com.xvantage.rental.databinding.ActivitySplashBinding
 import com.xvantage.rental.ui.onboarding.fragment.Boarding1Fragment
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.IntentUtils
@@ -29,6 +26,7 @@ class BoardingScreenActivity : AppCompatActivity() {
         val tag = "Boarding 1"
         IntentUtils.getInstance().navigateFromActivityToFragment(this, fragment, frameLayoutId, tag)
     }
+
     override fun onBackPressed() {
         val fragmentManager = supportFragmentManager
 
