@@ -38,37 +38,31 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        // Set up data binding for the activity layout
-        // Set up data binding for the activity layout
         layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
 
 
         drawerLayout = layoutBinding.drawerLayout
 
-        // Inflate the custom toolbar layout
         toolbarBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.toolbar_layout, null, false)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // ActionBarDrawerToggle to handle drawer opening and closing
         val toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
             toolbar,
-            R.string.sign_in_desc,  // String for opening the drawer
-            R.string.sign_in_desc  // String for closing the drawer
+            R.string.sign_in_desc,
+            R.string.sign_in_desc
         )
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // Handle toolbar click to open drawer
         toolbar.setNavigationOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        // Handle navigation item clicks
         val navigationView: NavigationView = layoutBinding.navigationView
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -77,18 +71,15 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 R.id.premium_tv -> {
                     Toast.makeText(this,"Premium", Toast.LENGTH_SHORT)
-                    // Handle second item click
                 }
                 else -> {
                     // Handle other items
                 }
             }
-            // Close the drawer after item is clicked
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
-// Handle bottom navigation selection
         val bottomNav: BottomNavigationView = layoutBinding.bottomNavigation
         bottomNav.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -97,20 +88,19 @@ class DashboardActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
-                    loadFragment(AddPropertyFragment())  // Load Profile fragment
+                    loadFragment(AddPropertyFragment())
                     true
                 }
                 R.id.settings -> {
-                    loadFragment(DuesFragment())  // Load Settings fragment
+                    loadFragment(DuesFragment())
                     true
                 }
                 else -> false
             }
         }
 
-        // Load the default fragment when activity starts
         if (savedInstanceState == null) {
-            bottomNav.selectedItemId = R.id.home // Ensure home is selected by default
+            bottomNav.selectedItemId = R.id.home
             loadFragment(HomeFragment())
         }
     }
@@ -120,7 +110,6 @@ class DashboardActivity : AppCompatActivity() {
         transaction.commit()
     }
     override fun onBackPressed() {
-        // Close the navigation drawer if open, else handle back press normally
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
