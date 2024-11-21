@@ -34,6 +34,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="45dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/permisson_img" />
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -42,7 +50,41 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="@string/boarding_4_title" />
+                    android:text="@string/boarding_permission_title" />
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <com.xvantage.rental.utils.libs.toggle.SwitchButton
+                        android:id="@+id/toggleButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:sb_checked="false"/>
+
+                    <LinearLayout
+                        android:id="@+id/verticalLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:layout_marginStart="16dp">
+                        <!-- Title Text -->
+                        <TextView
+                            android:id="@+id/titleText"
+                            style="@style/OnboardingTitleTextStyle"
+                            android:text="This is the Title" />
+
+                        <TextView
+                            android:id="@+id/subtitleText"
+                            style="@style/OnboardingSubtitleTextStyle"
+                            android:text="This is the subtitle text" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvSubtitle"
@@ -64,7 +106,7 @@
                     android:layout_marginBottom="16dp"
                     android:max="100"
                     android:progress="100"
-                    />
+                     />
 
 
                 <LinearLayout

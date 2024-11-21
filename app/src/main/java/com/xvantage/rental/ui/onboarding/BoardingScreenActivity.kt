@@ -29,4 +29,16 @@ class BoardingScreenActivity : AppCompatActivity() {
         val tag = "Boarding 1"
         IntentUtils.getInstance().navigateFromActivityToFragment(this, fragment, frameLayoutId, tag)
     }
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+
+        val currentFragment = fragmentManager.findFragmentByTag("Boarding 1")
+
+        if (currentFragment != null && fragmentManager.backStackEntryCount <= 1) {
+            finishAffinity()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 }

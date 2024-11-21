@@ -1,5 +1,41 @@
 <resources>
     <string name="app_name">Rental App</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Onboarding -->
+    <string name="boarding_1_title">Easy Property Management</string>
+    <string name="boarding_1_desc">Manage multiple properties effortlessly from a single dashboard.</string>
+    <string name="boarding_2_title">Tenant Tracking &amp; Alerts</string>
+    <string name="boarding_2_desc">Stay updated on tenant details, payment schedules, and occupancy status.</string>
+    <string name="boarding_3_title">Automated Rent &amp; Billing</string>
+    <string name="boarding_3_desc">Automatically track rent payments and generate billing records for quick reference.</string>
+    <string name="boarding_4_title">Personalized Reminders</string>
+    <string name="boarding_4_desc">Receive timely reminders for important dates, from lease renewals to maintenance checks.</string>
+    <string name="get_started_btn">Get Started</string>
+    <string name="next_btn">Next</string>
+    <string name="skip_btn">Skip</string>
+
+    <!-- Permission screen onboarding -->
+    <string name="boarding_permission_title">Permissions Needed to Enhance Your Experience</string>
+    <string name="boarding_permission_1_title">All Media Access Permission</string>
+    <string name="boarding_permission_1_desc">Media access is required to upload and organize documents or media files related to your properties and tenants.</string>
+    <string name="boarding_permission_2_title">Contacts Access Permission</string>
+    <string name="boarding_permission_2_desc">Allow access to contacts so you can quickly add tenant information and communicate with them through the app.</string>
+    <string name="confirm_btn">Confirm</string>
+
+
+    <!-- Sign Up & In screen -->
+    <string name="get_started_txt">Get Started</string>
+    <string name="get_started_desc">Sign up to start managing your properties.</string>
+    <string name="email_address_input">Email Address</string>
+    <string name="email_address_hint">hello@example.com</string>
+    <string name="password_input">Password</string>
+    <string name="password_hint">Enter Your Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_wt_google">Sign up with Google</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or">OR</string>
+    <string name="forgot_password">Forgot Password</string>
+
 </resources>

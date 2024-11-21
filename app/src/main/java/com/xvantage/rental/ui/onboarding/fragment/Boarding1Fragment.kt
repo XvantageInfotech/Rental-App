@@ -18,10 +18,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.finishAffinity
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.FragmentBoarding1Binding
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.utils.AppPreference
+import com.xvantage.rental.utils.IntentUtils
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -57,10 +59,14 @@ class Boarding1Fragment : Fragment() {
 
 
     private fun onClickEvents() {
-
         layoutBinding.btnNext.setOnClickListener {
+            IntentUtils.getInstance().navigateFromFragmentToFragment(
+                currentFragment = this,
+                newFragment = Boarding2Fragment(),
+                containerId = R.id.fragmentContainerView,
+                tag = "Boarding2Fragment"
+            )
         }
-
     }
 
     private fun intiView() {
