@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow Layer (for top corners) -->
+    <item android:left="0dp" android:right="0dp" android:top="@dimen/_20sdp" android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white"/>
+            <corners android:radius="32dp"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="32dp"/>
+        </shape>
+    </item>
+</layer-list>

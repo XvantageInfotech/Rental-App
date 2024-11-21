@@ -10,7 +10,9 @@ import androidx.databinding.DataBindingUtil
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityBoardingScreenBinding
 import com.xvantage.rental.databinding.ActivitySplashBinding
+import com.xvantage.rental.ui.onboarding.fragment.Boarding1Fragment
 import com.xvantage.rental.utils.AppPreference
+import com.xvantage.rental.utils.IntentUtils
 
 class BoardingScreenActivity : AppCompatActivity() {
 
@@ -22,6 +24,9 @@ class BoardingScreenActivity : AppCompatActivity() {
         layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_boarding_screen)
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
+        val fragment = Boarding1Fragment()
+        val frameLayoutId = R.id.fragmentContainerView
+        val tag = "Boarding 1"
+        IntentUtils.getInstance().navigateFromActivityToFragment(this, fragment, frameLayoutId, tag)
     }
 }

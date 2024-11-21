@@ -32,13 +32,13 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (!appPreference.isUserLoginFirstTime()) {
-                appPreference.setUserLoginFirstTime(true)
+//                appPreference.setUserLoginFirstTime(true)
                 val intent = Intent(this, BoardingScreenActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             } else {
-                appPreference.setUserLoginFirstTime(true)
-                val intent = Intent(this, MainActivity::class.java)
+//                appPreference.setUserLoginFirstTime(true)
+                val intent = Intent(this, BoardingScreenActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             }

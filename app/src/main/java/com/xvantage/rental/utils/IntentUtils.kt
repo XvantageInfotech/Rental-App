@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import java.util.*
 
@@ -196,6 +197,55 @@ class IntentUtils private constructor() {
             ?: activity.startActivityForResult(intent, resultCode, options)
 //        transitionNext(activity)
     }
+
+    /**
+     * Navigate to next activity and clear stack
+     */
+    fun navigateToFragment(activity: Activity, fragment: Fragment, frameLayoutId: Int, tag: String) {
+        val transaction = (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
+
+        transaction.replace(frameLayoutId, fragment, tag)
+        transaction.addToBackStack(tag)
+        transaction.commit()
+    }
+
+    /**
+     * Navigate to next activity and clear stack
+     */
+    fun navigateToAnotherFragment(fragment: Fragment, newFragment: Fragment, containerId: Int, tag: String) {
+        val transaction = fragment.requireActivity().supportFragmentManager.beginTransaction()
+
+        transaction.replace(containerId, newFragment, tag)
+        transaction.addToBackStack(tag)
+        transaction.commit()
+    }
+    // Navigate from Activity to Fragment
+    fun navigateFromActivityToFragment(
+        activity: Activity,
+        fragment: Fragment,
+        frameLayoutId: Int,
+        tag: String
+    ) {
+        val transaction = (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
+        transaction.replace(frameLayoutId, fragment, tag)
+        transaction.addToBackStack(tag)
+        transaction.commit()
+    }
+
+    
+    // Navigate from Fragment to Fragment
+    fun navigateFromFragmentToFragment(
+        currentFragment: Fragment,
+        newFragment: Fragment,
+        containerId: Int,
+        tag: String
+    ) {
+        val transaction = currentFragment.requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(containerId, newFragment, tag)
+        transaction.addToBackStack(tag)  // Optional: add to back stack
+        transaction.commit()
+    }
+
 
     /**
      * Navigate to next activity and clear stack
