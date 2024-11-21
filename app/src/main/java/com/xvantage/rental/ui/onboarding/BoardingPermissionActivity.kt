@@ -10,8 +10,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import android.Manifest
+import android.content.Intent
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityBoardingPermissionBinding
+import com.xvantage.rental.ui.registration.SignUpActivity
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.libs.toggle.SwitchButton
 
@@ -95,8 +97,9 @@ class BoardingPermissionActivity : AppCompatActivity() {
     }
 
     private fun proceedWithAction() {
-        // Proceed with the next steps after permissions are granted
-        // This could involve navigating to another activity or performing specific actions
+        val intent = Intent(this, SignUpActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
     override fun onRequestPermissionsResult(

@@ -16,6 +16,7 @@
     <color name="light_blue">#00FFFF</color>
     <color name="light_pink">#ffb6c1</color>
     <color name="primary_blue">#2563EB</color>
+    <color name="edit_text_border">#64748B</color>
 
     <color name="dark_gray">#0C0C0C</color>
     <color name="light_gray">#F0F0F0</color>

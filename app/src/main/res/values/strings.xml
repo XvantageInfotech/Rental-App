@@ -26,6 +26,8 @@
 
     <!-- Sign Up & In screen -->
     <string name="get_started_txt">Get Started</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="sign_in_desc">Sign in to continue managing your properties.</string>
     <string name="get_started_desc">Sign up to start managing your properties.</string>
     <string name="email_address_input">Email Address</string>
     <string name="email_address_hint">hello@example.com</string>
@@ -34,6 +36,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="sign_up_wt_google">Sign up with Google</string>
     <string name="already_have_account">Already have an account?</string>
+    <string name="dont_have_account">Don’t have an account?</string>
     <string name="sign_in">Sign In</string>
     <string name="or">OR</string>
     <string name="forgot_password">Forgot Password</string>
