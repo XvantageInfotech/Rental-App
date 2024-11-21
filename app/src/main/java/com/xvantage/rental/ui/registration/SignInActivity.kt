@@ -1,5 +1,6 @@
 package com.xvantage.rental.ui.registration
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivitySignInBinding
+import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.utils.AppPreference
 
 
@@ -24,7 +26,11 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun onClickEvents() {
-
+        layoutBinding.btnSignin.setOnClickListener {
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
     }
 
     private fun intiView() {
