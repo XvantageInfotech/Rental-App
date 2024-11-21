@@ -3,6 +3,7 @@ package com.xvantage.rental.utils
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,12 +16,19 @@ object PermissionUtils {
     const val RESULTCODE_PERMISSION_CONTACT = 1004
     const val RESULTCODE_PERMISSION_CALL = 1005
 
+    const val REQUEST_MEDIA_PERMISSION = 1001
+    const val REQUEST_CONTACT_PERMISSION = 1002
+
     private const val PERM_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
     private const val PERM_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     private const val PERM_CAMERA = Manifest.permission.CAMERA
     private const val PERM_WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE
     private const val PERM_READ_CONTACTS = Manifest.permission.READ_CONTACTS
     private const val PERM_CALL_PHONE = Manifest.permission.CALL_PHONE
+
+    private const val PERM_READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
+    private const val PERM_READ_MEDIA_IMAGES = Manifest.permission.READ_MEDIA_IMAGES
+
 
     private const val TAG = "PermissionUtils"
 
@@ -226,8 +234,8 @@ object PermissionUtils {
      */
     fun checkContactsPermission(
         mActivity: Activity,
-        fragment: Fragment?,
-        requestCode: Int
+        fragment: Fragment? = null,
+        requestCode: Int = REQUEST_CONTACT_PERMISSION
     ): Boolean {
         return if (ContextCompat.checkSelfPermission(
                 mActivity,
@@ -246,6 +254,50 @@ object PermissionUtils {
         }
     }
 
+    /**
+     * Check and request media permissions (READ/WRITE based on SDK version)
+     */
+    fun checkMediaPermissions(
+        activity: Activity, fragment: Fragment? = null, requestCode: Int = REQUEST_MEDIA_PERMISSION
+    ): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            checkPermissions(
+                activity,
+                fragment,
+                arrayOf(PERM_READ_MEDIA_IMAGES),
+                requestCode
+            )
+        } else {
+            checkPermissions(
+                activity,
+                fragment,
+                arrayOf(PERM_READ_EXTERNAL_STORAGE, PERM_WRITE_EXTERNAL_STORAGE),
+                requestCode
+            )
+        }
+    }
+
+    /**
+     * General permission check and request method
+     */
+   private fun checkPermissions(
+        activity: Activity,
+        fragment: Fragment?,
+        permissions: Array<String>,
+        requestCode: Int
+    ): Boolean {
+        val deniedPermissions = permissions.filter {
+            ContextCompat.checkSelfPermission(activity, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        return if (deniedPermissions.isEmpty()) {
+            true
+        } else {
+            fragment?.requestPermissions(deniedPermissions.toTypedArray(), requestCode)
+                ?: ActivityCompat.requestPermissions(activity, deniedPermissions.toTypedArray(), requestCode)
+            false
+        }
+    }
     /**
      * check contacts permission is granted, ask if not
      *

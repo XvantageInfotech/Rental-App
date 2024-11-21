@@ -77,7 +77,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnNext"
                         style="@style/ButtonFilled"
-                        android:text="@string/get_started_btn" />
+                        android:text="@string/next_btn" />
 
                     <View
                         android:layout_width="match_parent"
