@@ -82,11 +82,13 @@
     </style>
 
     <style name="OnboardingProgressIndicator">
-        <item name="trackColor">#CDD8FF</item>
-        <item name="indicatorColor">#1A4BFF</item>
+        <item name="trackColor">#CDD8FF</item> <!-- Background color -->
+        <item name="indicatorColor">#1A4BFF</item> <!-- Progress color -->
         <item name="android:layout_height">8dp</item>
-        <!-- Optional: Set other properties like margin or padding -->
+        <item name="android:minHeight">8dp</item> <!-- Ensures consistent height -->
+        <item name="android:maxHeight">8dp</item> <!-- Ensures consistent height -->
     </style>
+
     <!-- Filled Button Style -->
     <style name="ButtonFilled">
         <item name="android:layout_width">match_parent</item>

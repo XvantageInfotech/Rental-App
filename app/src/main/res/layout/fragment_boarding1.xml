@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/transparent"
-        android:fitsSystemWindows="true"
         tools:context=".ui.onboarding.OnboardingFragment">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSkip"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginVertical="@dimen/_30sdp"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:background="@drawable/rounded_button_outlined"
@@ -33,6 +33,7 @@
             android:src="@drawable/boarding_1" />
 
         <LinearLayout
+            android:fitsSystemWindows="true"
             android:id="@+id/bottomCard"
             style="@style/OnboardingCardStyle"
             android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="45dp">
+                android:padding="30dp">
 
                 <TextView
                     android:id="@+id/tvTitle"
