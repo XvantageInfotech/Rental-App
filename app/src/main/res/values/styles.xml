@@ -8,7 +8,6 @@
     </style>
 
     <style name="OnboardingCardStyle">
-        <item name="cardCornerRadius">32dp</item>
         <item name="cardElevation">20dp</item>
         <item name="cardBackgroundColor">@android:color/white</item>
         <item name="android:background">@drawable/top_elevation_card</item> <!-- Use custom drawable -->

@@ -8,8 +8,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
+        android:layout_height="match_parent"
         android:background="@color/transparent"
+        android:fitsSystemWindows="true"
         tools:context=".ui.onboarding.OnboardingFragment">
 
 
@@ -22,7 +23,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/boarding_1" />
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:id="@+id/bottomCard"
             style="@style/OnboardingCardStyle"
             android:layout_width="match_parent"
@@ -87,7 +88,7 @@
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
     </RelativeLayout>
 </layout>
