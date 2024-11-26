@@ -13,6 +13,15 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.onboarding.OnboardingFragment">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSkip"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_button_outlined"
+            android:layout_alignParentEnd="true"
+            android:text="@string/skip_btn" />
+
 
         <ImageView
             android:id="@+id/imageOnboarding"
@@ -51,6 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:maxLines="2"
                     android:text="@string/boarding_3_desc"
                     android:textAlignment="center" />
 
@@ -64,8 +74,7 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="16dp"
                     android:max="100"
-                    android:progress="70"
-                    />
+                    android:progress="30" />
 
 
                 <LinearLayout
@@ -78,19 +87,16 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnNext"
-                        style="@style/ButtonFilled"
-                        android:text="@string/next_btn" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="8dp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnSkip"
-                        style="@style/ButtonOutlined"
-                        android:text="@string/skip_btn" />
+                        android:layout_width="300dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/rounded_button_background"
+                        android:fontFamily="@font/outfit_semibold"
+                        android:gravity="center"
+                        android:text="@string/get_started_btn"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
 

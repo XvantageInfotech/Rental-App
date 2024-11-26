@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.xvantage.rental.databinding.FragmentBoarding4Binding
 import com.xvantage.rental.ui.onboarding.BoardingPermissionActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
@@ -16,7 +17,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 
 
 @DelicateCoroutinesApi
-class Boarding4Fragment : Fragment() {
+class Boarding4Fragment(private val viewPager: ViewPager2) : Fragment() {
 
     private lateinit var layoutBinding: FragmentBoarding4Binding
     lateinit var appPreference: AppPreference

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.FragmentBoarding2Binding
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
@@ -16,7 +17,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 
 
 @DelicateCoroutinesApi
-class Boarding2Fragment : Fragment() {
+class Boarding2Fragment (private val viewPager: ViewPager2): Fragment() {
 
     private lateinit var layoutBinding: FragmentBoarding2Binding
     lateinit var appPreference: AppPreference
@@ -42,20 +43,10 @@ class Boarding2Fragment : Fragment() {
 
     private fun onClickEvents() {
         layoutBinding.btnNext.setOnClickListener {
-            IntentUtils.getInstance().navigateFromFragmentToFragment(
-                currentFragment = this,
-                newFragment = Boarding3Fragment(),
-                containerId = R.id.fragmentContainerView,
-                tag = "Boarding3Fragment"
-            )
+            viewPager.currentItem = 2
         }
         layoutBinding.btnSkip.setOnClickListener {
-            IntentUtils.getInstance().navigateFromFragmentToFragment(
-                currentFragment = this,
-                newFragment = Boarding4Fragment(),
-                containerId = R.id.fragmentContainerView,
-                tag = "Boarding4Fragment"
-            )
+            viewPager.currentItem=3
         }
     }
 
