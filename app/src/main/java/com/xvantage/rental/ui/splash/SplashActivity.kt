@@ -11,7 +11,9 @@ import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivitySplashBinding
+import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
+import com.xvantage.rental.ui.registration.SignUpActivity
 import com.xvantage.rental.utils.AppPreference
 
 class SplashActivity : AppCompatActivity() {
@@ -27,14 +29,16 @@ class SplashActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if (!appPreference.isUserLoginFirstTime()) {
-//                appPreference.setUserLoginFirstTime(true)
+            if (appPreference.isUserLoginFirstTime()) {
+                val intent = Intent(this, DashboardActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            } else if (!appPreference.isFirstTimePreview()) {
                 val intent = Intent(this, BoardingScreenActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-            } else {
-//                appPreference.setUserLoginFirstTime(true)
-                val intent = Intent(this, BoardingScreenActivity::class.java)
+            } else{
+                val intent = Intent(this, SignUpActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             }
