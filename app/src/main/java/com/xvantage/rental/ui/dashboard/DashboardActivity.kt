@@ -1,5 +1,6 @@
 package com.xvantage.rental.ui.dashboard
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -29,10 +30,9 @@ import com.xvantage.rental.databinding.ToolbarLayoutBinding
 import com.xvantage.rental.ui.dashboard.fragment.AddPropertyFragment
 import com.xvantage.rental.ui.dashboard.fragment.DuesFragment
 import com.xvantage.rental.ui.dashboard.fragment.HomeFragment
-
 class DashboardActivity : AppCompatActivity() {
     private lateinit var layoutBinding: ActivityDashboardBinding
-    private lateinit var toolbarBinding: ToolbarLayoutBinding // Custom toolbar binding
+    private lateinit var toolbarBinding: ToolbarLayoutBinding
     private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,53 +41,43 @@ class DashboardActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
 
-        // Initialize DrawerLayout
-        drawerLayout = layoutBinding.drawerLayout
-
-        // Inflate and bind custom toolbar layout
-        toolbarBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.toolbar_layout, null, false)
-
-        // Setup custom toolbar view and its interactions
-        val toolbarContainer: LinearLayout = findViewById(R.id.toolbar) // View where toolbar is included
-        toolbarContainer.addView(toolbarBinding.root)
-
-        // Handle drawer toggle with the custom toolbar
-        val homeIcon = toolbarBinding.home
-        homeIcon.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+        // Apply window insets for padding adjustments
+        ViewCompat.setOnApplyWindowInsetsListener(layoutBinding.root) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(
+                view.paddingLeft,
+                view.paddingTop,
+                view.paddingRight,
+                systemBarsInsets.bottom
+            )
+            insets
         }
 
-        // Set up ActionBarDrawerToggle
-        val toggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            R.string.sign_in_desc,
-            R.string.sign_in_desc
-        )
+        drawerLayout = layoutBinding.drawerLayout
 
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        // Inflate and bind the custom toolbar layout
+        toolbarBinding = layoutBinding.toolbar
 
-        // Set navigation item click listener
-        val navigationView: NavigationView = layoutBinding.navigationView
-        navigationView.setNavigationItemSelectedListener { menuItem ->
+        toolbarBinding.home.setOnClickListener {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+
+        // Handle navigation drawer item clicks
+        layoutBinding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.more_apps_tv -> {
-                    Toast.makeText(this, "More Apps", Toast.LENGTH_SHORT).show()
-                }
-                R.id.premium_tv -> {
-                    Toast.makeText(this, "Premium", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    // Handle other items
-                }
+                R.id.more_apps_tv -> Toast.makeText(this, "More Apps", Toast.LENGTH_SHORT).show()
+                R.id.premium_tv -> Toast.makeText(this, "Premium", Toast.LENGTH_SHORT).show()
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
-        val bottomNav: BottomNavigationView = layoutBinding.bottomNavigation
-        bottomNav.setOnNavigationItemSelectedListener { menuItem ->
+        // Handle bottom navigation item clicks
+        layoutBinding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
                     loadFragment(HomeFragment())
@@ -105,16 +95,19 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
 
+        // Set the initial fragment
         if (savedInstanceState == null) {
-            bottomNav.selectedItemId = R.id.home
+            layoutBinding.bottomNavigation.selectedItemId = R.id.home
             loadFragment(HomeFragment())
         }
     }
+
     private fun loadFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.content_frame, fragment)
-        transaction.commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.content_frame, fragment)
+            .commit()
     }
+
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)

@@ -8,18 +8,21 @@
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
+        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
         <RelativeLayout
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar_layout" />
+                layout="@layout/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
 
 
             <!-- Content Frame -->
@@ -43,7 +46,7 @@
                 android:background="@drawable/bottom_navigation_background"
                 android:layout_gravity="bottom"
                 android:clipToOutline="true"
-            android:outlineProvider="background" />
+                android:outlineProvider="background" />
 
         </RelativeLayout>
 
