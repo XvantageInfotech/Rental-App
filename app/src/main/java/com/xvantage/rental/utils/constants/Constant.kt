@@ -1,6 +1,6 @@
 package com.xvantage.rental.utils.constants
 
-object Constants {
+object Constant {
 
     // -------------- API Request Parameters --------------
     /**
@@ -10,7 +10,19 @@ object Constants {
     const val PARAM_ACCESS_TOKEN = "accessToken"
     const val PARAM_PAGE_NUMBER = "pageNumber"
     const val PARAM_LIMIT = "limit"
-
+    /**
+     * static appended text
+     */
+    const val const_aestrisk: String = "*"
+    const val const_dot: String = "•"
+    const val const_multiply: String = "X"
+    const val const_percentage: String = "%"
+    const val const_doller: String = "$"
+    const val const_hash: String = "#"
+    const val const_slash_forward: String = "/"
+    const val const_colon: String = ":"
+    const val const_rs: String = "Rs."
+    const val const_after_point_2: String = "%.2f"
 
     // -------------- General Constants --------------
     /**

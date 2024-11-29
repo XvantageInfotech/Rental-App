@@ -35,6 +35,13 @@ android {
             applicationId = "com.xvantage.rental.dev"
             versionCode = 1
             versionName = "1.0"
+            resValue("string", "folder", "Rental")
+
+            buildConfigField("String", "SERVER_USER", "\"https://beta.helllo.com/csm/api/\"")
+            buildConfigField("String", "SERVER_IMAGE", "\"https://beta.hello.com/media/images/user/\"")
+
+            buildConfigField("String", "URL_TERMS", "\"https://www.hello.com/terms-of-service/\"")
+            buildConfigField("boolean", "IS_DEBUG", "true")
         }
 
         create("live") {
@@ -42,6 +49,14 @@ android {
             applicationId = "com.xvantage.rental"
             versionCode = 1
             versionName = "1.0"
+
+            resValue("string", "folder", "Rental")
+
+            buildConfigField("String", "SERVER_USER", "\"https://beta.helllo.com/csm/api/\"")
+            buildConfigField("String", "SERVER_IMAGE", "\"https://beta.hello.com/media/images/user/\"")
+
+            buildConfigField("String", "URL_TERMS", "\"https://www.hello.com/terms-of-service/\"")
+            buildConfigField("boolean", "IS_DEBUG", "false")
         }
     }
 
@@ -51,6 +66,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 
     dataBinding {
@@ -67,11 +85,23 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.tools.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.ssp.android)
     implementation(libs.sdp.android)
+
+
+    implementation(libs.jwtdecode)
+    implementation(libs.java.jwt)
+
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.gson)
+
 //    implementation(libs.snackbar.android)
 }
