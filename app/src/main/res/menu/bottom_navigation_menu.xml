@@ -2,13 +2,13 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/home_nav_selected"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/add_property_nav_unselected"
-        android:title="Profile" />
+        android:title="@string/add_property" />
     <item
         android:id="@+id/settings"
         android:icon="@drawable/due_nav_unselected"
-        android:title="Settings" />
+        android:title="@string/due_payments" />
 </menu>
