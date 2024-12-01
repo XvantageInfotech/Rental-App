@@ -103,5 +103,7 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.gson)
 
+    implementation(libs.glide)
+    implementation(libs.overlap.avatar)
 //    implementation(libs.snackbar.android)
 }

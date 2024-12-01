@@ -20,6 +20,8 @@ java-jwt = "4.3.0"
 sdp = "1.0.6"
 snackbar = "1.0.1"
 toolsCore = "1.0.0-alpha10"
+overlap-avatar = "1.0.3"
+glide = "4.15.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +51,8 @@ jwtdecode = { module = "com.auth0.android:jwtdecode", version.ref = "jwtdecode" 
 # Java implementation of JWT for backend use
 java-jwt = { module = "com.auth0:java-jwt", version.ref = "java-jwt" }
 androidx-tools-core = { group = "androidx.privacysandbox.tools", name = "tools-core", version.ref = "toolsCore" }
+overlap-avatar = { group = "com.github.Mindinventory", name = "OverlapImageGalleryView", version.ref = "overlap-avatar" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
