@@ -38,6 +38,7 @@
                 android:layout_alignParentBottom="true"
                 app:menu="@menu/bottom_navigation_menu"
                 app:labelVisibilityMode="labeled"
+                app:itemActiveIndicatorStyle="@color/transparent"
                 android:background="@drawable/bottom_navigation_background"
                 android:layout_gravity="bottom"
                 android:clipToOutline="true"
