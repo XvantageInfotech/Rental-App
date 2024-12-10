@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.FragmentBoarding1Binding
 import com.xvantage.rental.databinding.FragmentHomeBinding
+import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.dashboard.fragment.adapter.PropertiesAdapter
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.utils.AppPreference
@@ -23,11 +24,11 @@ class HomeFragment() : Fragment() {
     lateinit var appPreference: AppPreference
     lateinit var propertiesAdapter: PropertiesAdapter
 
-    private lateinit var landingActivity: BoardingScreenActivity
+    private lateinit var landingActivity: DashboardActivity
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        landingActivity = context as BoardingScreenActivity
+        landingActivity = context as DashboardActivity
     }
 
     @SuppressLint("SetTextI18n")
