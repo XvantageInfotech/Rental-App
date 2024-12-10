@@ -5,7 +5,7 @@
         android:title="Home" />
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/add_property"
+        android:icon="@drawable/add_property_nav_unselected"
         android:title="Add Property" />
     <item
         android:id="@+id/settings"

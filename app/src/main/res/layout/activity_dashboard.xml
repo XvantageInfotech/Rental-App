@@ -8,15 +8,15 @@
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
-        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/transparent"
         tools:openDrawer="start">
 
         <RelativeLayout
-            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
             <include
                 android:id="@+id/toolbar"
@@ -32,45 +32,54 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/toolbar" />
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bottom_navigation_background"
+                >
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_alignParentBottom="true"
                 app:menu="@menu/bottom_navigation_menu"
                 app:itemIconSize="25dp"
                 app:itemActiveIndicatorStyle="@color/light_blue"
                 app:labelVisibilityMode="labeled"
                 app:backgroundTint="@color/whisper_gray"
-                android:background="@drawable/bottom_navigation_background"
+
                 android:layout_gravity="bottom"
                 />
 
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
-            android:visibility="gone"
             android:layout_width="280dp"
             android:layout_height="match_parent"
-            android:layout_gravity="start">
+            android:layout_gravity="start"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:background="@color/black_cole">
+                    android:background="@color/black_cole"
+                    android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/rent_master_nav"
                         android:layout_gravity="center"
-                        android:padding="50dp"/>
+                        android:padding="50dp"
+                        android:src="@drawable/rent_master_nav" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -82,11 +91,11 @@
                         android:id="@+id/more_apps_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:gravity="center_vertical"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:background="?attr/selectableItemBackground">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -94,25 +103,25 @@
                             android:src="@drawable/more_apps" />
 
                         <TextView
+                            style="@style/OnboardingTitlePermissionTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:text="@string/more_apps"
-                            android:textStyle="normal"
-                            style="@style/OnboardingTitlePermissionTextStyle"
                             android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/premium_tv"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:gravity="center_vertical"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:background="?attr/selectableItemBackground">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -120,25 +129,25 @@
                             android:src="@drawable/premium" />
 
                         <TextView
+                            style="@style/OnboardingTitlePermissionTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:text="@string/go_premium"
-                            android:textStyle="normal"
-                            style="@style/OnboardingTitlePermissionTextStyle"
                             android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/shaer_app_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/shaer_app_tv"
-                        android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:gravity="center_vertical"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:background="?attr/selectableItemBackground">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -155,14 +164,14 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/rate_us_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:id="@+id/rate_us_tv"
-                        android:padding="12dp"
-                        android:gravity="center_vertical"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:background="?attr/selectableItemBackground">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -177,15 +186,16 @@
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/policy_tv"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:gravity="center_vertical"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:background="?attr/selectableItemBackground">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -200,15 +210,16 @@
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/feedback_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:gravity="center_vertical"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:background="?attr/selectableItemBackground">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
 
                         <ImageView
                             android:layout_width="24dp"
