@@ -17,7 +17,7 @@ import com.xvantage.rental.utils.AppPreference
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
-class Boarding1Fragment(private val viewPager: ViewPager2) : Fragment() {
+class HomeFragment() : Fragment() {
 
     private lateinit var layoutBinding: FragmentHomeBinding
     lateinit var appPreference: AppPreference
