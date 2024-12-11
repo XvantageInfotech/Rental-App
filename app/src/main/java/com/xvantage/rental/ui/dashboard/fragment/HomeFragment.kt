@@ -2,27 +2,35 @@ package com.xvantage.rental.ui.dashboard.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.xvantage.rental.R
+import com.xvantage.rental.data.source.PropertyDataRepository
 import com.xvantage.rental.databinding.FragmentBoarding1Binding
 import com.xvantage.rental.databinding.FragmentHomeBinding
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.dashboard.fragment.adapter.PropertiesAdapter
+import com.xvantage.rental.ui.dashboard.fragment.adapter.TenantsAdapter
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.utils.AppPreference
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
-class HomeFragment() : Fragment() {
+class HomeFragment : Fragment() {
 
     private lateinit var layoutBinding: FragmentHomeBinding
     lateinit var appPreference: AppPreference
     lateinit var propertiesAdapter: PropertiesAdapter
+    lateinit var tenantsAdapter: TenantsAdapter
 
     private lateinit var landingActivity: DashboardActivity
 
@@ -31,6 +39,7 @@ class HomeFragment() : Fragment() {
         landingActivity = context as DashboardActivity
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +55,29 @@ class HomeFragment() : Fragment() {
     private fun onClickEvents() {
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun intiView() {
         appPreference = AppPreference(requireContext())
+        val sampleCars = PropertyDataRepository.getProperties()
+
+        propertiesAdapter = PropertiesAdapter(requireContext())
+
+        propertiesAdapter.addItems(sampleCars)
+
+        layoutBinding.horizontalRecyclerView1.apply {
+            adapter = propertiesAdapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+        val sampleTEnant = PropertyDataRepository.getAllTenants()
+
+        tenantsAdapter = TenantsAdapter(requireContext())
+        tenantsAdapter.addItems(sampleTEnant)
+
+        layoutBinding.horizontalRecyclerView2.apply {
+            adapter = tenantsAdapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+
 
     }
 

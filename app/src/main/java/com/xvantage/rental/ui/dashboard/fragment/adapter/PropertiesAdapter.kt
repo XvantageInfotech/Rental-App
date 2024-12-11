@@ -14,8 +14,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager.Properties
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.xvantage.rental.R
+import com.xvantage.rental.data.source.Property
 import com.xvantage.rental.databinding.HomePropertiesItemBinding
 import com.xvantage.rental.utils.AppPreference
 import kotlinx.coroutines.CoroutineScope
@@ -26,21 +27,20 @@ import java.util.ArrayList
 import java.util.Locale
 
 interface OnPropertyActionListener {
-    fun onDeleteClicked(billInvoice: Properties )
-    fun onMoreClicked(billInvoice: Properties)
+    fun onDeleteClicked(billInvoice: Property )
+    fun onMoreClicked(billInvoice: Property)
 }
 
 class PropertiesAdapter(
     private val context: Context,
-    private val propertyActionListener: OnPropertyActionListener
 ) : RecyclerView.Adapter<PropertiesAdapter.PropertyDetailsViewHolder>() {
 
     private lateinit var appPreference: AppPreference
     private var readImagePermission: String? = null
-    private var billInvoiceList: ArrayList<Properties> = ArrayList()
+    private lateinit var billInvoiceList: List<Property>
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItems(billInvoiceList: ArrayList<Properties>) {
+    fun addItems(billInvoiceList: List<Property>) {
         this.billInvoiceList = billInvoiceList
         notifyDataSetChanged()
     }
@@ -50,8 +50,19 @@ class PropertiesAdapter(
         RecyclerView.ViewHolder(itemBinding.root) {
 
         @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
-        fun setData(data: Properties, position: Int) {
-
+        fun setData(data: Property, position: Int) {
+            itemBinding.tvPropertyName.text = data.propertyName
+            itemBinding.roomsValue.text = data.rooms.size.toString()
+            itemBinding.tvPropertyAddress.text = data.address
+            val totalTenants = data.rooms.count { it.tenant != null }
+            itemBinding.tenantsValue.text = totalTenants.toString()
+            if (!data.rooms[position].occupied) {
+                itemBinding.tvStatus.setText("Vacant")
+                itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
+            } else {
+                itemBinding.tvStatus.setText("Occupied")
+                itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
+            }
 
         }
 

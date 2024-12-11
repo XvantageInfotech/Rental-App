@@ -42,14 +42,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:padding="8dp" />
-
-            <!-- Horizontal Section 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginBottom="16dp">
 
+                <!-- Header Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,11 +72,11 @@
                         android:textColor="@color/royal_blue" />
                 </LinearLayout>
 
+                <!-- Horizontal RecyclerView -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/horizontal_recycler_view_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:padding="8dp" />
             </LinearLayout>
 

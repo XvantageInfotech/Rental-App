@@ -46,15 +46,13 @@
                 app:menu="@menu/bottom_navigation_menu"
                 android:layout_alignParentBottom="true"
                 app:itemIconSize="25dp"
-                app:itemActiveIndicatorStyle="@color/light_blue"
-                app:labelVisibilityMode="labeled"
                 app:itemActiveIndicatorStyle="@color/transparent"
+                app:labelVisibilityMode="labeled"
+                app:itemIconTint="@color/bottom_nav_color"
                 android:background="@drawable/bottom_navigation_background"
-                android:layout_gravity="bottom"
                 android:clipToOutline="true"
                 android:outlineProvider="background"
-                app:backgroundTint="@color/whisper_gray"
-
+                app:backgroundTint="@color/light_grey"
                 android:layout_gravity="bottom"
                 />
 
@@ -63,7 +61,6 @@
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
-            android:visibility="gone"
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"

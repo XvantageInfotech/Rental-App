@@ -6,19 +6,19 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="230dp"
         android:background="@drawable/bottom_nav_background"
         android:layout_height="290dp">
 
         <!-- Image with Overlaid Title, Subtitle, and Status -->
         <RelativeLayout
             android:id="@+id/rl_image"
-            android:layout_width="match_parent"
+            android:layout_width="230dp"
             android:layout_height="130dp">
 
             <ImageView
                 android:id="@+id/item_image"
-                android:layout_width="match_parent"
+                android:layout_width="230dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/boarding_1" />
@@ -155,6 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:id="@+id/tenants_value"
                         android:text="Tenants:"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
