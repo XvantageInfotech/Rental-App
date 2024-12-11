@@ -46,5 +46,6 @@
     <color name="whisper_gray">#E1E3E6</color>
     <color name="background">#1A1A1A</color>
     <color name="dark_golden">#6E7800</color>
+    <color name="light_grey">#E1E3E6</color>
 
 </resources>
