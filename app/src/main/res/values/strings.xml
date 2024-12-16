@@ -55,6 +55,9 @@
     <string name="add_your_property">Add your first property</string>
     <string name="add_your_property_desc">Add properties to keep track of tenants, billing, and reminders all in one place.</string>
     <string name="add_your_property_btn">Add Your First Property</string>
+    <string name="active_tenant">Active Tenants</string>
+    <string name="total_property">Total Property</string>
+    <string name="total_payments">Total Payments</string>
     <string name="no_properties_tip"><![CDATA[
     <font color="#6E7800">Tip:</font> Once you add a property, you can start managing tenants and billing.
 ]]></string>

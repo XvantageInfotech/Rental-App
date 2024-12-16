@@ -28,7 +28,6 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <!-- Header Text -->
             <TextView
                 android:id="@+id/header_text"
                 android:layout_width="wrap_content"
@@ -38,13 +37,44 @@
                 android:padding="8dp"
                 android:textStyle="bold" />
 
-            <!-- Grid RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/grid_recycler_view"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    layout="@layout/total_property_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <include
+                    layout="@layout/active_tenant_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:padding="8dp" />
+                android:layout_marginBottom="10dp">
+
+                <include
+                    android:id="@+id/cv_total_payment"
+                    layout="@layout/total_payment_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <include
+                    layout="@layout/due_payment_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
