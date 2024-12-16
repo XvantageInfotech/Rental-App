@@ -5,9 +5,16 @@
     <data>
     </data>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        >
+
     <RelativeLayout
         android:layout_width="230dp"
-        android:background="@drawable/bottom_nav_background"
         android:layout_height="290dp">
 
         <!-- Image with Overlaid Title, Subtitle, and Status -->
@@ -195,4 +202,5 @@
 
 
     </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

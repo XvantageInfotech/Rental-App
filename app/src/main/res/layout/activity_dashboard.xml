@@ -30,9 +30,12 @@
                 android:id="@+id/content_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/toolbar" />
+                android:layout_below="@id/toolbar"
+                android:layout_above="@+id/cv_bottom_navigation"
+                />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cv_bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
