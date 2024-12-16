@@ -71,8 +71,8 @@ class DashboardActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.profile -> {
-                    updateBottomNavigationIcons(R.id.profile)
+                R.id.property -> {
+                    updateBottomNavigationIcons(R.id.property)
                     loadFragment(AddPropertyFragment())
                     true
                 }
@@ -98,9 +98,6 @@ class DashboardActivity : AppCompatActivity() {
         val menu = layoutBinding.bottomNavigation.menu
         menu.findItem(R.id.home).setIcon(
             if (selectedItemId == R.id.home) R.drawable.home_nav_selected else R.drawable.home_nav_unselected
-        )
-        menu.findItem(R.id.profile).setIcon(
-            if (selectedItemId == R.id.profile) R.drawable.add_property_nav_selected else R.drawable.add_property_nav_unselected
         )
         menu.findItem(R.id.settings).setIcon(
             if (selectedItemId == R.id.settings) R.drawable.due_nav_selected else R.drawable.due_nav_unselected

@@ -4,9 +4,9 @@
         android:icon="@drawable/home_nav_selected"
         android:title="@string/home" />
     <item
-        android:id="@+id/profile"
-        android:icon="@drawable/add_property_nav_unselected"
-        android:title="@string/add_property" />
+        android:id="@+id/property"
+        android:icon="@drawable/black_add_button"
+        android:title="@string/add_property_bottom_n" />
     <item
         android:id="@+id/settings"
         android:icon="@drawable/due_nav_unselected"

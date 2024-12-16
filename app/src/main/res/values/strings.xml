@@ -50,6 +50,7 @@
     <string name="feedback">Feedback</string>
     <string name="home">Home</string>
     <string name="add_property">Add Your First Property</string>
+    <string name="add_property_bottom_n">Add Property</string>
     <string name="due_payments">Due Payments</string>
     <string name="add_your_property">Add your first property</string>
     <string name="add_your_property_desc">Add properties to keep track of tenants, billing, and reminders all in one place.</string>
