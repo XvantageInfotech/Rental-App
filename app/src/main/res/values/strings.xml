@@ -62,5 +62,7 @@
     <font color="#6E7800">Tip:</font> Once you add a property, you can start managing tenants and billing.
 ]]></string>
 
+    <!-- Add Property -->
+    <string name="property_detail">Property Detail</string>
 
 </resources>

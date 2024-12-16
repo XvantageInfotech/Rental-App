@@ -15,5 +15,72 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
+        <LinearLayout
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="16dp"
+            android:layout_height="match_parent"
+            android:gravity="start">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/OnboardingTitlePermissionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_detail"
+                android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="start">
+
+                <TextView
+                    android:id="@+id/property_type_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property Type"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <Spinner
+                    android:id="@+id/spinner_property_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/grey_border_background"
+                    android:hint="Select Property"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select the type of property (e.g., Apartment, PG, House, etc.)"
+                    android:textColor="@color/grey_hint"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property Name"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="16sp"
+                    android:layout_marginVertical="8dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_sign_up_email"
+                    style="@style/EditText"
+                    android:background="@drawable/grey_border_background"
+                    android:hint="@string/email_address_hint"
+                    android:padding="@dimen/space8" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
     </RelativeLayout>
 </layout>

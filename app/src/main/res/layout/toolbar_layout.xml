@@ -24,17 +24,13 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
-            style="@style/TextView_black"
+            style="@style/OnboardingTitleTextStyle"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:autoSizeMinTextSize="@dimen/text12"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textColor="@color/black_cole"
-            android:textSize="@dimen/toolbar_title_text"
             app:autoSizeTextType="uniform"/>
 
         <com.google.android.material.button.MaterialButton
