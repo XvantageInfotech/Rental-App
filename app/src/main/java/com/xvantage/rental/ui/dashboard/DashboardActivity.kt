@@ -2,6 +2,7 @@ package com.xvantage.rental.ui.dashboard
 
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,9 +16,11 @@ import androidx.fragment.app.Fragment
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityDashboardBinding
 import com.xvantage.rental.databinding.ToolbarLayoutBinding
+import com.xvantage.rental.ui.addProperty.AddPropertyActivity
 import com.xvantage.rental.ui.dashboard.fragment.AddPropertyFragment
 import com.xvantage.rental.ui.dashboard.fragment.DuesFragment
 import com.xvantage.rental.ui.dashboard.fragment.HomeFragment
+import com.xvantage.rental.utils.CommonFunction
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var layoutBinding: ActivityDashboardBinding
@@ -44,6 +47,12 @@ class DashboardActivity : AppCompatActivity() {
         drawerLayout = layoutBinding.drawerLayout
 
         toolbarBinding = layoutBinding.toolbar
+
+        toolbarBinding.home.visibility= View.VISIBLE
+        toolbarBinding.search.visibility= View.VISIBLE
+        toolbarBinding.setting.visibility= View.VISIBLE
+        toolbarBinding.btnSave.visibility= View.GONE
+        toolbarBinding.back.visibility= View.GONE
 
         toolbarBinding.home.setOnClickListener {
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -73,7 +82,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 R.id.property -> {
                     updateBottomNavigationIcons(R.id.property)
-                    loadFragment(AddPropertyFragment())
+                    CommonFunction().navigation(this,AddPropertyActivity::class.java)
                     true
                 }
 

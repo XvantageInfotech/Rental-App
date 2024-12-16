@@ -13,7 +13,14 @@
             android:id="@+id/home"
             style="@style/ImageView_icon"
             android:padding="@dimen/space10"
+            android:visibility="gone"
             app:srcCompat="@drawable/nav_drawer"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back"
+            style="@style/ImageView_icon"
+            android:padding="@dimen/space10"
+            app:srcCompat="@drawable/back_arrow"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
@@ -25,17 +32,31 @@
             android:gravity="center"
             android:maxLines="1"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textColor="@color/black_cole"
             android:textSize="@dimen/toolbar_title_text"
             app:autoSizeTextType="uniform"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@color/black_cole"
+            app:icon="@drawable/ic_click_circle"
+            android:layout_below="@id/ll_tenant"
+            android:layout_marginEnd="@dimen/space10"
+            android:text="Save"
+            />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/search"
+            android:visibility="gone"
             style="@style/ImageView_icon"
             android:padding="@dimen/space10"
             app:srcCompat="@drawable/search_toolbar"/>
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/setting"
+            android:visibility="gone"
             style="@style/ImageView_icon"
             android:padding="@dimen/space10"
             app:srcCompat="@drawable/setting"/>
