@@ -64,5 +64,10 @@
 
     <!-- Add Property -->
     <string name="property_detail">Property Detail</string>
+    <string name="property_address">Property Address</string>
+    <string name="property_photos">Property Photos</string>
+    <string name="property_name">Property Name</string>
+    <string name="enter_property_name">Enter Property Name Here</string>
+    <string name="enter_property_address">Enter Property Address Here</string>
 
 </resources>
