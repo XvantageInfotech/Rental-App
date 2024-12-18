@@ -127,7 +127,6 @@
                     android:background="@drawable/border_box"
                     >
 
-
                     <LinearLayout
                         android:id="@+id/uploadContainer"
                         android:layout_width="match_parent"
