@@ -137,6 +137,11 @@
                     layout="@layout/ll_number_of_flats"
                     android:visibility="gone" />
 
+                <include
+                    android:id="@+id/ll_pg_rooms"
+                    layout="@layout/ll_pg_type"
+                    android:visibility="gone" />
+
                 <TextView
                     style="@style/OnboardingTitlePermissionTextStyle"
                     android:layout_width="wrap_content"

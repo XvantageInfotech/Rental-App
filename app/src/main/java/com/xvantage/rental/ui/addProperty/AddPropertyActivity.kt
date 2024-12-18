@@ -32,6 +32,7 @@ class AddPropertyActivity : AppCompatActivity() {
     lateinit var appPreference: AppPreference
     private var currentNumber = 0
     private lateinit var llAppartment: View
+    private lateinit var llPG: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class AddPropertyActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         layoutBinding.toolbar.tvTitle.setText(R.string.add_property_bottom_n)
         llAppartment = findViewById(R.id.ll_appartment)
+        llPG = findViewById(R.id.ll_pg_rooms)
         initView()
         clickEvents()
     }
@@ -58,6 +60,37 @@ class AddPropertyActivity : AppCompatActivity() {
     private fun initView() {
         propertyTypeDropDown()
         appartmentLayout()
+        PgRoomsLayout()
+    }
+    private fun PgRoomsLayout(){
+
+        layoutBinding.llPgRooms.incRoom.setOnClickListener {
+            if (currentNumber < 99) {
+                currentNumber++
+                layoutBinding.llPgRooms.etRoomNumber.setText(String.format("%02d", currentNumber))
+            }
+        }
+
+        layoutBinding.llPgRooms.decRoom.setOnClickListener {
+            if (currentNumber > 0) {
+                currentNumber--
+                layoutBinding.llPgRooms.etRoomNumber.setText(String.format("%02d", currentNumber))
+            }
+        }
+        layoutBinding.llPgRooms.incBeds.setOnClickListener {
+            if (currentNumber < 99) {
+                currentNumber++
+                layoutBinding.llPgRooms.etBedNumber.setText(String.format("%02d", currentNumber))
+            }
+        }
+
+        layoutBinding.llPgRooms.decBeds.setOnClickListener {
+            if (currentNumber > 0) {
+                currentNumber--
+                layoutBinding.llPgRooms.etBedNumber.setText(String.format("%02d", currentNumber))
+            }
+        }
+
     }
 
     private fun appartmentLayout() {
@@ -131,14 +164,23 @@ class AddPropertyActivity : AppCompatActivity() {
                 if (position==0){
                     layoutBinding.llHomeNumber.visibility=View.GONE
                     llAppartment.visibility = View.GONE
+                    llPG.visibility = View.GONE
                 }
                 else if (position==1){
                     layoutBinding.llHomeNumber.visibility=View.VISIBLE
                     llAppartment.visibility = View.GONE
+                    llPG.visibility = View.GONE
+
                 }
                 else if (position==2){
-                    layoutBinding.llHomeNumber.visibility=View.GONE
                     llAppartment.visibility = View.VISIBLE
+                    layoutBinding.llHomeNumber.visibility=View.GONE
+                    llPG.visibility = View.GONE
+                }
+                else if (position==3){
+                    llPG.visibility = View.VISIBLE
+                    layoutBinding.llHomeNumber.visibility=View.GONE
+                    llAppartment.visibility = View.GONE
                 }
             }
 

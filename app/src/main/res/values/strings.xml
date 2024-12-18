@@ -74,5 +74,7 @@
     <string name="home_number">Home Number</string>
     <string name="number_of_flats">Number of flats</string>
     <string name="select_flat_type">Select Flat Type</string>
+    <string name="number_of_pg">Number of PG Rooms</string>
+    <string name="number_of_bed_per_room">Beds/Rooms</string>
 
 </resources>
