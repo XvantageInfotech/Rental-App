@@ -56,28 +56,57 @@ class AddPropertyActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        dropDownSpinner()
+        propertyTypeDropDown()
         appartmentLayout()
     }
 
     private fun appartmentLayout() {
         layoutBinding.llAppartment.buttonUp.setOnClickListener {
-            if (currentNumber < 99) { // Set max limit if needed
+            if (currentNumber < 99) {
                 currentNumber++
                 layoutBinding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
             }
         }
 
-        // Decrement on down button click
         layoutBinding.llAppartment.buttonDown.setOnClickListener {
-            if (currentNumber > 0) { // Set min limit if needed
+            if (currentNumber > 0) {
                 currentNumber--
                 layoutBinding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
             }
         }
+
+        flatTypeDropDown()
     }
 
-    private fun dropDownSpinner() {
+    private fun flatTypeDropDown() {
+        val spinner = findViewById<Spinner>(R.id.spinner_flat_type)
+        val propertyTypes = listOf("Select Flat Type", "1BHK", "2BHK", "3BHK", "4BHK")
+        val adapter = object : ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_item,
+            propertyTypes
+        ) {
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as TextView
+                view.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
+                return view
+            }
+        }
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+        spinner.setSelection(0)
+    }
+
+    private fun propertyTypeDropDown() {
         val spinner = findViewById<Spinner>(R.id.spinner_property_type)
         val propertyTypes = listOf("Select Property Type", "House", "Apartment", "PG", "Rent House", "Land")
         val adapter = object : ArrayAdapter<String>(
@@ -85,7 +114,7 @@ class AddPropertyActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             propertyTypes
         ) {
-            
+
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getDropDownView(position, convertView, parent) as TextView
                 view.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
