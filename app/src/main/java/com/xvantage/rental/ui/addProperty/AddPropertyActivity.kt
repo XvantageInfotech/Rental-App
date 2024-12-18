@@ -30,6 +30,8 @@ class AddPropertyActivity : AppCompatActivity() {
 
     private lateinit var layoutBinding: ActivityAddPropertyBinding
     lateinit var appPreference: AppPreference
+    private var currentNumber = 0
+    private lateinit var llAppartment: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class AddPropertyActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         layoutBinding.toolbar.tvTitle.setText(R.string.add_property_bottom_n)
+        llAppartment = findViewById(R.id.ll_appartment)
         initView()
         clickEvents()
     }
@@ -49,10 +52,29 @@ class AddPropertyActivity : AppCompatActivity() {
         layoutBinding.llAddPhoto.setOnClickListener {
             checkPermissionsAndOpenOptions()
         }
+        
     }
 
     private fun initView() {
         dropDownSpinner()
+        appartmentLayout()
+    }
+
+    private fun appartmentLayout() {
+        layoutBinding.llAppartment.buttonUp.setOnClickListener {
+            if (currentNumber < 99) { // Set max limit if needed
+                currentNumber++
+                layoutBinding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
+            }
+        }
+
+        // Decrement on down button click
+        layoutBinding.llAppartment.buttonDown.setOnClickListener {
+            if (currentNumber > 0) { // Set min limit if needed
+                currentNumber--
+                layoutBinding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
+            }
+        }
     }
 
     private fun dropDownSpinner() {
@@ -63,10 +85,7 @@ class AddPropertyActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             propertyTypes
         ) {
-            override fun isEnabled(position: Int): Boolean {
-                return position != 0
-            }
-
+            
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getDropDownView(position, convertView, parent) as TextView
                 view.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
@@ -80,6 +99,18 @@ class AddPropertyActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
+                if (position==0){
+                    layoutBinding.llHomeNumber.visibility=View.GONE
+                    llAppartment.visibility = View.GONE
+                }
+                else if (position==1){
+                    layoutBinding.llHomeNumber.visibility=View.VISIBLE
+                    llAppartment.visibility = View.GONE
+                }
+                else if (position==2){
+                    layoutBinding.llHomeNumber.visibility=View.GONE
+                    llAppartment.visibility = View.VISIBLE
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}

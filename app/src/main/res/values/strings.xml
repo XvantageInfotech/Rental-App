@@ -65,9 +65,13 @@
     <!-- Add Property -->
     <string name="property_detail">Property Detail</string>
     <string name="property_address">Property Address</string>
+    <string name="select_property_type">Select the type of property (e.g., Apartment, PG, House, etc.)</string>
     <string name="property_photos">Property Photos</string>
     <string name="property_name">Property Name</string>
     <string name="enter_property_name">Enter Property Name Here</string>
     <string name="enter_property_address">Enter Property Address Here</string>
+    <string name="enter_home_number">Enter Home Number</string>
+    <string name="home_number">Home Number</string>
+    <string name="number_of_flats">Number of flats</string>
 
 </resources>
