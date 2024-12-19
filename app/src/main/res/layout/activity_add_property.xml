@@ -141,6 +141,14 @@
                     android:id="@+id/ll_pg_rooms"
                     layout="@layout/ll_pg_type"
                     android:visibility="gone" />
+                <include
+                    android:id="@+id/ll_land_detail"
+                    layout="@layout/ll_land_detail_input"
+                    android:visibility="gone" />
+                <include
+                    android:id="@+id/ll_rent_house"
+                    layout="@layout/ll_rent_house"
+                    android:visibility="gone" />
 
                 <TextView
                     style="@style/OnboardingTitlePermissionTextStyle"

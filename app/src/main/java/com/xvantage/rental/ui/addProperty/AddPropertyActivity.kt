@@ -33,6 +33,8 @@ class AddPropertyActivity : AppCompatActivity() {
     private var currentNumber = 0
     private lateinit var llAppartment: View
     private lateinit var llPG: View
+    private lateinit var llLand: View
+    private lateinit var llRentHouse:View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,8 @@ class AddPropertyActivity : AppCompatActivity() {
         layoutBinding.toolbar.tvTitle.setText(R.string.add_property_bottom_n)
         llAppartment = findViewById(R.id.ll_appartment)
         llPG = findViewById(R.id.ll_pg_rooms)
+        llLand = findViewById(R.id.ll_land_detail)
+        llRentHouse = findViewById(R.id.ll_rent_house)
         initView()
         clickEvents()
     }
@@ -61,6 +65,17 @@ class AddPropertyActivity : AppCompatActivity() {
         propertyTypeDropDown()
         appartmentLayout()
         PgRoomsLayout()
+        LandDetailLayout()
+        RentHouseLayout()
+    }
+
+    private fun RentHouseLayout(){
+        RoomTypeDropDown()
+    }
+
+    private fun LandDetailLayout(){
+        var landSize=layoutBinding.llLandDetail.etLandSize.text.toString()
+        LandAreaTypeDropDown()
     }
     private fun PgRoomsLayout(){
 
@@ -111,6 +126,34 @@ class AddPropertyActivity : AppCompatActivity() {
         flatTypeDropDown()
     }
 
+    private fun RoomTypeDropDown() {
+        val spinner = findViewById<Spinner>(R.id.spinner_room_type)
+        val propertyTypes = listOf("Select Room Type","BK", "1BHK", "2BHK", "3BHK", "4BHK")
+        val adapter = object : ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_item,
+            propertyTypes
+        ) {
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as TextView
+                view.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
+                return view
+            }
+        }
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+        spinner.setSelection(0)
+    }
+
     private fun flatTypeDropDown() {
         val spinner = findViewById<Spinner>(R.id.spinner_flat_type)
         val propertyTypes = listOf("Select Flat Type", "1BHK", "2BHK", "3BHK", "4BHK")
@@ -132,6 +175,33 @@ class AddPropertyActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+        spinner.setSelection(0)
+    }
+
+    private fun LandAreaTypeDropDown() {
+        val spinner = findViewById<Spinner>(R.id.spinner_area_type)
+        val propertyTypes = listOf("Sqft", "Sqmt")
+        val adapter = object : ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_item,
+            propertyTypes
+        ) {
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as TextView
+                return view
+            }
+        }
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -161,27 +231,50 @@ class AddPropertyActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-                if (position==0){
-                    layoutBinding.llHomeNumber.visibility=View.GONE
-                    llAppartment.visibility = View.GONE
-                    llPG.visibility = View.GONE
-                }
-                else if (position==1){
+                if (position==1){      //House Section
                     layoutBinding.llHomeNumber.visibility=View.VISIBLE
                     llAppartment.visibility = View.GONE
                     llPG.visibility = View.GONE
+                    llLand.visibility = View.GONE
+                    llRentHouse.visibility = View.GONE
 
                 }
-                else if (position==2){
+                else if (position==2){      //Apartment Section
                     llAppartment.visibility = View.VISIBLE
                     layoutBinding.llHomeNumber.visibility=View.GONE
                     llPG.visibility = View.GONE
+                    llLand.visibility = View.GONE
+                    llRentHouse.visibility = View.GONE
                 }
-                else if (position==3){
+                else if (position==3){  //PG Section
                     llPG.visibility = View.VISIBLE
                     layoutBinding.llHomeNumber.visibility=View.GONE
                     llAppartment.visibility = View.GONE
+                    llLand.visibility = View.GONE
+                    llRentHouse.visibility = View.GONE
                 }
+                else if (position==4){  //Rent House Section
+                    llRentHouse.visibility = View.VISIBLE
+                    layoutBinding.llHomeNumber.visibility=View.GONE
+                    llAppartment.visibility = View.GONE
+                    llLand.visibility = View.GONE
+                    llPG.visibility = View.GONE
+                }
+                else if(position==5){   //Land Section
+                    llLand.visibility = View.VISIBLE
+                    layoutBinding.llHomeNumber.visibility=View.GONE
+                    llAppartment.visibility = View.GONE
+                    llPG.visibility = View.GONE
+                    llRentHouse.visibility = View.GONE
+                }
+                else{    //Select Property Type Section
+                    layoutBinding.llHomeNumber.visibility=View.GONE
+                    llAppartment.visibility = View.GONE
+                    llPG.visibility = View.GONE
+                    llLand.visibility = View.GONE
+                    llRentHouse.visibility = View.GONE
+                }
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
