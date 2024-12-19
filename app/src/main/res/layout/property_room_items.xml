@@ -1,0 +1,72 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:backgroundTint="@color/whisper_gray"
+        >
+
+        <RelativeLayout
+            android:layout_width="158dp"
+            android:layout_height="150dp">
+
+            <!-- Image with Overlaid Title, Subtitle, and Status -->
+            <RelativeLayout
+                android:id="@+id/rl_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_room_number"
+                    style="@style/OnboardingTitlePermissionTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="@dimen/_32ssp"
+                    android:gravity="center"
+                    android:text="101" />
+
+                <TextView
+                    android:id="@+id/tv_occupied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/status_background"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:text="Occupied"
+                    android:textColor="@color/black_cole"
+                    android:textStyle="bold"
+                    android:textSize="10sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_tenant"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textSize="10sp"
+                    android:layout_alignParentBottom="true"
+                    app:backgroundTint="@color/black_cole"
+                    app:icon="@drawable/ic_click_circle"
+                    app:iconGravity="textStart"
+                    app:iconPadding="10dp"
+                    android:text="Add a Tenant"
+                    />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

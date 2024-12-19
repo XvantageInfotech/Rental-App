@@ -24,7 +24,9 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityAddPropertyBinding
+import com.xvantage.rental.ui.manageProperty.ManagePropertyActivity
 import com.xvantage.rental.utils.AppPreference
+import com.xvantage.rental.utils.CommonFunction
 
 class AddPropertyActivity : AppCompatActivity() {
 
@@ -53,6 +55,9 @@ class AddPropertyActivity : AppCompatActivity() {
     private fun clickEvents() {
         layoutBinding.toolbar.back.setOnClickListener {
             onBackPressed()
+        }
+        layoutBinding.toolbar.btnSave.setOnClickListener {
+            CommonFunction().navigation(this,ManagePropertyActivity::class.java)
         }
 
         layoutBinding.llAddPhoto.setOnClickListener {

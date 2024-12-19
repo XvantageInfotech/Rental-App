@@ -81,4 +81,9 @@
     <string name="number_of_pg">Number of PG Rooms</string>
     <string name="number_of_bed_per_room">Beds/Rooms</string>
 
+
+    <!-- Manage Property -->
+
+    <string name="manage_property">Manage Property</string>
+
 </resources>
