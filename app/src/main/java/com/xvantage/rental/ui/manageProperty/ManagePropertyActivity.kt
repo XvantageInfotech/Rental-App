@@ -13,8 +13,9 @@ import com.xvantage.rental.databinding.ActivityManagePropertyBinding
 import com.xvantage.rental.ui.dashboard.fragment.adapter.TenantsAdapter
 import com.xvantage.rental.ui.manageProperty.adapter.ManagePropertyAdapter
 import com.xvantage.rental.utils.AppPreference
+import com.xvantage.rental.utils.CommonFunction
 
-class ManagePropertyActivity : AppCompatActivity() {
+class ManagePropertyActivity : AppCompatActivity(), ManagePropertyAdapter.OnRoomItemClickListener {
 
     private lateinit var layoutBinding: ActivityManagePropertyBinding
     lateinit var appPreference: AppPreference
@@ -31,16 +32,20 @@ class ManagePropertyActivity : AppCompatActivity() {
 
     private fun initView() {
 
-        // Set up GridLayoutManager with 2 columns
         layoutBinding.rvPropertyList.layoutManager = GridLayoutManager(this, 2)
 
-        // Initialize and set the adapter
-        managePropertyAdapter = ManagePropertyAdapter(this)
+        managePropertyAdapter = ManagePropertyAdapter(this,this)
         layoutBinding.rvPropertyList.adapter = managePropertyAdapter
 
-        // Sample data for testing
         val sampleData = listOf("101", "102", "103", "104", "105", "106")
         managePropertyAdapter.addItems(sampleData)
 
+    }
+
+    override fun onRoomClick(roomNumber: String, position: Int) {
+        CommonFunction().toast(this,"$roomNumber Clicked")
+    }
+
+    override fun onAddTenantClick(roomNumber: String, position: Int) {
     }
 }
