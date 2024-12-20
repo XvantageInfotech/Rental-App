@@ -30,6 +30,9 @@
         android:theme="@style/Theme.RentalApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.addTenant.AddTenantActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.manageProperty.ManagePropertyActivity"
             android:exported="false" />
         <activity

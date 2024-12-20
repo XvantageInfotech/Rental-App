@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityManagePropertyBinding
+import com.xvantage.rental.ui.addTenant.AddTenantActivity
 import com.xvantage.rental.ui.dashboard.fragment.adapter.TenantsAdapter
 import com.xvantage.rental.ui.manageProperty.adapter.ManagePropertyAdapter
 import com.xvantage.rental.utils.AppPreference
@@ -47,5 +48,6 @@ class ManagePropertyActivity : AppCompatActivity(), ManagePropertyAdapter.OnRoom
     }
 
     override fun onAddTenantClick(roomNumber: String, position: Int) {
+        CommonFunction().navigation(this,AddTenantActivity::class.java)
     }
 }

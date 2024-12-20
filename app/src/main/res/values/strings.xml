@@ -87,4 +87,18 @@
     <string name="manage_property">Manage Property</string>
     <string name="add_tenant_to_property">Add Tenant To The Property</string>
 
+
+    <!-- Add A Tenant -->
+    <string name="add_tenant_property">Add A Tenant </string>
+    <string name="tenant_detail">Tenant Details </string>
+    <string name="tenant_name">Tenant Name </string>
+    <string name="tenant_Photo">Tenant Photo </string>
+    <string name="tenant_adhar_card_photo">Tenant Adhar Card Photo </string>
+    <string name="tenant_adhar_card_front">Tenant Adhar Card Front </string>
+    <string name="tenant_adhar_card_back">Tenant Adhar Card Back </string>
+    <string name="tenant_phone">Tenant Phone Number </string>
+    <string name="enter_tenant_name">Enter Tenant Name Here...</string>
+
+
+
 </resources>
