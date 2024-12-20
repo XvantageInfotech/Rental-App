@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -37,6 +38,8 @@ class AddPropertyActivity : AppCompatActivity() {
     private lateinit var llPG: View
     private lateinit var llLand: View
     private lateinit var llRentHouse:View
+    private lateinit var llPropertyImage:View
+    private var propertyImage:Uri?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,7 @@ class AddPropertyActivity : AppCompatActivity() {
         llPG = findViewById(R.id.ll_pg_rooms)
         llLand = findViewById(R.id.ll_land_detail)
         llRentHouse = findViewById(R.id.ll_rent_house)
+        llPropertyImage = findViewById(R.id.ll_property_photo)
         initView()
         clickEvents()
     }
@@ -63,7 +67,11 @@ class AddPropertyActivity : AppCompatActivity() {
         layoutBinding.llAddPhoto.setOnClickListener {
             checkPermissionsAndOpenOptions()
         }
-        
+        layoutBinding.llPropertyPhoto.btnClose.setOnClickListener {
+            propertyImage=null
+            llPropertyImage.visibility=View.GONE
+            layoutBinding.llAddPhoto.visibility=View.VISIBLE
+        }
     }
 
     private fun initView() {
@@ -321,10 +329,25 @@ class AddPropertyActivity : AppCompatActivity() {
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val photoUri = result.data?.data
-            // Handle the captured photo
-            Toast.makeText(this, "Photo captured successfully!", Toast.LENGTH_SHORT).show()
+            if (photoUri != null) {
+                    updateUi(photoUri)
+            } else {
+                Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
+    private fun updateUi(photoUri:Uri) {
+        layoutBinding.llPropertyPhoto.ivThumbnail.setImageURI(photoUri)
+        val fileName = getFileName(photoUri)
+        layoutBinding.llPropertyPhoto.tvFileName.text = fileName
+        val fileSize = getFileSize(photoUri)
+        layoutBinding.llPropertyPhoto.tvFileSize.text = fileSize
+        propertyImage = photoUri
+        llPropertyImage.visibility=View.VISIBLE
+        layoutBinding.llAddPhoto.visibility=View.GONE
+    }
+
 
     private fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -333,8 +356,12 @@ class AddPropertyActivity : AppCompatActivity() {
 
     private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
-            // Handle the selected image
-            Toast.makeText(this, "Photo selected: $uri", Toast.LENGTH_SHORT).show()
+            propertyImage=uri
+            if (uri != null) {
+                updateUi(uri)
+            } else {
+                Toast.makeText(this, "Failed to upload photo!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -355,5 +382,32 @@ class AddPropertyActivity : AppCompatActivity() {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 101
+    }
+
+    private fun getFileName(uri: Uri): String {
+        var fileName = "Unknown"
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                fileName = it.getString(it.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+            }
+        }
+        return fileName
+    }
+
+    // Function to get file size
+    private fun getFileSize(uri: Uri): String {
+        var fileSize = "Unknown"
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val sizeIndex = it.getColumnIndex(OpenableColumns.SIZE)
+                if (sizeIndex != -1) {
+                    val size = it.getLong(sizeIndex)
+                    fileSize = android.text.format.Formatter.formatFileSize(this, size)
+                }
+            }
+        }
+        return fileSize
     }
 }

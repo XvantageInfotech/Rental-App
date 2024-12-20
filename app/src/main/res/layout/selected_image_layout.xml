@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_marginVertical="@dimen/_8ssp"
+    android:background="@drawable/grey_border_background"
+    android:gravity="center_vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Image Thumbnail -->
+    <ImageView
+        android:id="@+id/iv_thumbnail"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_cloud_upload" />
+
+    <!-- File Details -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp">
+
+        <TextView
+            android:id="@+id/tv_file_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amit Sharma.jpg"
+            style="@style/OnboardingTitlePermissionTextStyle"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tv_file_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500kb"
+            android:textStyle="bold"
+            android:textColor="@color/grey_hint"
+            style="@style/EditText"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_close"
+        android:contentDescription="Close"
+        android:layout_marginStart="8dp"
+        android:clickable="true"
+        android:focusable="true" />
+</LinearLayout>

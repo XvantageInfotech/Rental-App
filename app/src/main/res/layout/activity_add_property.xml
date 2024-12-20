@@ -216,8 +216,14 @@
                             android:textSize="12sp" />
                     </LinearLayout>
 
+
                 </RelativeLayout>
 
+                <include
+                    android:id="@+id/ll_property_photo"
+                    layout="@layout/selected_image_layout"
+                    android:visibility="gone"
+                    />
 
             </LinearLayout>
         </LinearLayout>

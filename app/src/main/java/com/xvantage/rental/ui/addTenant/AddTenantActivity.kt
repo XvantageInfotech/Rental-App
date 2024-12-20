@@ -25,5 +25,6 @@ class AddTenantActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         layoutBinding.toolbar.tvTitle.setText(R.string.add_tenant_property)
 
+
     }
 }
