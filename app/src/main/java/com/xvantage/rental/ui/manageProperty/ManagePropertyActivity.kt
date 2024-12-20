@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityManagePropertyBinding
 import com.xvantage.rental.ui.dashboard.fragment.adapter.TenantsAdapter
@@ -31,11 +32,11 @@ class ManagePropertyActivity : AppCompatActivity() {
     private fun initView() {
 
         // Set up GridLayoutManager with 2 columns
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        layoutBinding.rvPropertyList.layoutManager = GridLayoutManager(this, 2)
 
         // Initialize and set the adapter
         managePropertyAdapter = ManagePropertyAdapter(this)
-        recyclerView.adapter = managePropertyAdapter
+        layoutBinding.rvPropertyList.adapter = managePropertyAdapter
 
         // Sample data for testing
         val sampleData = listOf("101", "102", "103", "104", "105", "106")

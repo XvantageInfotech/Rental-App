@@ -85,5 +85,6 @@
     <!-- Manage Property -->
 
     <string name="manage_property">Manage Property</string>
+    <string name="add_tenant_to_property">Add Tenant To The Property</string>
 
 </resources>
