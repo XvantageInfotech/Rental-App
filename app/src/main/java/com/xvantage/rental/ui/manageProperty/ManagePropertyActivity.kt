@@ -41,6 +41,10 @@ class ManagePropertyActivity : AppCompatActivity(), ManagePropertyAdapter.OnRoom
         val sampleData = listOf("101", "102", "103", "104", "105", "106")
         managePropertyAdapter.addItems(sampleData)
 
+        layoutBinding.toolbar.back.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     override fun onRoomClick(roomNumber: String, position: Int) {
