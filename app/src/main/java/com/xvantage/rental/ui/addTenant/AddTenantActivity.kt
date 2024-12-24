@@ -1,22 +1,48 @@
 package com.xvantage.rental.ui.addTenant
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityAddPropertyBinding
 import com.xvantage.rental.databinding.ActivityAddTenantBinding
+import com.xvantage.rental.ui.addProperty.AddPropertyActivity
+import com.xvantage.rental.ui.addProperty.AddPropertyActivity.Companion
 import com.xvantage.rental.utils.AppPreference
+import com.xvantage.rental.utils.CommonFunction
+import java.io.File
 
 class AddTenantActivity : AppCompatActivity() {
 
     private lateinit var layoutBinding: ActivityAddTenantBinding
     lateinit var appPreference: AppPreference
+    private var frontAdharImageUri: Uri?=null
+    private var backAdharImageUri: Uri?=null
+    private var tenantImageUri: Uri?=null
+    private lateinit var llTenantPhoto:View
+    private lateinit var llFrontAdharPhoto:View
+    private lateinit var llBackAdharPhoto:View
+    private val PERMISSION_REQUEST_CODE = 101
+    private var selectedPicker=1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +50,228 @@ class AddTenantActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         layoutBinding.toolbar.tvTitle.setText(R.string.add_tenant_property)
+        llTenantPhoto = findViewById(R.id.ll_selected_tenant_photo)
+        llFrontAdharPhoto = findViewById(R.id.ll_selected_front_adhar_photo)
+        llBackAdharPhoto = findViewById(R.id.ll_selected_back_adhar_photo)
+
+       onClickEvents()
 
 
+    }
+
+    private fun onClickEvents() {
+        layoutBinding.llAddTenantPhoto.setOnClickListener {
+            selectedPicker=1
+            checkPermissionsAndOpenOptions()
+        }
+        layoutBinding.llAddFrontAdhar.setOnClickListener {
+            selectedPicker=2
+            checkPermissionsAndOpenOptions()
+        }
+        layoutBinding.llAddBackAdhar.setOnClickListener {
+            selectedPicker=3
+            checkPermissionsAndOpenOptions()
+        }
+        layoutBinding.toolbar.back.setOnClickListener {
+            onBackPressed()
+        }
+        layoutBinding.llSelectedTenantPhoto.btnClose.setOnClickListener {
+            tenantImageUri=null
+            llTenantPhoto.visibility=View.GONE
+            layoutBinding.llAddTenantPhoto.visibility=View.VISIBLE
+        }
+        layoutBinding.llSelectedFrontAdharPhoto.btnClose.setOnClickListener {
+            frontAdharImageUri=null
+            llFrontAdharPhoto.visibility=View.GONE
+            layoutBinding.llAddFrontAdhar.visibility=View.VISIBLE
+        }
+        layoutBinding.llSelectedBackAdharPhoto.btnClose.setOnClickListener {
+            backAdharImageUri=null
+            llBackAdharPhoto.visibility=View.GONE
+            layoutBinding.llAddBackAdhar.visibility=View.VISIBLE
+        }
+    }
+
+    private fun showOptionsDialog() {
+        val options = arrayOf("Open Camera", "Choose from Gallery")
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Add Photo")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> openCamera()
+                    1 -> openGallery()
+                }
+            }
+            .show()
+    }
+
+    private fun openCamera() {
+        val photoFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_${System.currentTimeMillis()}.jpg")
+        var intent:Intent?=null
+        when(selectedPicker){
+            1->{
+                tenantImageUri= FileProvider.getUriForFile(
+                    this,
+                    "${BuildConfig.APPLICATION_ID}.fileprovider",
+                    photoFile
+                )
+                intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                    putExtra(MediaStore.EXTRA_OUTPUT, tenantImageUri)
+                }
+            }
+            2->{
+                frontAdharImageUri= FileProvider.getUriForFile(
+                    this,
+                    "${BuildConfig.APPLICATION_ID}.fileprovider",
+                    photoFile
+                )
+                intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                    putExtra(MediaStore.EXTRA_OUTPUT, frontAdharImageUri)
+                }
+            }
+            3->{
+                backAdharImageUri= FileProvider.getUriForFile(
+                    this,
+                    "${BuildConfig.APPLICATION_ID}.fileprovider",
+                    photoFile
+                )
+                intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                    putExtra(MediaStore.EXTRA_OUTPUT, backAdharImageUri)
+                }
+            }
+        }
+
+
+        if (intent?.resolveActivity(packageManager) != null) {
+            cameraLauncher.launch(intent)
+        } else {
+            Toast.makeText(this, "No camera app available", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            when(selectedPicker){
+                1->{
+                    tenantImageUri=uri
+                }
+                2->{
+                    frontAdharImageUri=uri
+                }
+                3->{
+                    backAdharImageUri=uri
+                }
+            }
+
+            if (uri != null) {
+                updateUi(uri)
+            } else {
+                Toast.makeText(this, "Failed to upload photo!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+
+           when(selectedPicker){
+               1->{
+                   tenantImageUri?.let {
+                        updateUi(it)
+                   } ?: run {
+                       Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+                   }
+               }
+               2->{
+                   frontAdharImageUri?.let {
+                        updateUi(it)
+                   } ?: run {
+                       Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+                   }
+               }
+               3->{
+                   backAdharImageUri?.let {
+                        updateUi(it)
+                   } ?: run {
+                       Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+                   }
+               }
+           }
+
+        } else {
+            Toast.makeText(this, "Photo capture cancelled!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                showOptionsDialog()
+            } else {
+                Toast.makeText(this, "Permissions are required to proceed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun openGallery() {
+        galleryLauncher.launch("image/*")
+    }
+
+    private fun checkPermissionsAndOpenOptions() {
+        val permissions = mutableListOf<String>()
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.CAMERA)
+        }
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+
+        if (permissions.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissions.toTypedArray(),
+                PERMISSION_REQUEST_CODE
+            )
+        } else {
+            showOptionsDialog()
+        }
+    }
+
+    private fun updateUi(photoUri: Uri) {
+
+        when (selectedPicker) {
+            1 -> {      //Tennant photo
+                layoutBinding.llSelectedTenantPhoto.ivThumbnail.setImageURI(photoUri)
+                val fileName = CommonFunction().getFileName(this, photoUri)
+                layoutBinding.llSelectedTenantPhoto.tvFileName.text = fileName
+                val fileSize = CommonFunction().getFileSize(this, photoUri)
+                layoutBinding.llSelectedTenantPhoto.tvFileSize.text = fileSize
+                tenantImageUri = photoUri
+                llTenantPhoto.visibility = View.VISIBLE
+                layoutBinding.llAddTenantPhoto.visibility = View.GONE
+            }
+            2 -> {  //Front Adhar photo
+                layoutBinding.llSelectedFrontAdharPhoto.ivThumbnail.setImageURI(photoUri)
+                val fileName = CommonFunction().getFileName(this, photoUri)
+                layoutBinding.llSelectedFrontAdharPhoto.tvFileName.text = fileName
+                val fileSize = CommonFunction().getFileSize(this, photoUri)
+                layoutBinding.llSelectedFrontAdharPhoto.tvFileSize.text = fileSize
+                frontAdharImageUri = photoUri
+                llFrontAdharPhoto.visibility = View.VISIBLE
+                layoutBinding.llAddFrontAdhar.visibility = View.GONE
+            }
+            3 -> {      //Back Adhar photo
+                layoutBinding.llSelectedBackAdharPhoto.ivThumbnail.setImageURI(photoUri)
+                val fileName = CommonFunction().getFileName(this, photoUri)
+                layoutBinding.llSelectedBackAdharPhoto.tvFileName.text = fileName
+                val fileSize = CommonFunction().getFileSize(this, photoUri)
+                layoutBinding.llSelectedBackAdharPhoto.tvFileSize.text = fileSize
+                backAdharImageUri = photoUri
+                llBackAdharPhoto.visibility = View.VISIBLE
+                layoutBinding.llAddBackAdhar.visibility = View.GONE
+            }
+
+        }
     }
 }

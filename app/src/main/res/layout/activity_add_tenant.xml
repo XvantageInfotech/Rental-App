@@ -216,6 +216,12 @@
 
                 </RelativeLayout>
 
+                <include
+                    android:id="@+id/ll_selected_tenant_photo"
+                    layout="@layout/selected_image_layout"
+                    android:visibility="gone"
+                    />
+
 
                 <TextView
                     style="@style/OnboardingTitlePermissionTextStyle"
@@ -279,6 +285,12 @@
 
                 </RelativeLayout>
 
+                <include
+                    android:id="@+id/ll_selected_front_adhar_photo"
+                    layout="@layout/selected_image_layout"
+                    android:visibility="gone"
+                    />
+
                 <RelativeLayout
                     android:id="@+id/ll_add_back_adhar"
                     android:layout_width="match_parent"
@@ -333,6 +345,12 @@
                     </LinearLayout>
 
                 </RelativeLayout>
+
+                <include
+                    android:id="@+id/ll_selected_back_adhar_photo"
+                    layout="@layout/selected_image_layout"
+                    android:visibility="gone"
+                    />
 
 
             </LinearLayout>
