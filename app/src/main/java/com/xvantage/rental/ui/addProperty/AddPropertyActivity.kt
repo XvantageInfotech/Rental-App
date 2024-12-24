@@ -345,9 +345,9 @@ class AddPropertyActivity : AppCompatActivity() {
 
     private fun updateUi(photoUri:Uri) {
         layoutBinding.llPropertyPhoto.ivThumbnail.setImageURI(photoUri)
-        val fileName = getFileName(photoUri)
+        val fileName = CommonFunction().getFileName(this,photoUri)
         layoutBinding.llPropertyPhoto.tvFileName.text = fileName
-        val fileSize = getFileSize(photoUri)
+        val fileSize =CommonFunction(). getFileSize(this,photoUri)
         layoutBinding.llPropertyPhoto.tvFileSize.text = fileSize
         propertyImage = photoUri
         llPropertyImage.visibility=View.VISIBLE
@@ -406,29 +406,4 @@ class AddPropertyActivity : AppCompatActivity() {
         private const val PERMISSION_REQUEST_CODE = 101
     }
 
-    private fun getFileName(uri: Uri): String {
-        var fileName = "Unknown"
-        val cursor = contentResolver.query(uri, null, null, null, null)
-        cursor?.use {
-            if (it.moveToFirst()) {
-                fileName = it.getString(it.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
-            }
-        }
-        return fileName
-    }
-
-    private fun getFileSize(uri: Uri): String {
-        var fileSize = "Unknown"
-        val cursor = contentResolver.query(uri, null, null, null, null)
-        cursor?.use {
-            if (it.moveToFirst()) {
-                val sizeIndex = it.getColumnIndex(OpenableColumns.SIZE)
-                if (sizeIndex != -1) {
-                    val size = it.getLong(sizeIndex)
-                    fileSize = android.text.format.Formatter.formatFileSize(this, size)
-                }
-            }
-        }
-        return fileSize
-    }
 }
