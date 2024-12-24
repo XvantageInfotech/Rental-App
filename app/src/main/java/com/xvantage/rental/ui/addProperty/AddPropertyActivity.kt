@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.view.View
@@ -20,14 +21,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityAddPropertyBinding
 import com.xvantage.rental.ui.manageProperty.ManagePropertyActivity
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
+import java.io.File
 
 class AddPropertyActivity : AppCompatActivity() {
 
@@ -328,14 +332,16 @@ class AddPropertyActivity : AppCompatActivity() {
 
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
-            val photoUri = result.data?.data
-            if (photoUri != null) {
-                    updateUi(photoUri)
-            } else {
+            propertyImage?.let {
+                updateUi(it)
+            } ?: run {
                 Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
             }
+        } else {
+            Toast.makeText(this, "Photo capture cancelled!", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun updateUi(photoUri:Uri) {
         layoutBinding.llPropertyPhoto.ivThumbnail.setImageURI(photoUri)
@@ -350,9 +356,25 @@ class AddPropertyActivity : AppCompatActivity() {
 
 
     private fun openCamera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraLauncher.launch(intent)
+        val photoFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_${System.currentTimeMillis()}.jpg")
+
+        propertyImage = FileProvider.getUriForFile(
+            this,
+            "${BuildConfig.APPLICATION_ID}.fileprovider",
+            photoFile
+        )
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            putExtra(MediaStore.EXTRA_OUTPUT, propertyImage)
+        }
+
+        if (intent.resolveActivity(packageManager) != null) {
+            cameraLauncher.launch(intent)
+        } else {
+            Toast.makeText(this, "No camera app available", Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
@@ -395,7 +417,6 @@ class AddPropertyActivity : AppCompatActivity() {
         return fileName
     }
 
-    // Function to get file size
     private fun getFileSize(uri: Uri): String {
         var fileSize = "Unknown"
         val cursor = contentResolver.query(uri, null, null, null, null)
