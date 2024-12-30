@@ -39,8 +39,8 @@ class AddTenantActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 101
     private var selectedPicker=1
     private var tenantDetailExpanded = true
-    private var rentDetailExpanded = true
-    private var waterBillDetailExpanded = true
+    private var rentDetailExpanded = false
+    private var waterBillDetailExpanded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -118,7 +118,7 @@
     <string name="no_cost">No Cost</string>
     <string name="metered">Metered</string>
     <string name="water_meter_reading">Water Meter Reading</string>
-    <string name="electricity_meter_reading">Electricity Meter Reading</string>
+    <string name="electricity_meter_reading">Electricity Reading</string>
     <string name="cost_per_unit">Cost/Unit</string>
     <string name="fixed_amount">Fixed Amount</string>
     <string name="electricity_water">Electricity &amp; Water Details</string>
