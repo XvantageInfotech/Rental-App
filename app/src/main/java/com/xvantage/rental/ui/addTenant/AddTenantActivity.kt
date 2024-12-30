@@ -10,26 +10,21 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.R
-import com.xvantage.rental.databinding.ActivityAddPropertyBinding
 import com.xvantage.rental.databinding.ActivityAddTenantBinding
-import com.xvantage.rental.ui.addProperty.AddPropertyActivity
-import com.xvantage.rental.ui.addProperty.AddPropertyActivity.Companion
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
 import java.io.File
+import java.util.Calendar
 
 class AddTenantActivity : AppCompatActivity() {
 
@@ -43,6 +38,7 @@ class AddTenantActivity : AppCompatActivity() {
     private lateinit var llBackAdharPhoto:View
     private val PERMISSION_REQUEST_CODE = 101
     private var selectedPicker=1
+    var invoiceDatePicker: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +86,17 @@ class AddTenantActivity : AppCompatActivity() {
             llBackAdharPhoto.visibility=View.GONE
             layoutBinding.llAddBackAdhar.visibility=View.VISIBLE
         }
+        layoutBinding.tvTenantMoveIn.setOnClickListener {
+            CommonFunction().showDatePickerDialog(
+                context = this,
+                onDateSelected = { selectedDate ->
+                    layoutBinding.tvTenantMoveIn.text = selectedDate
+                }
+            )
+        }
+
     }
+
 
     private fun showOptionsDialog() {
         val options = arrayOf("Open Camera", "Choose from Gallery")

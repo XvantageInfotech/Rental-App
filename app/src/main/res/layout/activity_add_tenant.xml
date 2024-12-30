@@ -102,8 +102,24 @@
                         android:textColorHint="@color/grey_hint"
                         android:background="@android:color/transparent" />
                 </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="@string/tenant_move_in"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="16sp" />
 
-
+                <TextView
+                    android:id="@+id/tv_tenant_move_in"
+                    style="@style/EditText"
+                    android:background="@drawable/grey_border_background"
+                    android:hint="@string/enter_tenant_move_in"
+                    android:padding="@dimen/space8"
+                    android:gravity="center_vertical"
+                    android:focusable="false"
+                    android:drawableEnd="@drawable/ic_calender"
+                    android:textColorHint="@color/grey_hint" />
 
                 <LinearLayout
                     android:id="@+id/ll_home_number"

@@ -11,6 +11,7 @@ import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivitySplashBinding
+import com.xvantage.rental.ui.addTenant.AddTenantActivity
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.ui.registration.SignUpActivity
@@ -28,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val intent = Intent(this, DashboardActivity::class.java)
+        val intent = Intent(this, AddTenantActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
 
