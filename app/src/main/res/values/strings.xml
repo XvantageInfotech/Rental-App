@@ -91,15 +91,36 @@
     <!-- Add A Tenant -->
     <string name="add_tenant_property">Add A Tenant </string>
     <string name="tenant_detail">Tenant Details </string>
+    <string name="rent_detail">Rent Details </string>
     <string name="tenant_name">Tenant Name </string>
+    <string name="reference_name">Reference Name </string>
     <string name="tenant_move_in">Move-In Date </string>
+    <string name="tenant_rent_start">Rent Start Date </string>
+    <string name="rent_due_date">Rent Due Date </string>
     <string name="tenant_Photo">Tenant Photo </string>
     <string name="tenant_adhar_card_photo">Tenant Adhar Card Photo </string>
     <string name="tenant_adhar_card_front">Tenant Adhar Card Front </string>
     <string name="tenant_adhar_card_back">Tenant Adhar Card Back </string>
     <string name="tenant_phone">Tenant Phone Number </string>
     <string name="enter_tenant_name">Enter Tenant Name Here...</string>
-    <string name="enter_tenant_move_in">Select Tenant Move-In Date</string>
+    <string name="enter_reference_name">Enter reference Name Here(Optional)</string>
+    <string name="enter_tenant_move_in">Select Move-In Date</string>
+    <string name="enter_rent_date">Select Rent Date</string>
+    <string name="enter_rent_due_date">Select Rent Due Date</string>
+    <string name="rent_amount">Rent Amount</string>
+    <string name="deposit_amount">Deposit Amount</string>
+    <string name="default_amount">Default Amount</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="water_details">Water Details</string>
+    <string name="water_plan">Water Plan</string>
+    <string name="electricity_plan">Electricity Plan</string>
+    <string name="electricity_detail">Electricity Details</string>
+    <string name="no_cost">No Cost</string>
+    <string name="metered">Metered</string>
+    <string name="water_meter_reading">Water Meter Reading</string>
+    <string name="electricity_meter_reading">Electricity Meter Reading</string>
+    <string name="cost_per_unit">Cost/Unit</string>
+    <string name="fixed_amount">Fixed Amount</string>
 
 
 
