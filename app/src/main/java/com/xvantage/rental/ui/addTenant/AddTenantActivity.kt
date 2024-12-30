@@ -88,14 +88,31 @@ class AddTenantActivity : AppCompatActivity() {
             llBackAdharPhoto.visibility=View.GONE
             layoutBinding.llAddBackAdhar.visibility=View.VISIBLE
         }
-        layoutBinding.tvTenantMoveIn.setOnClickListener {
+        layoutBinding.llRentFinanceDetail.tvMoveInDate.setOnClickListener {
             CommonFunction().showDatePickerDialog(
                 context = this,
                 onDateSelected = { selectedDate ->
-                    layoutBinding.tvTenantMoveIn.text = selectedDate
+                    layoutBinding.llRentFinanceDetail.tvMoveInDate.text = selectedDate
                 }
             )
         }
+        layoutBinding.llRentFinanceDetail.tvRentStartDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(
+                context = this,
+                onDateSelected = { selectedDate ->
+                    layoutBinding.llRentFinanceDetail.tvRentStartDate.text = selectedDate
+                }
+            )
+        }
+        layoutBinding.llRentFinanceDetail.tvRentDueDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(
+                context = this,
+                onDateSelected = { selectedDate ->
+                    layoutBinding.llRentFinanceDetail.tvRentDueDate.text = selectedDate
+                }
+            )
+        }
+
         layoutBinding.tvTitleTenantDetail.setOnClickListener {
             if (tenantDetailExpanded) {
                 layoutBinding.llTenantDetail.visibility = View.GONE

@@ -81,6 +81,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_move_in_date"
                 style="@style/EditText"
                 android:background="@drawable/grey_border_background"
                 android:drawableEnd="@drawable/ic_calender"
