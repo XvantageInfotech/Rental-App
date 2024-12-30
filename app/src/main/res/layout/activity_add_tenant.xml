@@ -11,6 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
 
+
+
         <ScrollView
             android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
@@ -25,14 +27,20 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:padding="@dimen/_5sdp"
+                android:backgroundTint="@color/whisper_gray"
+                android:background="@drawable/grey_border_background"
+                android:id="@+id/tv_title_tenant_detail"
                 style="@style/OnboardingTitlePermissionTextStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:gravity="start"
+                android:drawableEnd="@drawable/ic_up_arrow"
                 android:text="@string/tenant_detail" />
 
             <LinearLayout
+                android:id="@+id/ll_tenant_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -145,7 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="8dp"
-                            android:text="@string/tenant_rent_start"
+                            android:text="@string/rent_start_date"
                             android:textColor="@color/text_dark_blue"
                             android:textSize="16sp" />
 
@@ -348,7 +356,7 @@
                     android:id="@+id/ll_add_back_adhar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_8ssp"
+                    android:layout_marginVertical="@dimen/_20sdp"
                     android:background="@drawable/border_box">
 
                     <LinearLayout
@@ -406,6 +414,67 @@
                     />
 
             </LinearLayout>
+
+            <TextView
+                android:padding="@dimen/_5sdp"
+                android:backgroundTint="@color/whisper_gray"
+                android:background="@drawable/grey_border_background"
+                android:id="@+id/tv_title_rent_detail"
+                style="@style/OnboardingTitlePermissionTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="start"
+                android:drawableEnd="@drawable/ic_up_arrow"
+                android:text="@string/rent_detail" />
+
+            <LinearLayout
+                android:id="@+id/ll_rent_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/ll_rent_finance_detail"
+                    layout="@layout/rent_detail_layout"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title_elect_water_detail"
+                android:padding="@dimen/_5sdp"
+                android:backgroundTint="@color/whisper_gray"
+                android:background="@drawable/grey_border_background"
+                style="@style/OnboardingTitlePermissionTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="start"
+                android:drawableEnd="@drawable/ic_up_arrow"
+                android:text="@string/electricity_water" />
+
+            <LinearLayout
+                android:id="@+id/ll_ele_water_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/ll_electricity_finance_detail"
+                    layout="@layout/electricity_detail_layout"
+                    />
+
+                <include
+                    android:id="@+id/ll_water_finance_detail"
+                    layout="@layout/water_detail_layout"
+                    />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
         </ScrollView>

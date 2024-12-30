@@ -95,7 +95,7 @@
     <string name="tenant_name">Tenant Name </string>
     <string name="reference_name">Reference Name </string>
     <string name="tenant_move_in">Move-In Date </string>
-    <string name="tenant_rent_start">Rent Start Date </string>
+    <string name="rent_start_date">Rent Start Date </string>
     <string name="rent_due_date">Rent Due Date </string>
     <string name="tenant_Photo">Tenant Photo </string>
     <string name="tenant_adhar_card_photo">Tenant Adhar Card Photo </string>
@@ -121,6 +121,8 @@
     <string name="electricity_meter_reading">Electricity Meter Reading</string>
     <string name="cost_per_unit">Cost/Unit</string>
     <string name="fixed_amount">Fixed Amount</string>
+    <string name="electricity_water">Electricity &amp; Water Details</string>
+
 
 
 

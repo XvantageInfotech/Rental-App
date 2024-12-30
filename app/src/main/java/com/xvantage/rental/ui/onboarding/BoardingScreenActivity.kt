@@ -5,10 +5,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
-import androidx.viewpager2.widget.ViewPager2
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityBoardingScreenBinding
-import com.xvantage.rental.ui.onboarding.adapter.BoardingPagerAdapter
+import com.xvantage.rental.ui.onboarding.fragment.adapter.BoardingPagerAdapter
 import com.xvantage.rental.utils.AppPreference
 
 class BoardingScreenActivity : AppCompatActivity() {

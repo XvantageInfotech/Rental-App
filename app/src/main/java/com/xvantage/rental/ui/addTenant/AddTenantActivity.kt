@@ -38,7 +38,9 @@ class AddTenantActivity : AppCompatActivity() {
     private lateinit var llBackAdharPhoto:View
     private val PERMISSION_REQUEST_CODE = 101
     private var selectedPicker=1
-    var invoiceDatePicker: Calendar = Calendar.getInstance()
+    private var tenantDetailExpanded = true
+    private var rentDetailExpanded = true
+    private var waterBillDetailExpanded = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +96,39 @@ class AddTenantActivity : AppCompatActivity() {
                 }
             )
         }
+        layoutBinding.tvTitleTenantDetail.setOnClickListener {
+            if (tenantDetailExpanded) {
+                layoutBinding.llTenantDetail.visibility = View.GONE
+                layoutBinding.tvTitleTenantDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_drop_down_arrow, 0)
+            } else {
+                layoutBinding.llTenantDetail.visibility = View.VISIBLE
+                layoutBinding.tvTitleTenantDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up_arrow, 0)
+            }
+            tenantDetailExpanded = !tenantDetailExpanded
+        }
+
+        layoutBinding.tvTitleRentDetail.setOnClickListener {
+            if (rentDetailExpanded) {
+                layoutBinding.llRentDetail.visibility = View.GONE
+                layoutBinding.tvTitleRentDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_drop_down_arrow, 0)
+            } else {
+                layoutBinding.llRentDetail.visibility = View.VISIBLE
+                layoutBinding.tvTitleRentDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up_arrow, 0)
+            }
+            rentDetailExpanded = !rentDetailExpanded
+        }
+        layoutBinding.tvTitleElectWaterDetail.setOnClickListener {
+            if (waterBillDetailExpanded) {
+                layoutBinding.llEleWaterDetail.visibility = View.GONE
+                layoutBinding.tvTitleElectWaterDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_drop_down_arrow, 0)
+            } else {
+                layoutBinding.llEleWaterDetail.visibility = View.VISIBLE
+                layoutBinding.tvTitleElectWaterDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up_arrow, 0)
+            }
+            waterBillDetailExpanded = !waterBillDetailExpanded
+        }
+
+
 
     }
 
