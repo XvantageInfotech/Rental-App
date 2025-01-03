@@ -113,8 +113,8 @@
     <string name="enter_rent_due_date">Select Rent Due Date</string>
     <string name="rent_amount">Rent Amount</string>
     <string name="deposit_amount">Deposit Amount</string>
-    <string name="default_amount">Default Amount</string>
     <string name="enter_amount">Enter Amount</string>
+    <string name="enter_reading">Enter Reading</string>
     <string name="water_details">Water Details</string>
     <string name="water_plan">Water Plan</string>
     <string name="electricity_plan">Electricity Plan</string>
