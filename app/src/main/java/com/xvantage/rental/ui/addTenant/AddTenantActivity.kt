@@ -8,7 +8,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +44,7 @@ class AddTenantActivity : AppCompatActivity() {
     private var tenantDetailExpanded = true
     private var rentDetailExpanded = false
     private var waterBillDetailExpanded = false
+    val spinnerElecAndWaterOptions = arrayOf("No cost", "Fixed", "Metered")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,6 +117,36 @@ class AddTenantActivity : AppCompatActivity() {
             )
         }
 
+        layoutBinding.llRentFinanceDetail.tvAggreementStartDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(
+                context = this,
+                onDateSelected = { selectedDate ->
+                    layoutBinding.llRentFinanceDetail.tvAggreementStartDate.text = selectedDate
+                }
+            )
+        }
+        layoutBinding.llRentFinanceDetail.tvAggreementEndDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(
+                context = this,
+                onDateSelected = { selectedDate ->
+                    layoutBinding.llRentFinanceDetail.tvAggreementEndDate.text = selectedDate
+                }
+            )
+        }
+
+        layoutBinding.llRentFinanceDetail.rgLeaseType.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rb_until_leave -> {
+                    layoutBinding.llRentFinanceDetail.llLeaseDateSelection.visibility=View.GONE
+                    Toast.makeText(this, "Until Leave selected", Toast.LENGTH_SHORT).show()
+                }
+                R.id.rb_fixed_define -> {
+                    // Handle "Fixed Define" option selected
+                    layoutBinding.llRentFinanceDetail.llLeaseDateSelection.visibility=View.VISIBLE
+                }
+            }
+        }
+
         layoutBinding.tvTitleTenantDetail.setOnClickListener {
             if (tenantDetailExpanded) {
                 layoutBinding.llTenantDetail.visibility = View.GONE
@@ -144,6 +178,65 @@ class AddTenantActivity : AppCompatActivity() {
             }
             waterBillDetailExpanded = !waterBillDetailExpanded
         }
+
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            spinnerElecAndWaterOptions
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
+        layoutBinding.llElectricityFinanceDetail.spElectricity.adapter = adapter
+        layoutBinding.llWaterFinanceDetail.spWater.adapter = adapter
+
+        layoutBinding.llElectricityFinanceDetail.spElectricity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = parentView?.getItemAtPosition(position) as String
+
+                when(position){
+                    0->{
+                        layoutBinding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility=View.GONE
+                        layoutBinding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility=View.GONE
+                    }
+                    1->{
+                        layoutBinding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility=View.VISIBLE
+                        layoutBinding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility=View.GONE
+                    }
+                    2->{
+                        layoutBinding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility=View.VISIBLE
+                        layoutBinding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility=View.GONE
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+            }
+        }
+
+        layoutBinding.llWaterFinanceDetail.spWater.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = parentView?.getItemAtPosition(position) as String
+
+                when(position){
+                    0->{
+                        layoutBinding.llWaterFinanceDetail.llDefaultWaterDetails.visibility=View.GONE
+                        layoutBinding.llWaterFinanceDetail.llWaterMeterDetails.visibility=View.GONE
+                    }
+                    1->{
+                        layoutBinding.llWaterFinanceDetail.llDefaultWaterDetails.visibility=View.VISIBLE
+                        layoutBinding.llWaterFinanceDetail.llWaterMeterDetails.visibility=View.GONE
+                    }
+                    2->{
+                        layoutBinding.llWaterFinanceDetail.llWaterMeterDetails.visibility=View.VISIBLE
+                        layoutBinding.llWaterFinanceDetail.llDefaultWaterDetails.visibility=View.GONE
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+            }
+        }
+
+
 
 
 
