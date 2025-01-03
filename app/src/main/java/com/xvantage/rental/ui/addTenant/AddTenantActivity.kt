@@ -113,6 +113,36 @@ class AddTenantActivity : AppCompatActivity() {
             )
         }
 
+        layoutBinding.llRentFinanceDetail.tvAggreementStartDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(
+                context = this,
+                onDateSelected = { selectedDate ->
+                    layoutBinding.llRentFinanceDetail.tvAggreementStartDate.text = selectedDate
+                }
+            )
+        }
+        layoutBinding.llRentFinanceDetail.tvAggreementEndDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(
+                context = this,
+                onDateSelected = { selectedDate ->
+                    layoutBinding.llRentFinanceDetail.tvAggreementEndDate.text = selectedDate
+                }
+            )
+        }
+
+        layoutBinding.llRentFinanceDetail.rgLeaseType.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rb_until_leave -> {
+                    layoutBinding.llRentFinanceDetail.llLeaseDateSelection.visibility=View.GONE
+                    Toast.makeText(this, "Until Leave selected", Toast.LENGTH_SHORT).show()
+                }
+                R.id.rb_fixed_define -> {
+                    // Handle "Fixed Define" option selected
+                    layoutBinding.llRentFinanceDetail.llLeaseDateSelection.visibility=View.VISIBLE
+                }
+            }
+        }
+
         layoutBinding.tvTitleTenantDetail.setOnClickListener {
             if (tenantDetailExpanded) {
                 layoutBinding.llTenantDetail.visibility = View.GONE
@@ -144,7 +174,6 @@ class AddTenantActivity : AppCompatActivity() {
             }
             waterBillDetailExpanded = !waterBillDetailExpanded
         }
-
 
 
     }

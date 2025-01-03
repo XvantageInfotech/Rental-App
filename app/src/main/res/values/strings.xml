@@ -96,6 +96,8 @@
     <string name="reference_name">Reference Name </string>
     <string name="tenant_move_in">Move-In Date </string>
     <string name="rent_start_date">Rent Start Date </string>
+    <string name="start_date">Start Date </string>
+    <string name="end_date">End Date </string>
     <string name="rent_due_date">Rent Due Date </string>
     <string name="tenant_Photo">Tenant Photo </string>
     <string name="tenant_adhar_card_photo">Tenant Adhar Card Photo </string>
@@ -105,6 +107,8 @@
     <string name="enter_tenant_name">Enter Tenant Name Here...</string>
     <string name="enter_reference_name">Enter reference Name Here(Optional)</string>
     <string name="enter_tenant_move_in">Select Move-In Date</string>
+    <string name="enter_start_date">Select Start Date</string>
+    <string name="enter_end_date">Select End Date</string>
     <string name="enter_rent_date">Select Rent Date</string>
     <string name="enter_rent_due_date">Select Rent Due Date</string>
     <string name="rent_amount">Rent Amount</string>
@@ -121,6 +125,9 @@
     <string name="electricity_meter_reading">Electricity Reading</string>
     <string name="cost_per_unit">Cost/Unit</string>
     <string name="fixed_amount">Fixed Amount</string>
+    <string name="lease_type">Lease Type</string>
+    <string name="fixed_define">Fixed Define</string>
+    <string name="until_leave">Until Leave</string>
     <string name="electricity_water">Electricity &amp; Water Details</string>
 
 
