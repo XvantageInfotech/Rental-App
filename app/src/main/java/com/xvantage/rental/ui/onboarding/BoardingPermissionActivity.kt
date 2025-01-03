@@ -1,16 +1,15 @@
 package com.xvantage.rental.ui.onboarding
 
+import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
-import androidx.databinding.DataBindingUtil
-import android.Manifest
-import android.content.Intent
-import android.widget.Toast
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityBoardingPermissionBinding
 import com.xvantage.rental.ui.registration.SignUpActivity
@@ -19,14 +18,20 @@ import com.xvantage.rental.utils.libs.toggle.SwitchButton
 
 class BoardingPermissionActivity : AppCompatActivity() {
     private lateinit var layoutBinding: ActivityBoardingPermissionBinding
-    lateinit var appPreference: AppPreference
+    private lateinit var appPreference: AppPreference
     private var isMediaToggle: Boolean = false
     private var isContactToggle: Boolean = false
+
+    companion object {
+        private const val MEDIA_PERMISSION_REQUEST_CODE = 1001
+        private const val CONTACT_PERMISSION_REQUEST_CODE = 1002
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_boarding_permission)
+        layoutBinding = ActivityBoardingPermissionBinding.inflate(layoutInflater)
+        setContentView(layoutBinding.root)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         initView()
         onClickEvents()
@@ -76,11 +81,11 @@ class BoardingPermissionActivity : AppCompatActivity() {
 
 
         layoutBinding.btnConfirm.setOnClickListener {
-           if(isMediaToggle){
-               proceedWithAction()
-           }else{
-               Toast.makeText(this, "Please allow media permissions", Toast.LENGTH_SHORT).show()
-           }
+            if (isMediaToggle) {
+                proceedWithAction()
+            } else {
+                Toast.makeText(this, "Please allow media permissions", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -94,13 +99,11 @@ class BoardingPermissionActivity : AppCompatActivity() {
         return permissions.all { ActivityCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED }
     }
 
-
     private fun initView() {
         appPreference = AppPreference(this)
         layoutBinding.mediaToggle.isChecked = isMediaToggle
         layoutBinding.contactToggle.isChecked = isContactToggle
     }
-
 
     private fun getMediaPermissions(): List<String> {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -114,7 +117,6 @@ class BoardingPermissionActivity : AppCompatActivity() {
             )
         }
     }
-
 
     private fun getContactsPermissions(): List<String> {
         return listOf(Manifest.permission.READ_CONTACTS)
@@ -141,18 +143,16 @@ class BoardingPermissionActivity : AppCompatActivity() {
         val granted = grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }
 
         when (requestCode) {
-            1001 -> {
+            MEDIA_PERMISSION_REQUEST_CODE -> {
                 isMediaToggle = granted
                 layoutBinding.mediaToggle.isChecked = checkMediaPermissions() // Double-check permission state
             }
-            1002 -> {
+            CONTACT_PERMISSION_REQUEST_CODE -> {
                 isContactToggle = granted
                 layoutBinding.contactToggle.isChecked = checkContactPermissions() // Double-check permission state
             }
-            else->{}
         }
     }
-
 
     private fun proceedWithAction() {
         val intent = Intent(this, SignUpActivity::class.java)

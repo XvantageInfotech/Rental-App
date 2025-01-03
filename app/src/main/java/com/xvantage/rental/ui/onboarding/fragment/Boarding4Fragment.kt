@@ -8,20 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.xvantage.rental.R
 import com.xvantage.rental.databinding.FragmentBoarding4Binding
 import com.xvantage.rental.ui.onboarding.BoardingPermissionActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.IntentUtils
 import kotlinx.coroutines.DelicateCoroutinesApi
-
-
 @DelicateCoroutinesApi
-class Boarding4Fragment(private val viewPager: ViewPager2) : Fragment() {
+class Boarding4Fragment : Fragment() {
 
     private lateinit var layoutBinding: FragmentBoarding4Binding
-    lateinit var appPreference: AppPreference
+    private lateinit var appPreference: AppPreference
     private lateinit var landingActivity: BoardingScreenActivity
+    private lateinit var viewPager: ViewPager2
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,11 +35,11 @@ class Boarding4Fragment(private val viewPager: ViewPager2) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         layoutBinding = FragmentBoarding4Binding.inflate(inflater, container, false)
-        intiView()
+        viewPager = landingActivity.findViewById(R.id.viewPager)
+        initView()
         onClickEvents()
         return layoutBinding.root
     }
-
 
     private fun onClickEvents() {
         val bundle = Bundle().apply {
@@ -55,11 +55,9 @@ class Boarding4Fragment(private val viewPager: ViewPager2) : Fragment() {
         )
     }
 
-    private fun intiView() {
+    private fun initView() {
         appPreference = AppPreference(requireContext())
-
     }
-
 
     @SuppressLint("SetTextI18n")
     override fun onResume() {
@@ -67,7 +65,6 @@ class Boarding4Fragment(private val viewPager: ViewPager2) : Fragment() {
     }
 
     companion object {
-        // Remote Config keys
         const val SERVER_KEY = "PushNotificationServerKey"
     }
 }

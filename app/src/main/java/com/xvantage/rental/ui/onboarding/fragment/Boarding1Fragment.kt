@@ -14,13 +14,13 @@ import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.IntentUtils
 import kotlinx.coroutines.DelicateCoroutinesApi
-
 @DelicateCoroutinesApi
-class Boarding1Fragment(private val viewPager: ViewPager2) : Fragment() {
+class Boarding1Fragment : Fragment() {
 
     private lateinit var layoutBinding: FragmentBoarding1Binding
-    lateinit var appPreference: AppPreference
+    private lateinit var appPreference: AppPreference
     private lateinit var landingActivity: BoardingScreenActivity
+    private lateinit var viewPager: ViewPager2
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,7 +34,8 @@ class Boarding1Fragment(private val viewPager: ViewPager2) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         layoutBinding = FragmentBoarding1Binding.inflate(inflater, container, false)
-        intiView()
+        viewPager = landingActivity.findViewById(R.id.viewPager)
+        initView()
         onClickEvents()
         return layoutBinding.root
     }
@@ -44,11 +45,11 @@ class Boarding1Fragment(private val viewPager: ViewPager2) : Fragment() {
             viewPager.currentItem = 1
         }
         layoutBinding.btnSkip.setOnClickListener {
-            viewPager.currentItem=3
+            viewPager.currentItem = 3
         }
     }
 
-    private fun intiView() {
+    private fun initView() {
         appPreference = AppPreference(requireContext())
     }
 

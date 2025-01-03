@@ -15,13 +15,13 @@ import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.IntentUtils
 import kotlinx.coroutines.DelicateCoroutinesApi
 
-
 @DelicateCoroutinesApi
-class Boarding2Fragment (private val viewPager: ViewPager2): Fragment() {
+class Boarding2Fragment : Fragment() {
 
     private lateinit var layoutBinding: FragmentBoarding2Binding
-    lateinit var appPreference: AppPreference
+    private lateinit var appPreference: AppPreference
     private lateinit var landingActivity: BoardingScreenActivity
+    private lateinit var viewPager: ViewPager2
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,26 +35,24 @@ class Boarding2Fragment (private val viewPager: ViewPager2): Fragment() {
         savedInstanceState: Bundle?
     ): View {
         layoutBinding = FragmentBoarding2Binding.inflate(inflater, container, false)
-        intiView()
+        viewPager = landingActivity.findViewById(R.id.viewPager)
+        initView()
         onClickEvents()
         return layoutBinding.root
     }
-
 
     private fun onClickEvents() {
         layoutBinding.btnNext.setOnClickListener {
             viewPager.currentItem = 2
         }
         layoutBinding.btnSkip.setOnClickListener {
-            viewPager.currentItem=3
+            viewPager.currentItem = 3
         }
     }
 
-    private fun intiView() {
+    private fun initView() {
         appPreference = AppPreference(requireContext())
-
     }
-
 
     @SuppressLint("SetTextI18n")
     override fun onResume() {
@@ -62,7 +60,6 @@ class Boarding2Fragment (private val viewPager: ViewPager2): Fragment() {
     }
 
     companion object {
-        // Remote Config keys
         const val SERVER_KEY = "PushNotificationServerKey"
     }
 }

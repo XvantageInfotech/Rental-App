@@ -8,10 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
-import androidx.databinding.DataBindingUtil
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivitySplashBinding
-import com.xvantage.rental.ui.addTenant.AddTenantActivity
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.ui.registration.SignUpActivity
@@ -20,32 +18,30 @@ import com.xvantage.rental.utils.AppPreference
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var layoutBinding: ActivitySplashBinding
-    lateinit var appPreference: AppPreference
+    private lateinit var appPreference: AppPreference
+
+    companion object {
+        private const val SPLASH_DELAY = 2000L
+        private const val INTENT_FLAGS = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
+        layoutBinding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(layoutBinding.root)
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-
-
         Handler(Looper.getMainLooper()).postDelayed({
-            if (appPreference.isUserLoginFirstTime()) {
-                val intent = Intent(this, DashboardActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-            } else if (!appPreference.isFirstTimePreview()) {
-                val intent = Intent(this, BoardingScreenActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-            } else{
-                val intent = Intent(this, SignUpActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
+            val intent = when {
+                appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)
+                !appPreference.isFirstTimePreview() -> Intent(this, BoardingScreenActivity::class.java)
+                else -> Intent(this, SignUpActivity::class.java)
             }
-        }, 2000)
-
+            intent.flags = INTENT_FLAGS
+            startActivity(intent)
+        }, SPLASH_DELAY)
     }
 }
