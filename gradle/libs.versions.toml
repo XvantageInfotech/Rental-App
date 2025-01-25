@@ -22,6 +22,8 @@ snackbar = "1.0.1"
 toolsCore = "1.0.0-alpha10"
 overlap-avatar = "1.0.3"
 glide = "4.15.1"
+hiltPlugin = "2.55"
+lifecycle = "2.8.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,7 +36,10 @@ sdp-android = { group = "com.intuit.sdp", name = "sdp-android", version.ref = "s
 #snackbar-android = { group = "com.github.akndmr", name = "AirySnackbar", version.ref = "snackbar" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltPlugin" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltPlugin" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 
 
 # ---- Retrofit core library for HTTP requests ----
@@ -57,4 +62,5 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+dagger-hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltPlugin" }
 

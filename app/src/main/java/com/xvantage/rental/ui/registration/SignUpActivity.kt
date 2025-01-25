@@ -10,6 +10,9 @@ import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivitySignUpBinding
 import com.xvantage.rental.utils.AppPreference
 
+
+
+
 class SignUpActivity : AppCompatActivity() {
     private lateinit var layoutBinding: ActivitySignUpBinding
     lateinit var appPreference: AppPreference
@@ -21,8 +24,10 @@ class SignUpActivity : AppCompatActivity() {
         layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         intiView()
+
         onClickEvents()
     }
+
 
     private fun onClickEvents() {
         layoutBinding.btnNext.setOnClickListener {

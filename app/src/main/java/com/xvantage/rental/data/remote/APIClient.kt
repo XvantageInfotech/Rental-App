@@ -18,23 +18,11 @@ object APIClient {
     private const val RQ_REGISTER = "register"
     private const val RQ_LOGIN = "login"
     private const val RQ_FORGOT_PASSWORD = "forgotPassword"
-    private const val RQ_GET_NEXT_DUTY = "nextDuty"
-    private const val RQ_SHARE_INVOICE = "shareInvoice"
-    private const val RQ_BOOKING_DETAILS = "bookingDetails"
-    private const val RQ_LOG_DETAILS = "logdetails"
-    private const val RQ_ADD_DUTY_SLIP = "addDutySlip"
 
     fun appInterfaceServerUser(): APIInterface {
         return getClient(BuildConfig.SERVER_USER).create(APIInterface::class.java)
     }
 
-    fun appInterfaceServerUserType(): APIInterface {
-        return if (Utility.isLoggedIn) {
-            getClient(BuildConfig.SERVER_USER).create(APIInterface::class.java)
-        } else {
-            getClient(BuildConfig.SERVER_USER).create(APIInterface::class.java)
-        }
-    }
 
     private fun getClient(baseUrl: String): Retrofit {
         val httpClient = OkHttpClient.Builder()

@@ -1,9 +1,14 @@
 package com.xvantage.rental.data.remote
 
 import com.google.gson.JsonObject
+import com.xvantage.rental.network.request.LoginRequest
+import com.xvantage.rental.network.response.LoginResponse
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -13,7 +18,9 @@ import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Url
 
+
 interface APIInterface {
+
 
     @GET
     fun get(@Url url: String): Call<JsonObject>
@@ -36,6 +43,9 @@ interface APIInterface {
         @Url url: String,
         @Part file: MultipartBody.Part
     ): Call<JsonObject>
+
+    @POST("auth/login")
+    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
     @Multipart
     @POST

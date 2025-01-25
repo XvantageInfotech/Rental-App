@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+//    alias(libs.plugins.dagger.hilt.plugin)
 }
 
 android {
@@ -77,6 +78,7 @@ android {
     viewBinding {
         enable = true
     }
+
 }
 
 dependencies {
@@ -105,5 +107,12 @@ dependencies {
 
     implementation(libs.glide)
     implementation(libs.overlap.avatar)
+
+    implementation(libs.dagger.hilt)
+//    implementation(libs.hilt.compiler)
 //    implementation(libs.snackbar.android)
+
+
+    implementation(libs.lifecycle.viewmodel.ktx)
+
 }
