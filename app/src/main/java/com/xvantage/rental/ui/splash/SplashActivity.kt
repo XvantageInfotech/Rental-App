@@ -8,11 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
-import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivitySplashBinding
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
-import com.xvantage.rental.ui.registration.SignUpActivity
+import com.xvantage.rental.ui.auth.SignUpActivity
 import com.xvantage.rental.utils.AppPreference
 
 class SplashActivity : AppCompatActivity() {

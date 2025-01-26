@@ -55,10 +55,10 @@
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.registration.SignInActivity"
+            android:name=".ui.auth.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.registration.SignUpActivity"
+            android:name=".ui.auth.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".ui.onboarding.BoardingPermissionActivity"

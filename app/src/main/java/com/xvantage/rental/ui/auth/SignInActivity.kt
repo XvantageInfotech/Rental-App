@@ -1,4 +1,4 @@
-package com.xvantage.rental.ui.registration
+package com.xvantage.rental.ui.auth
 
 import android.content.Intent
 import android.os.Bundle

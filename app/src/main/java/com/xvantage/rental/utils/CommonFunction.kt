@@ -6,10 +6,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import com.xvantage.rental.ui.addProperty.AddPropertyActivity
-import com.xvantage.rental.ui.registration.SignUpActivity
-import android.content.ContentResolver
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.text.format.Formatter

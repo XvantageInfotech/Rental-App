@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/signInFragment">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.xvantage.rental.ui.auth.fragment.SignUpFragment"
+        android:label="Sign In">
+        <action
+            android:id="@+id/action_signIn_to_verifyOtp"
+            app:destination="@id/verifyOtpFragment" />
+        <action
+            android:id="@+id/action_signIn_to_dashboard"
+            app:destination="@id/dashboardActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signIn_to_forgotPassword"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+
+    <!-- Sign Up Fragment -->
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.xvantage.rental.ui.auth.fragment.SignUpFragment"
+        android:label="Sign Up">
+        <action
+            android:id="@+id/action_signUp_to_verifyOtp"
+            app:destination="@id/verifyOtpFragment" />
+        <action
+            android:id="@+id/action_signUp_to_dashboard"
+            app:destination="@id/dashboardActivity" />
+    </fragment>
+
+    <!-- Forgot Password Fragment -->
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.xvantage.rental.ui.auth.fragment.ForgotPasswordFragment"
+        android:label="Forgot Password">
+        <action
+            android:id="@+id/action_forgotPassword_to_signIn"
+            app:destination="@id/signInFragment" />
+    </fragment>
+
+    <!-- Verify OTP Fragment -->
+    <fragment
+        android:id="@+id/verifyOtpFragment"
+        android:name="com.xvantage.rental.ui.auth.fragment.VerifyOtpFragment"
+        android:label="Verify OTP">
+        <action
+            android:id="@+id/action_verifyOtp_to_dashboard"
+            app:destination="@id/dashboardActivity" />
+    </fragment>
+
+    <activity
+        android:id="@+id/dashboardActivity"
+        android:name="com.xvantage.rental.ui.dashboard.DashboardActivity"
+        android:label="Dashboard" />
+</navigation>

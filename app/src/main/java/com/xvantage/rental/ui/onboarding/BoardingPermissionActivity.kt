@@ -10,9 +10,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
-import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityBoardingPermissionBinding
-import com.xvantage.rental.ui.registration.SignUpActivity
+import com.xvantage.rental.ui.auth.SignUpActivity
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.libs.toggle.SwitchButton
 
