@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/signInFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/signUpFragment">
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.xvantage.rental.ui.auth.fragment.SignUpFragment"
+        android:name="com.xvantage.rental.ui.auth.fragment.LoginFragment"
+        tools:layout="@layout/fragment_login"
         android:label="Sign In">
         <action
             android:id="@+id/action_signIn_to_verifyOtp"
@@ -23,6 +25,7 @@
     <!-- Sign Up Fragment -->
     <fragment
         android:id="@+id/signUpFragment"
+        tools:layout="@layout/fragment_sign_up"
         android:name="com.xvantage.rental.ui.auth.fragment.SignUpFragment"
         android:label="Sign Up">
         <action
