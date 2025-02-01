@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.xvantage.rental.R
+import com.xvantage.rental.databinding.FragmentBoarding1Binding
+import com.xvantage.rental.databinding.FragmentLoginBinding
+import com.xvantage.rental.utils.AppPreference
+import com.xvantage.rental.utils.BaseFragment
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
+    private lateinit var layoutBinding: FragmentLoginBinding
+    private lateinit var appPreference: AppPreference
 
-//Added instruction to create fragment here
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -17,8 +22,8 @@ class LoginFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        layoutBinding = FragmentLoginBinding.inflate(inflater, container, false)
+        return layoutBinding.root
     }
 
 }
