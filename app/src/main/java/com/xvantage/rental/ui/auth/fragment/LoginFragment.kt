@@ -9,7 +9,7 @@ import com.xvantage.rental.R
 
 class LoginFragment : Fragment() {
 
-
+//Added instruction to create fragment here
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
