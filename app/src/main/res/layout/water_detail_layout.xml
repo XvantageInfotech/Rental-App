@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginVertical="@dimen/_10sdp"
+    android:layout_height="match_parent">
+
+    <TextView
+        style="@style/OnboardingTitlePermissionTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="@string/water_details" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="@string/water_plan"
+        android:textColor="@color/text_dark_blue"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/sp_water"
+        style="@style/EditText"
+        android:background="@drawable/grey_border_background"
+        android:padding="@dimen/space8"
+        android:spinnerMode="dropdown"
+        android:popupBackground="@color/white"
+        android:drawableEnd="@drawable/ic_drop_down_arrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewStart" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/ll_default_water_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:text="@string/fixed_amount"
+            android:textColor="@color/text_dark_blue"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/EditText"
+            android:id="@+id/et_water_fixed_amount"
+            android:inputType="number"
+            android:background="@drawable/grey_border_background"
+            android:hint="@string/enter_amount"
+            android:padding="@dimen/space8"
+            android:textColorHint="@color/grey_hint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_water_meter_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:text="@string/water_meter_reading"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_rent_amount"
+                style="@style/EditText"
+                android:inputType="number"
+                android:background="@drawable/grey_border_background"
+                android:hint="@string/enter_reading"
+                android:padding="@dimen/space8"
+                android:textColorHint="@color/grey_hint" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:text="@string/cost_per_unit"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                style="@style/EditText"
+                android:id="@+id/et_water_cost_unit"
+                android:inputType="number"
+                android:background="@drawable/grey_border_background"
+                android:hint="@string/enter_amount"
+                android:padding="@dimen/space8"
+                android:textColorHint="@color/grey_hint" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

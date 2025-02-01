@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home_nav_selected"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/property"
+        android:icon="@drawable/black_add_button"
+        android:title="@string/add_property_bottom_n" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/due_nav_unselected"
+        android:title="@string/due_payments" />
+</menu>

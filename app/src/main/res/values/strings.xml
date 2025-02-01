@@ -1,3 +1,137 @@
 <resources>
     <string name="app_name">Rental App</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Onboarding -->
+    <string name="boarding_1_title">Easy Property Management</string>
+    <string name="boarding_1_desc">Manage multiple properties effortlessly from a single dashboard.</string>
+    <string name="boarding_2_title">Tenant Tracking &amp; Alerts</string>
+    <string name="boarding_2_desc">Stay updated on tenant details, payment schedules, and occupancy status.</string>
+    <string name="boarding_3_title">Automated Rent &amp; Billing</string>
+    <string name="boarding_3_desc">Automatically track rent payments and generate billing records for quick reference.</string>
+    <string name="boarding_4_title">Personalized Reminders</string>
+    <string name="boarding_4_desc">Receive timely reminders for important dates, from lease renewals to maintenance checks.</string>
+    <string name="get_started_btn">Get Started</string>
+    <string name="next_btn">Next</string>
+    <string name="skip_btn">Skip</string>
+
+    <!-- Permission screen onboarding -->
+    <string name="boarding_permission_title">Permissions Needed to Enhance Your Experience</string>
+    <string name="boarding_permission_1_title">All Media Access Permission</string>
+    <string name="boarding_permission_1_desc">Media access is required to upload and organize documents or media files related to your properties and tenants.</string>
+    <string name="boarding_permission_2_title">Contacts Access Permission</string>
+    <string name="boarding_permission_2_desc">Allow access to contacts so you can quickly add tenant information and communicate with them through the app.</string>
+    <string name="confirm_btn">Confirm</string>
+
+
+    <!-- Sign Up & In screen -->
+    <string name="get_started_txt">Get Started</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="sign_in_desc">Sign in to continue managing your properties.</string>
+    <string name="get_started_desc">Sign up to start managing your properties.</string>
+    <string name="email_address_input">Email Address</string>
+    <string name="email_address_hint">hello@example.com</string>
+    <string name="password_input">Password</string>
+    <string name="otp_verfication">OTP Verification</string>
+    <string name="otp_msg">We have send and OTP on given email address hello@xvantgaeinfotech.com</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="password_hint">Enter Your Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_wt_google">Sign up with Google</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="dont_have_account">Don’t have an account?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or">OR</string>
+    <string name="forgot_password">Forgot Password</string>
+
+    <!-- Dashboard -->
+    <string name="more_apps">More Apps</string>
+    <string name="go_premium">Go Premium</string>
+    <string name="share_app">Share App</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="feedback">Feedback</string>
+    <string name="home">Home</string>
+    <string name="add_property">Add Your First Property</string>
+    <string name="add_property_bottom_n">Add Property</string>
+    <string name="due_payments">Due Payments</string>
+    <string name="add_your_property">Add your first property</string>
+    <string name="add_your_property_desc">Add properties to keep track of tenants, billing, and reminders all in one place.</string>
+    <string name="add_your_property_btn">Add Your First Property</string>
+    <string name="active_tenant">Active Tenants</string>
+    <string name="total_property">Total Property</string>
+    <string name="total_payments">Total Payments</string>
+    <string name="no_properties_tip"><![CDATA[
+    <font color="#6E7800">Tip:</font> Once you add a property, you can start managing tenants and billing.
+]]></string>
+
+    <!-- Add Property -->
+    <string name="property_detail">Property Detail</string>
+    <string name="property_address">Property Address</string>
+    <string name="select_property_type">Select the type of property (e.g., Apartment, PG, House, etc.)</string>
+    <string name="property_photos">Property Photos</string>
+    <string name="property_name">Property Name</string>
+    <string name="enter_property_name">Enter Property Name Here</string>
+    <string name="enter_property_address">Enter Property Address Here</string>
+    <string name="enter_home_number">Enter Home Number</string>
+    <string name="home_number">Home Number</string>
+    <string name="number_of_flats">Number of flats</string>
+    <string name="number_of_rooms">Number of Rooms</string>
+    <string name="type_rooms">Rooms Type</string>
+    <string name="select_flat_type">Select Flat Type</string>
+    <string name="area_unit">Area Unit</string>
+    <string name="land_size">Land Size</string>
+    <string name="number_of_pg">Number of PG Rooms</string>
+    <string name="number_of_bed_per_room">Beds/Rooms</string>
+
+
+    <!-- Manage Property -->
+
+    <string name="manage_property">Manage Property</string>
+    <string name="add_tenant_to_property">Add Tenant To The Property</string>
+
+
+    <!-- Add A Tenant -->
+    <string name="add_tenant_property">Add A Tenant </string>
+    <string name="tenant_detail">Tenant Details </string>
+    <string name="rent_detail">Rent Details </string>
+    <string name="tenant_name">Tenant Name </string>
+    <string name="reference_name">Reference Name </string>
+    <string name="tenant_move_in">Move-In Date </string>
+    <string name="rent_start_date">Rent Start Date </string>
+    <string name="start_date">Start Date </string>
+    <string name="end_date">End Date </string>
+    <string name="rent_due_date">Rent Due Date </string>
+    <string name="tenant_Photo">Tenant Photo </string>
+    <string name="tenant_adhar_card_photo">Tenant Adhar Card Photo </string>
+    <string name="tenant_adhar_card_front">Tenant Adhar Card Front </string>
+    <string name="tenant_adhar_card_back">Tenant Adhar Card Back </string>
+    <string name="tenant_phone">Tenant Phone Number </string>
+    <string name="enter_tenant_name">Enter Tenant Name Here...</string>
+    <string name="enter_reference_name">Enter reference Name Here(Optional)</string>
+    <string name="enter_tenant_move_in">Select Move-In Date</string>
+    <string name="enter_start_date">Select Start Date</string>
+    <string name="enter_end_date">Select End Date</string>
+    <string name="enter_rent_date">Select Rent Date</string>
+    <string name="enter_rent_due_date">Select Rent Due Date</string>
+    <string name="rent_amount">Rent Amount</string>
+    <string name="deposit_amount">Deposit Amount</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="enter_reading">Enter Reading</string>
+    <string name="water_details">Water Details</string>
+    <string name="water_plan">Water Plan</string>
+    <string name="electricity_plan">Electricity Plan</string>
+    <string name="electricity_detail">Electricity Details</string>
+    <string name="no_cost">No Cost</string>
+    <string name="metered">Metered</string>
+    <string name="water_meter_reading">Water Meter Reading</string>
+    <string name="electricity_meter_reading">Electricity Reading</string>
+    <string name="cost_per_unit">Cost/Unit</string>
+    <string name="fixed_amount">Fixed Amount</string>
+    <string name="lease_type">Lease Type</string>
+    <string name="fixed_define">Fixed Define</string>
+    <string name="until_leave">Until Leave</string>
+    <string name="electricity_water">Electricity &amp; Water Details</string>
+
+
 </resources>

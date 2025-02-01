@@ -1,0 +1,62 @@
+package com.xvantage.rental.ui.manageProperty.adapter
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.xvantage.rental.data.source.Tenant
+import com.xvantage.rental.databinding.PropertyRoomItemsBinding
+import com.xvantage.rental.utils.AppPreference
+
+class ManagePropertyAdapter(
+    private val context: Context,
+    private val listener: OnRoomItemClickListener
+) : RecyclerView.Adapter<ManagePropertyAdapter.ManagePropertyViewHolder>() {
+
+    private var roomList: List<String> = emptyList()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addItems(roomList: List<String>) {
+        this.roomList = roomList
+        notifyDataSetChanged()
+    }
+
+    interface OnRoomItemClickListener {
+        fun onRoomClick(roomNumber: String, position: Int) // Room click
+        fun onAddTenantClick(roomNumber: String, position: Int) // Add tenant click
+    }
+
+    inner class ManagePropertyViewHolder(private val itemBinding: PropertyRoomItemsBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
+
+        fun setData(data: String, position: Int) {
+            itemBinding.tvRoomNumber.text = data
+
+            // Set click listeners
+            itemBinding.root.setOnClickListener {
+                listener.onRoomClick(data, position)
+            }
+
+            itemBinding.btnAddTenant.setOnClickListener {
+                listener.onAddTenantClick(data, position)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManagePropertyViewHolder {
+        val itemBinding = PropertyRoomItemsBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ManagePropertyViewHolder(itemBinding)
+    }
+
+    override fun onBindViewHolder(holder: ManagePropertyViewHolder, position: Int) {
+        val data = roomList[position]
+        holder.setData(data, position)
+    }
+
+    override fun getItemCount(): Int = roomList.size
+}

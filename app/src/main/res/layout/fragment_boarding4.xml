@@ -1,0 +1,91 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.onboarding.OnboardingFragment">
+
+
+        <ImageView
+            android:id="@+id/imageOnboarding"
+            android:layout_width="match_parent"
+            android:layout_height="700dp"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/boarding_4" />
+
+        <LinearLayout
+            android:id="@+id/bottomCard"
+            style="@style/OnboardingCardStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="45dp">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/OnboardingTitleTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="@string/boarding_4_title" />
+
+                <TextView
+                    android:id="@+id/tvSubtitle"
+                    style="@style/OnboardingSubtitleTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/boarding_4_desc"
+                    android:textAlignment="center" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressLine"
+                    style="@style/OnboardingProgressIndicator"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="64dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="16dp"
+                    android:max="100"
+                    android:progress="100"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="bottom|center"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnNext"
+                        style="@style/ButtonFilled"
+                        android:text="@string/next_btn" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

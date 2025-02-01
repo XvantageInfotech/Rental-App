@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+   >
+
+    <TextView
+        android:id="@+id/property_type_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="@string/number_of_flats"
+        android:textColor="@color/text_dark_blue"
+        android:textSize="16sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/grey_border_background"
+        android:padding="4dp">
+
+        <!-- EditText to display the number -->
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_number"
+            style="@style/EditText"
+            android:layout_weight="20"
+            android:hint="00"
+            android:inputType="number"
+            android:padding="@dimen/space8"
+            android:textColorHint="@color/grey_hint" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/buttonUp"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@android:drawable/arrow_up_float"
+                android:background="#DDE2E5"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:contentDescription="Increase" />
+
+            <ImageButton
+                android:id="@+id/buttonDown"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@android:drawable/arrow_down_float"
+                android:background="#DDE2E5"
+                android:contentDescription="Decrease" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="@string/select_flat_type"
+        android:textColor="@color/text_dark_blue"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/spinner_flat_type"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/grey_border_background"
+            android:paddingStart="12dp"
+            android:paddingEnd="36dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:id="@+id/dropdown_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="Dropdown Icon"
+            android:src="@drawable/ic_drop_down_arrow" />
+    </RelativeLayout>
+
+</LinearLayout>

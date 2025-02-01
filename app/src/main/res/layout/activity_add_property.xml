@@ -1,0 +1,233 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:layout_margin="16dp"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/OnboardingTitlePermissionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/property_detail" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="@string/property_name"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_sign_up_email"
+                    style="@style/EditText"
+                    android:background="@drawable/grey_border_background"
+                    android:hint="@string/enter_property_name"
+                    android:padding="@dimen/space8"
+                    android:textColorHint="@color/grey_hint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="@string/property_address"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/EditText"
+                    android:background="@drawable/grey_border_background"
+                    android:hint="@string/enter_property_address"
+                    android:padding="@dimen/space8"
+                    android:textColorHint="@color/grey_hint" />
+
+                <TextView
+                    android:id="@+id/property_type_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="Property Type"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/spinner_property_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/grey_border_background"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="36dp"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:id="@+id/dropdown_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Dropdown Icon"
+                        android:src="@drawable/ic_drop_down_arrow" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/select_property_type"
+                    android:textColor="@color/grey_hint"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_home_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_number"
+                        android:textColor="@color/text_dark_blue"
+                        android:textSize="16sp"
+                        android:layout_marginVertical="8dp" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_home_number"
+                        style="@style/EditText"
+                        android:background="@drawable/grey_border_background"
+                        android:hint="@string/enter_home_number"
+                        android:textColorHint="@color/grey_hint"
+                        android:padding="@dimen/space8" />
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/ll_appartment"
+                    layout="@layout/ll_number_of_flats"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/ll_pg_rooms"
+                    layout="@layout/ll_pg_type"
+                    android:visibility="gone" />
+                <include
+                    android:id="@+id/ll_land_detail"
+                    layout="@layout/ll_land_detail_input"
+                    android:visibility="gone" />
+                <include
+                    android:id="@+id/ll_rent_house"
+                    layout="@layout/ll_rent_house"
+                    android:visibility="gone" />
+
+                <TextView
+                    style="@style/OnboardingTitlePermissionTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8ssp"
+                    android:text="@string/property_photos" />
+
+
+                <RelativeLayout
+                    android:id="@+id/ll_add_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_box">
+
+                    <LinearLayout
+                        android:id="@+id/uploadContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/uploadIcon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_cloud_upload" />
+
+                        <TextView
+                            android:id="@+id/dragText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Drag your file(s) or "
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/browseText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-4dp"
+                            android:text="browse"
+                            android:textColor="#3B82F6"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/maxSizeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Max 10 MB files are allowed"
+                            android:textColor="#777777"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/supportedFormats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Only support .jpg, .png and .svg and zip files"
+                            android:textColor="@color/dark_grey_hint"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <include
+                    android:id="@+id/ll_property_photo"
+                    layout="@layout/selected_image_layout"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>
