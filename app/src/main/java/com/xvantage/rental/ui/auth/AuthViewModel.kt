@@ -2,7 +2,8 @@ package com.xvantage.rental.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xvantage.rental.data.source.AuthRepository
+import com.xvantage.rental.ui.auth.fragment.sealed.AuthScreen
+import com.xvantage.rental.ui.auth.fragment.sealed.AuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

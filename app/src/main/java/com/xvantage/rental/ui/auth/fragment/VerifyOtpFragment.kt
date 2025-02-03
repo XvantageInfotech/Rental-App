@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.xvantage.rental.R
-import com.xvantage.rental.databinding.FragmentSignUpBinding
 import com.xvantage.rental.databinding.FragmentVerifyOtpBinding
-import com.xvantage.rental.ui.auth.AuthScreen
 import com.xvantage.rental.ui.auth.AuthViewModel
 import com.xvantage.rental.utils.AppPreference
 import dagger.hilt.android.AndroidEntryPoint

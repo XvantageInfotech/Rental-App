@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.xvantage.rental.databinding.FragmentSignUpBinding
-import com.xvantage.rental.ui.auth.AuthScreen
+import com.xvantage.rental.ui.auth.fragment.sealed.AuthScreen
 import com.xvantage.rental.ui.auth.AuthViewModel
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.BaseFragment

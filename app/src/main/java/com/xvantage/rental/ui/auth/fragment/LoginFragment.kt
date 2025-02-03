@@ -9,20 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.xvantage.rental.databinding.FragmentLoginBinding
-import com.xvantage.rental.ui.auth.AuthScreen
+import com.xvantage.rental.ui.auth.fragment.sealed.AuthScreen
 import com.xvantage.rental.ui.auth.AuthViewModel
 import com.xvantage.rental.ui.auth.GoogleAuthClient
-import com.xvantage.rental.ui.auth.SignInResult
-import com.xvantage.rental.ui.auth.SignInResult.Cancelled
-import com.xvantage.rental.ui.auth.SignInResult.ErrorTypeCredentials
-import com.xvantage.rental.ui.auth.SignInResult.Failure
-import com.xvantage.rental.ui.auth.SignInResult.NoCredentials
-import com.xvantage.rental.ui.auth.SignInResult.Success
+import com.xvantage.rental.ui.auth.fragment.sealed.SignInResult
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment() {

@@ -21,6 +21,7 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.xvantage.rental.R
+import com.xvantage.rental.ui.auth.fragment.sealed.SignInResult
 
 /**
  * @author：HGM
