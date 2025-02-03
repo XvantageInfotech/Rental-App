@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInActivity : AppCompatActivity() {
     private lateinit var layoutBinding: ActivitySignInBinding
 
-    private val viewModel: SignInViewModel by viewModels()
+//    private val viewModel: SignInViewModel by viewModels()
 
 
     lateinit var appPreference: AppPreference

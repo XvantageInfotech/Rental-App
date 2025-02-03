@@ -9,10 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
 import com.xvantage.rental.databinding.ActivitySplashBinding
+import com.xvantage.rental.ui.auth.AuthActivity
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.ui.auth.SignUpActivity
 import com.xvantage.rental.utils.AppPreference
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class SplashActivity : AppCompatActivity() {
 
@@ -37,7 +41,7 @@ class SplashActivity : AppCompatActivity() {
             val intent = when {
                 appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)
                 !appPreference.isFirstTimePreview() -> Intent(this, BoardingScreenActivity::class.java)
-                else -> Intent(this, SignUpActivity::class.java)
+                else -> Intent(this, AuthActivity::class.java)
             }
             intent.flags = INTENT_FLAGS
             startActivity(intent)
