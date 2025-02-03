@@ -1,13 +1,10 @@
 package com.xvantage.rental.ui.auth.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.xvantage.rental.R
-import com.xvantage.rental.databinding.FragmentLoginBinding
+import androidx.fragment.app.activityViewModels
 import com.xvantage.rental.databinding.FragmentSignUpBinding
 import com.xvantage.rental.ui.auth.AuthScreen
 import com.xvantage.rental.ui.auth.AuthViewModel
@@ -18,7 +15,7 @@ import com.xvantage.rental.utils.BaseFragment
 class SignUpFragment : BaseFragment() {
     private lateinit var layoutBinding: FragmentSignUpBinding
     private lateinit var appPreference: AppPreference
-    private val viewModel: AuthViewModel by viewModels()
+    private val viewModel: AuthViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
