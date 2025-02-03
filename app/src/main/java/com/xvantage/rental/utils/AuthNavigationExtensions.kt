@@ -1,4 +1,4 @@
-package com.xvantage.rental.ui.auth
+package com.xvantage.rental.utils
 
 /**
  * Project: Rental App By XV Team

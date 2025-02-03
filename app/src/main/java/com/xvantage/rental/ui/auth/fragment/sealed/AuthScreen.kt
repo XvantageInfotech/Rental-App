@@ -1,4 +1,4 @@
-package com.xvantage.rental.ui.auth
+package com.xvantage.rental.ui.auth.fragment.sealed
 
 /**
  * Project: Rental App By XV Team
