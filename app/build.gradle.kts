@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+//    alias(libs.plugins.google.gms.google.services)
+
 //    alias(libs.plugins.dagger.hilt.plugin)
 }
 
@@ -117,4 +119,9 @@ dependencies {
 
     implementation(libs.lifecycle.viewmodel.ktx)
 
+
+    implementation(libs.play.services.auth)
+    implementation (libs.androidx.credentials)
+    implementation (libs.androidx.credentials.play.services.auth)
+    implementation (libs.googleid)
 }
