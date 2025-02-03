@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
 import com.xvantage.rental.databinding.ActivityBoardingPermissionBinding
-import com.xvantage.rental.ui.auth.SignUpActivity
+import com.xvantage.rental.ui.auth.AuthActivity
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.libs.toggle.SwitchButton
 
@@ -154,7 +154,7 @@ class BoardingPermissionActivity : AppCompatActivity() {
     }
 
     private fun proceedWithAction() {
-        val intent = Intent(this, SignUpActivity::class.java)
+        val intent = Intent(this, AuthActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         appPreference.setFirstTimePreview(true)
         startActivity(intent)

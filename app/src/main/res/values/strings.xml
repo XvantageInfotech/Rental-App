@@ -33,6 +33,8 @@
     <string name="email_address_hint">hello@example.com</string>
     <string name="password_input">Password</string>
     <string name="otp_verfication">OTP Verification</string>
+    <string name="otp_verfication_title">Verify Your Email Address</string>
+    <string name="enter_otp">Please Enter your OTP</string>
     <string name="otp_msg">We have send and OTP on given email address hello@xvantgaeinfotech.com</string>
     <string name="verify_otp">Verify OTP</string>
     <string name="password_hint">Enter Your Password</string>
@@ -43,6 +45,8 @@
     <string name="sign_in">Sign In</string>
     <string name="or">OR</string>
     <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_password_titile">Forgot your password ?</string>
+
 
     <!-- Dashboard -->
     <string name="more_apps">More Apps</string>
