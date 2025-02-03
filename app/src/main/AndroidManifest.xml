@@ -57,12 +57,6 @@
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.SignInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.auth.SignUpActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.onboarding.BoardingPermissionActivity"
             android:exported="false" />
         <activity
