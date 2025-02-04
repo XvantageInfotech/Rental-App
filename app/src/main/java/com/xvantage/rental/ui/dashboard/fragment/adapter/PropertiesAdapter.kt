@@ -41,17 +41,17 @@ class PropertiesAdapter(
             itemBinding.tvPropertyAddress.text = data.address
             val totalTenants = data.rooms.count { it.tenant != null }
             itemBinding.tenantsValue.text = totalTenants.toString()
-            if (!data.rooms[position].occupied) {
-                itemBinding.tvStatus.setText("Vacant")
-                itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
-            } else {
-                itemBinding.tvStatus.setText("Occupied")
-                itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
-            }
 
+            if (position < data.rooms.size) {
+                if (!data.rooms[position].occupied) {
+                    itemBinding.tvStatus.setText("Vacant")
+                    itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
+                } else {
+                    itemBinding.tvStatus.setText("Occupied")
+                    itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
+                }
+            } 
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyDetailsViewHolder {
