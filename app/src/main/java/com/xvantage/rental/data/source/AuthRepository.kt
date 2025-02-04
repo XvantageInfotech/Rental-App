@@ -2,8 +2,8 @@ package com.xvantage.rental.data.source
 
 import com.google.gson.JsonObject
 import com.xvantage.rental.data.remote.APIInterface
-import com.xvantage.rental.network.NetworkHelper
-import com.xvantage.rental.network.ResultWrapper
+import com.xvantage.rental.network.utils.NetworkHelper
+import com.xvantage.rental.network.utils.ResultWrapper
 import com.xvantage.rental.network.request.LoginRequest
 import com.xvantage.rental.network.response.LoginResponse
 import javax.inject.Inject

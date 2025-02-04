@@ -1,33 +1,18 @@
 package com.xvantage.rental.ui.dashboard.fragment.adapter
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.xvantage.rental.R
-import com.xvantage.rental.data.source.Property
+import com.xvantage.rental.data.source.sample.Property
 import com.xvantage.rental.databinding.HomePropertiesItemBinding
 import com.xvantage.rental.utils.AppPreference
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Locale
 
 interface OnPropertyActionListener {
-    fun onDeleteClicked(billInvoice: Property )
+    fun onDeleteClicked(billInvoice: Property)
     fun onMoreClicked(billInvoice: Property)
 }
 

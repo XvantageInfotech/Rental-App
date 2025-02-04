@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.xvantage.rental.R
-import com.xvantage.rental.data.source.Property
-import com.xvantage.rental.data.source.Tenant
+import com.xvantage.rental.data.source.sample.Property
+import com.xvantage.rental.data.source.sample.Tenant
 import com.xvantage.rental.databinding.HomeTenantsItemBinding
 import com.xvantage.rental.utils.AppPreference
 

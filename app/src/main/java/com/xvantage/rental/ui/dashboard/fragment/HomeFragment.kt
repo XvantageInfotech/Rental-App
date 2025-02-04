@@ -9,18 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.xvantage.rental.R
-import com.xvantage.rental.data.source.PropertyDataRepository
-import com.xvantage.rental.databinding.FragmentBoarding1Binding
+import com.xvantage.rental.data.source.sample.PropertyDataRepository
 import com.xvantage.rental.databinding.FragmentHomeBinding
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.dashboard.fragment.adapter.PropertiesAdapter
 import com.xvantage.rental.ui.dashboard.fragment.adapter.TenantsAdapter
-import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.utils.AppPreference
 import kotlinx.coroutines.DelicateCoroutinesApi
 

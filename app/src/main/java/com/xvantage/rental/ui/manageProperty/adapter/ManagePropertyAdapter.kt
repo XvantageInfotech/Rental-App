@@ -5,9 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.xvantage.rental.data.source.Tenant
 import com.xvantage.rental.databinding.PropertyRoomItemsBinding
-import com.xvantage.rental.utils.AppPreference
 
 class ManagePropertyAdapter(
     private val context: Context,

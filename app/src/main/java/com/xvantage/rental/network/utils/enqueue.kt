@@ -1,4 +1,4 @@
-package com.xvantage.rental.network
+package com.xvantage.rental.network.utils
 
 import retrofit2.Call
 import retrofit2.Callback

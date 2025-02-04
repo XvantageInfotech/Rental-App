@@ -1,4 +1,4 @@
-package com.xvantage.rental.data.source
+package com.xvantage.rental.data.source.sample
 
 data class Tenant(
     val id: String,              // Unique identifier for the tenant

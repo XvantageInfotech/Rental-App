@@ -1,4 +1,4 @@
-package com.xvantage.rental.data.source
+package com.xvantage.rental.data.source.sample
 
 import android.os.Build
 import androidx.annotation.RequiresApi
