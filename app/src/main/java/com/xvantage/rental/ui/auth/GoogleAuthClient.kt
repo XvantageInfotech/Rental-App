@@ -23,19 +23,12 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.xvantage.rental.R
 import com.xvantage.rental.ui.auth.fragment.sealed.SignInResult
 
-/**
- * @author：HGM
- * @created：2024/12/30 星期一
- * @description：
- **/
+
 class GoogleAuthClient(
     private val activity: Activity
 ) {
     private val credentialManager = CredentialManager.create(activity)
 
-    /**
-     * 登录
-     **/
     suspend fun signIn(): SignInResult {
         return try {
             val response = buildCredentialRequest()
@@ -60,9 +53,6 @@ class GoogleAuthClient(
         }
     }
 
-    /**
-     * 构建凭证请求
-     **/
     private suspend fun buildCredentialRequest(): GetCredentialResponse {
         // 底部样式
         val getGoogleIdOption = GetGoogleIdOption.Builder()
@@ -71,7 +61,6 @@ class GoogleAuthClient(
             .setAutoSelectEnabled(false)
             .build()
 
-        // 居中样式
         val getSignInWithGoogleOption = GetSignInWithGoogleOption.Builder(activity.getString(R.string.google_client_id))
             .build()
 
