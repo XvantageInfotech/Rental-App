@@ -1,4 +1,4 @@
-package com.xvantage.rental.utils
+package com.xvantage.rental.utils.extension
 
 /**
  * Project: Rental App By XV Team
