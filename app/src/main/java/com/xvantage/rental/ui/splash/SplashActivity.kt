@@ -37,16 +37,15 @@ class SplashActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        startActivity(Intent(this, TakeRentActivity::class.java))
 
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            val intent = when {
-//                appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)
-//                !appPreference.isFirstTimePreview() -> Intent(this, BoardingScreenActivity::class.java)
-//                else -> Intent(this, AuthActivity::class.java)
-//            }
-//            intent.flags = INTENT_FLAGS
-//            startActivity(intent)
-//        }, SPLASH_DELAY)
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = when {
+                appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)
+                !appPreference.isFirstTimePreview() -> Intent(this, BoardingScreenActivity::class.java)
+                else -> Intent(this, AuthActivity::class.java)
+            }
+            intent.flags = INTENT_FLAGS
+            startActivity(intent)
+        }, SPLASH_DELAY)
     }
 }
