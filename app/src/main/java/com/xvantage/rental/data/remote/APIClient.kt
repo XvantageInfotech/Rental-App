@@ -15,9 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object APIClient {
 
-    private const val RQ_REGISTER = "register"
-    private const val RQ_LOGIN = "login"
-    private const val RQ_FORGOT_PASSWORD = "forgotPassword"
 
     fun appInterfaceServerUser(): APIInterface {
         return getClient(BuildConfig.SERVER_USER).create(APIInterface::class.java)

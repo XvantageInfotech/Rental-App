@@ -2,7 +2,12 @@ package com.xvantage.rental.data.remote
 
 import com.google.gson.JsonObject
 import com.xvantage.rental.network.request.LoginRequest
+import com.xvantage.rental.network.request.auth.GoogleLoginRequest
+import com.xvantage.rental.network.request.auth.SignupRequest
+import com.xvantage.rental.network.request.auth.VerifyOTPRequest
 import com.xvantage.rental.network.response.LoginResponse
+import com.xvantage.rental.network.response.SignupResponse
+import com.xvantage.rental.network.response.VerifyOTPResponse
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -18,9 +23,7 @@ import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Url
 
-
 interface APIInterface {
-
 
     @GET
     fun get(@Url url: String): Call<JsonObject>
@@ -29,6 +32,15 @@ interface APIInterface {
     @POST
     fun post(@Url url: String, @FieldMap params: Map<String, String>): Call<JsonObject>
 
+
+    @POST("auth/google-login")
+    suspend fun googleLogin(@Body request: GoogleLoginRequest): Response<LoginResponse>
+
+    @POST("auth/signup")
+    suspend fun signUp(@Body request: SignupRequest): Response<SignupResponse>
+
+    @POST("auth/verify-otp")
+    suspend fun verifyOtp(@Body request: VerifyOTPRequest): Response<VerifyOTPResponse>
     @Multipart
     @POST
     fun reachedDrop(
