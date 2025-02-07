@@ -1,0 +1,12 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/propertyTitle"
+    style="@style/OnboardingTitlePermissionTextStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/grey_border_background"
+    android:backgroundTint="@color/whisper_gray"
+    android:drawableEnd="@drawable/ic_up_arrow"
+    android:gravity="start"
+    android:padding="@dimen/_5sdp"
+    android:layout_marginVertical="@dimen/_10sdp"
+    android:text="@string/tenant_detail" />
