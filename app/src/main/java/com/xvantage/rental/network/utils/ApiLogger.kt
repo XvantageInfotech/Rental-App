@@ -8,33 +8,48 @@ package com.xvantage.rental.network.utils
  * Licensed under the Apache License, Version 2.0. See LICENSE file for terms.
  */
 
+
 import android.util.Log
 import com.google.gson.Gson
-import okhttp3.ResponseBody
+import okhttp3.Request
 import retrofit2.Response
 
 object ApiLogger {
 
     private const val TAG = "API_LOGGER"
 
-    fun logRequest(endpoint: String, requestBody: Any?) {
-        Log.d(TAG, "📤 API Request: $endpoint")
-        Log.d(TAG, "📨 Request Body: ${Gson().toJson(requestBody)}")
+    fun logRequest(requestBody: Any?, request: Request) {
+        val endpoint = request.url.toString()
+        Log.d(TAG, buildBlockLog("📤 API Request", endpoint, Gson().toJson(requestBody)))
     }
 
-    fun <T> logResponse(endpoint: String, response: Response<T>) {
-        Log.d(TAG, "✅ API Response: $endpoint")
-        Log.d(TAG, "🔢 Status Code: ${response.code()}")
-        Log.d(TAG, "📄 Response Body: ${Gson().toJson(response.body())}")
+    fun <T> logResponse(response: Response<T>, request: Request) {
+        val endpoint = request.url.toString()
+        val responseBody = Gson().toJson(response.body())
+
+        Log.d(TAG, buildBlockLog("✅ API Response", endpoint, responseBody, response.code()))
 
         if (!response.isSuccessful) {
-            Log.e(TAG, "❌ API Error: ${response.message()}")
-            Log.e(TAG, "⚠️ Error Body: ${response.errorBody()?.string()}")
+            val errorBody = response.errorBody()?.string()
+            Log.e(TAG, buildBlockLog("❌ API Error", endpoint, errorBody, response.code()))
         }
     }
 
-    fun logError(endpoint: String, exception: Exception) {
-        Log.e(TAG, "🚨 Network Error: $endpoint")
-        Log.e(TAG, "⚠️ Exception: ${exception.localizedMessage}")
+    fun logError(exception: Exception, request: Request?) {
+        val endpoint = request?.url.toString()
+        Log.e(TAG, buildBlockLog("🚨 Network Error", endpoint, exception.localizedMessage))
+    }
+
+    private fun buildBlockLog(title: String, endpoint: String, body: String?, code: Int? = null): String {
+        val line = "──────────────────────────────────"
+        return """
+        |$line
+        |$title
+        |$line
+        |📍 URL: $endpoint
+        |${if (code != null) "🔢 Status Code: $code" else ""}
+        |📄 Data: ${body ?: "No Data"}
+        |$line
+        """.trimMargin()
     }
 }

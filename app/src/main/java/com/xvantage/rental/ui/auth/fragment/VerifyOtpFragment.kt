@@ -37,7 +37,7 @@ class VerifyOtpFragment : Fragment() {
         layoutBinding.btnNext.setOnClickListener {
             val email = /*binding.etEmail.text.toString()*/ "jh"
             val password = /*binding.etPassword.text.toString()*/ "jhh"
-            viewModel.verifyOtp(email)
+            viewModel.verifyOtp(email, "1234", "email")
         }
 
 

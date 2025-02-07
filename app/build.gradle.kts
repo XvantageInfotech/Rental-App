@@ -40,7 +40,7 @@ android {
             versionName = "1.0"
             resValue("string", "folder", "Rental")
 
-            buildConfigField("String", "SERVER_USER", "\"https://beta.helllo.com/csm/api/\"")
+            buildConfigField("String", "SERVER_USER", "\"https://api.rental.xvantageinfotech.com/api/v1/\"")
             buildConfigField("String", "SERVER_IMAGE", "\"https://beta.hello.com/media/images/user/\"")
 
             buildConfigField("String", "URL_TERMS", "\"https://www.hello.com/terms-of-service/\"")

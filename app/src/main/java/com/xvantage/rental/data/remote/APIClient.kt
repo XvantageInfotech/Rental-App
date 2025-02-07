@@ -2,24 +2,22 @@ package com.xvantage.rental.data.remote
 
 import com.google.gson.GsonBuilder
 import com.xvantage.rental.BuildConfig
-import com.xvantage.rental.utils.Utility
 import com.xvantage.rental.utils.constants.ApiConstant
 import com.xvantage.rental.utils.libs.loggingInterceptor.Level
 import com.xvantage.rental.utils.libs.loggingInterceptor.LoggingInterceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object APIClient {
 
-
     fun appInterfaceServerUser(): APIInterface {
         return getClient(BuildConfig.SERVER_USER).create(APIInterface::class.java)
     }
-
 
     private fun getClient(baseUrl: String): Retrofit {
         val httpClient = OkHttpClient.Builder()
@@ -42,14 +40,16 @@ object APIClient {
                 .build()
         )
 
+        val gson = GsonBuilder().setLenient().create()
+
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl(baseUrl)
             .client(httpClient.build())
             .build()
     }
 
     fun toRequestBody(value: String): RequestBody {
-        return RequestBody.create("text/plain".toMediaTypeOrNull(), value)
+        return value.toRequestBody("text/plain".toMediaTypeOrNull())
     }
 }
