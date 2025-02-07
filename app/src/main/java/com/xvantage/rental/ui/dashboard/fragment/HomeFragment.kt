@@ -15,7 +15,9 @@ import com.xvantage.rental.databinding.FragmentHomeBinding
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.dashboard.fragment.adapter.PropertiesAdapter
 import com.xvantage.rental.ui.dashboard.fragment.adapter.TenantsAdapter
+import com.xvantage.rental.ui.takeRent.TakeRentActivity
 import com.xvantage.rental.utils.AppPreference
+import com.xvantage.rental.utils.CommonFunction
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
@@ -47,6 +49,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun onClickEvents() {
+        layoutBinding.cvTakeRent.root.setOnClickListener {
+            CommonFunction().navigation(requireContext(), TakeRentActivity::class.java)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

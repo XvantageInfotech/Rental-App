@@ -66,6 +66,7 @@
     <string name="active_tenant">Active Tenants</string>
     <string name="total_property">Total Property</string>
     <string name="total_payments">Total Payments</string>
+    <string name="take_rent">Take A Rent</string>
     <string name="no_properties_tip"><![CDATA[
     <font color="#6E7800">Tip:</font> Once you add a property, you can start managing tenants and billing.
 ]]></string>

@@ -58,7 +58,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                >
 
                 <include
                     android:id="@+id/cv_total_payment"
@@ -75,11 +75,18 @@
 
             </LinearLayout>
 
+            <include
+                android:id="@+id/cv_take_rent"
+                layout="@layout/take_rent_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="10dp">
 
                 <!-- Header Section -->
                 <LinearLayout

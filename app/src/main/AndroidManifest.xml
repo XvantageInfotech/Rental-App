@@ -31,6 +31,9 @@
         android:theme="@style/Theme.RentalApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.takeRent.TakeRentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
 
