@@ -58,7 +58,7 @@ class PropertyRoomAdapter(private val items: List<LauncherActivity.ListItem>) :
             binding.roomId.text = room.roomId
             binding.address.text = room.address
             binding.monthlyRent.text = "₹${room.monthlyRent}"
-            binding.securityAmount.text = "₹${room.securityAmount}"
+            binding.tvDepositAmount.text = "₹${room.securityAmount}"
         }
     }
 }

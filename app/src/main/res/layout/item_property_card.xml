@@ -3,27 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="8dp"
+    android:layout_marginTop="10dp"
     android:background="@android:color/white"
     android:elevation="@dimen/_5sdp"
     app:cardCornerRadius="12dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/roomImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/permisson_img" />
+
             <TextView
                 android:id="@+id/roomId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/roomImage"
+                android:layout_marginStart="12dp"
                 android:text="Room 101"
+                style="@style/OnboardingTitlePermissionTextStyle"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -47,26 +58,30 @@
                 android:id="@+id/id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/roomId"
+                android:layout_toEndOf="@id/roomImage"
+                android:layout_marginStart="12dp"
                 android:text="ID: 00101"
                 android:textColor="@android:color/darker_gray"
-                android:layout_below="@+id/roomId"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ADD.: 101, Swastik Plaza"
                 android:layout_below="@+id/id"
+                android:layout_toEndOf="@id/roomImage"
+                android:layout_marginStart="12dp"
+                android:text="ADD.: 101, Swastik Plaza"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         </RelativeLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -80,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:text="Monthly Rent:"
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/monthlyRent"
@@ -89,39 +104,8 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:text="$10,000"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Security Amount:"
-                    android:textColor="@android:color/darker_gray"
                     android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/securityAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:text="$10,000"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
             </LinearLayout>
-        </LinearLayout>
-
-        <!-- Rent Details -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -134,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:text="Rent Start Date:"
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/rentStartDate"
@@ -143,7 +127,38 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:text="1 Jan 2025"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Rent Details -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Security Amount:"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_deposit_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="$10,000"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -155,9 +170,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rent Deposited till:"
+                    android:text="Rent Settled Till:"
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/rentDepositTill"
@@ -166,14 +181,14 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:text="1 Feb 2025"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="8dp"
+            android:layout_marginVertical="12dp"
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
@@ -182,25 +197,56 @@
             android:orientation="horizontal">
 
             <LinearLayout
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/nextDueDate"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Next Due Date"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:text="1 Feb 2025"
+                    style="@style/OnboardingTitlePermissionTextStyle"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/nextDueDate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="$10,000"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:text="Next Due Date"
+                    android:textAlignment="center"
+                    android:textSize="12dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_advance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$10000"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_green_dark"
+                    style="@style/OnboardingTitlePermissionTextStyle"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Advance"
+                    android:textAlignment="center"
+                    android:textSize="12dp" />
+
+
             </LinearLayout>
 
 
@@ -211,19 +257,23 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/paymentDue"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Payment Due"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:text="$20000"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"
+                    style="@style/OnboardingTitlePermissionTextStyle"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/paymentDue"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="00"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:text="Payment Due"
+                    android:textAlignment="center"
+                    android:textSize="12dp" />
+
+
             </LinearLayout>
         </LinearLayout>
 
@@ -239,7 +289,7 @@
                 android:id="@+id/receivePaymentButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/black"
                 android:padding="10dp"
@@ -247,12 +297,12 @@
                 android:textColor="@android:color/white" />
 
             <Button
+                android:layout_marginStart="5dp"
                 android:id="@+id/invoiceButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:backgroundTint="@android:color/darker_gray"
+                android:backgroundTint="@color/whisper_gray"
                 android:padding="10dp"
                 android:text="Generate Invoice"
                 android:textColor="@android:color/black" />

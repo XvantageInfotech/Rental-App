@@ -12,6 +12,7 @@ import com.xvantage.rental.databinding.ActivitySplashBinding
 import com.xvantage.rental.ui.auth.AuthActivity
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
+import com.xvantage.rental.ui.takeRent.TakeRentActivity
 import com.xvantage.rental.utils.AppPreference
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,14 +37,16 @@ class SplashActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = when {
-                appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)
-                !appPreference.isFirstTimePreview() -> Intent(this, BoardingScreenActivity::class.java)
-                else -> Intent(this, AuthActivity::class.java)
-            }
-            intent.flags = INTENT_FLAGS
-            startActivity(intent)
-        }, SPLASH_DELAY)
+        startActivity(Intent(this, TakeRentActivity::class.java))
+
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            val intent = when {
+//                appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)
+//                !appPreference.isFirstTimePreview() -> Intent(this, BoardingScreenActivity::class.java)
+//                else -> Intent(this, AuthActivity::class.java)
+//            }
+//            intent.flags = INTENT_FLAGS
+//            startActivity(intent)
+//        }, SPLASH_DELAY)
     }
 }
