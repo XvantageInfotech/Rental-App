@@ -1,13 +1,18 @@
-package com.xvantage.rental.ui.takeRent
+package com.xvantage.rental.ui.takeRent.adapter
 
 import android.app.LauncherActivity
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.xvantage.rental.databinding.ItemPropertyCardBinding
 import com.xvantage.rental.databinding.ItemPropertyHeaderBinding
+import com.xvantage.rental.ui.takeRent.activity.ReceivePaymentActivity
+import com.xvantage.rental.ui.takeRent.activity.TakeRentActivity
 
-class PropertyRoomAdapter(private val items: List<LauncherActivity.ListItem>) :
+class PropertyRoomAdapter(private val items: List<LauncherActivity.ListItem>,val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -32,7 +37,7 @@ class PropertyRoomAdapter(private val items: List<LauncherActivity.ListItem>) :
             }
             TYPE_ROOM -> {
                 val binding = ItemPropertyCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                RoomViewHolder(binding)
+                RoomViewHolder(binding, context)
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -53,12 +58,15 @@ class PropertyRoomAdapter(private val items: List<LauncherActivity.ListItem>) :
         }
     }
 
-    class RoomViewHolder(private val binding: ItemPropertyCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class RoomViewHolder(private val binding: ItemPropertyCardBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(room: TakeRentActivity.RoomItem) {
             binding.roomId.text = room.roomId
             binding.address.text = room.address
             binding.monthlyRent.text = "₹${room.monthlyRent}"
             binding.tvDepositAmount.text = "₹${room.securityAmount}"
+            binding.btnRcvPayment.setOnClickListener {
+                startActivity(context, Intent(context, ReceivePaymentActivity::class.java), null)
+            }
         }
     }
 }

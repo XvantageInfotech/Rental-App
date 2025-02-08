@@ -150,6 +150,21 @@
     <string name="payment_due">Payment Due</string>
     <string name="receive_payment">Receive Payment</string>
     <string name="generate_invoice">Generate Invoice</string>
+    <string name="rent_rcv_date">Rent Received Date</string>
+    <string name="enter_rent_rcv">Select Rent Received Date</string>
+
+    <string name="enter_from_date">Select Rent From Date</string>
+    <string name="enter_to_date">Select Rent To Date</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="payment_mode">Payment Mode</string>
+
+    <string name="cash">Cash</string>
+    <string name="upi">UPI</string>
+    <string name="net_banking">Net Banking</string>
+    <string name="note">Note</string>
+    <string name="enter_note">Enter Note Here</string>
+    <string name="payment_received">Payment Received</string>
 
 
 

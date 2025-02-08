@@ -12,7 +12,6 @@ import com.xvantage.rental.databinding.ActivitySplashBinding
 import com.xvantage.rental.ui.auth.AuthActivity
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
-import com.xvantage.rental.ui.takeRent.TakeRentActivity
 import com.xvantage.rental.utils.AppPreference
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -286,7 +286,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/receivePaymentButton"
+                android:id="@+id/btn_rcv_payment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
@@ -298,7 +298,7 @@
 
             <Button
                 android:layout_marginStart="5dp"
-                android:id="@+id/invoiceButton"
+                android:id="@+id/btn_generate_invoice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

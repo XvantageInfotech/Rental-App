@@ -1,4 +1,4 @@
-package com.xvantage.rental.ui.takeRent
+package com.xvantage.rental.ui.takeRent.activity
 
 import android.app.LauncherActivity
 import android.os.Bundle
@@ -9,6 +9,7 @@ import com.xvantage.rental.utils.AppPreference
 import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xvantage.rental.databinding.ActivityTakeRentBinding
+import com.xvantage.rental.ui.takeRent.adapter.PropertyRoomAdapter
 
 class TakeRentActivity : AppCompatActivity() {
     private lateinit var layoutBinding: ActivityTakeRentBinding
@@ -33,7 +34,7 @@ class TakeRentActivity : AppCompatActivity() {
             RoomItem("Bed A", "Shop 303", 10000.0, 10000.0)
         )
 
-        layoutBinding.rvPropertyList.adapter = PropertyRoomAdapter(propertyData)
+        layoutBinding.rvPropertyList.adapter = PropertyRoomAdapter(propertyData,this)
         onClickEvents()
     }
 
