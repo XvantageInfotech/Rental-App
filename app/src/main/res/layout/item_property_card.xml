@@ -93,7 +93,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Monthly Rent:"
+                    android:text="@string/take_rent"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12dp" />
 
@@ -116,7 +116,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rent Start Date:"
+                    android:text="@string/rent_start_date_label"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12dp" />
 
@@ -147,7 +147,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Security Amount:"
+                    android:text="@string/security_amount_label"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12dp" />
 
@@ -170,7 +170,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rent Settled Till:"
+                    android:text="@string/rent_settled_till_label"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12dp" />
 
@@ -216,7 +216,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Next Due Date"
+                    android:text="@string/next_due_date"
                     android:textAlignment="center"
                     android:textSize="12dp" />
 
@@ -242,7 +242,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Advance"
+                    android:text="@string/advance"
                     android:textAlignment="center"
                     android:textSize="12dp" />
 
@@ -269,7 +269,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Payment Due"
+                    android:text="@string/payment_due"
                     android:textAlignment="center"
                     android:textSize="12dp" />
 
@@ -293,7 +293,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/black"
                 android:padding="10dp"
-                android:text="Receive Payment"
+                android:text="@string/receive_payment"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -304,7 +304,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/whisper_gray"
                 android:padding="10dp"
-                android:text="Generate Invoice"
+                android:text="@string/generate_invoice"
                 android:textColor="@android:color/black" />
         </LinearLayout>
 

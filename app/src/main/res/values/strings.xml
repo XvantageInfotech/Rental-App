@@ -140,4 +140,17 @@
     <string name="electricity_water">Electricity &amp; Water Details</string>
 
 
+    <!-- Take A Rent -->
+    <string name="monthly_rent_label">Monthly Rent:</string>
+    <string name="rent_start_date_label">Rent Start Date:</string>
+    <string name="security_amount_label">Security Amount:</string>
+    <string name="rent_settled_till_label">Rent Settled Till:</string>
+    <string name="next_due_date">Next Due Date</string>
+    <string name="advance">Advance</string>
+    <string name="payment_due">Payment Due</string>
+    <string name="receive_payment">Receive Payment</string>
+    <string name="generate_invoice">Generate Invoice</string>
+
+
+
 </resources>
