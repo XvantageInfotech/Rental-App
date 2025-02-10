@@ -20,9 +20,9 @@ class TakeRentActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         layoutBinding.toolbar.tvTitle.setText(R.string.take_rent)
-
-
-
+        layoutBinding.toolbar.back.setOnClickListener {
+            onBackPressed()
+        }
         layoutBinding.rvPropertyList.layoutManager = LinearLayoutManager(this)
 
         val propertyData = listOf(

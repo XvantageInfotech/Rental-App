@@ -21,5 +21,8 @@ class ReceivePaymentActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         layoutBinding.toolbar.tvTitle.setText(R.string.receive_payment)
+        layoutBinding.toolbar.back.setOnClickListener {
+            onBackPressed()
+        }
     }
 }
