@@ -26,12 +26,19 @@ class TakeRentActivity : AppCompatActivity() {
         layoutBinding.rvPropertyList.layoutManager = LinearLayoutManager(this)
 
         val propertyData = listOf(
-            PropertyItem("Swastik Plaza"),
-            RoomItem("Room 101", "101, Swastik Plaza", 10000.0, 10000.0),
-            RoomItem("Room 105", "105, Swastik Plaza", 10000.0, 10000.0),
-
-            PropertyItem("Platinum Tower"),
-            RoomItem("Bed A", "Shop 303", 10000.0, 10000.0)
+            PropertyItem(
+                "Swastik Plaza",
+                listOf(
+                    RoomItem("Room 101", "101, Swastik Plaza", 10000.0, 10000.0),
+                    RoomItem("Room 105", "105, Swastik Plaza", 10000.0, 10000.0)
+                )
+            ),
+            PropertyItem(
+                "Platinum Tower",
+                listOf(
+                    RoomItem("Bed A", "Shop 303", 10000.0, 10000.0)
+                )
+            )
         )
 
         layoutBinding.rvPropertyList.adapter = PropertyRoomAdapter(propertyData,this)
@@ -44,7 +51,7 @@ class TakeRentActivity : AppCompatActivity() {
         }
     }
 
-    data class PropertyItem(val propertyName: String) : LauncherActivity.ListItem()
+    data class PropertyItem(val propertyName: String,val rooms: List<RoomItem>) : LauncherActivity.ListItem()
 
     data class RoomItem(
         val roomId: String,

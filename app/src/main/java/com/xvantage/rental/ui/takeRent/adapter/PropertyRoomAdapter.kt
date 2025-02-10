@@ -1,31 +1,34 @@
 package com.xvantage.rental.ui.takeRent.adapter
 
-import android.app.LauncherActivity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ItemPropertyCardBinding
 import com.xvantage.rental.databinding.ItemPropertyHeaderBinding
 import com.xvantage.rental.ui.takeRent.activity.ReceivePaymentActivity
 import com.xvantage.rental.ui.takeRent.activity.TakeRentActivity
 
-class PropertyRoomAdapter(private val items: List<LauncherActivity.ListItem>,val context: Context) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PropertyRoomAdapter(
+    private val propertyList: List<TakeRentActivity.PropertyItem>,
+    private val context: Context
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val TYPE_PROPERTY = 0
         private const val TYPE_ROOM = 1
     }
 
+    private val expandedProperties = propertyList.map { it.propertyName }.toMutableSet()
+
     override fun getItemViewType(position: Int): Int {
-        return when (items[position]) {
+        return when (getItem(position)) {
             is TakeRentActivity.PropertyItem -> TYPE_PROPERTY
             is TakeRentActivity.RoomItem -> TYPE_ROOM
-            else -> {
-                throw IllegalArgumentException("Invalid type of data $position")}
+            else -> throw IllegalArgumentException("Invalid data type at position $position")
         }
     }
 
@@ -44,29 +47,56 @@ class PropertyRoomAdapter(private val items: List<LauncherActivity.ListItem>,val
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (val item = items[position]) {
+        when (val item = getItem(position)) {
             is TakeRentActivity.PropertyItem -> (holder as PropertyViewHolder).bind(item)
             is TakeRentActivity.RoomItem -> (holder as RoomViewHolder).bind(item)
         }
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = getDisplayList().size
 
-    class PropertyViewHolder(private val binding: ItemPropertyHeaderBinding) : RecyclerView.ViewHolder(binding.root) {
+    private fun getItem(position: Int): Any = getDisplayList()[position]
+
+    inner class PropertyViewHolder(private val binding: ItemPropertyHeaderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(property: TakeRentActivity.PropertyItem) {
             binding.propertyTitle.text = property.propertyName
+            val isExpanded = expandedProperties.contains(property.propertyName)
+            binding.propertyTitle.setCompoundDrawablesWithIntrinsicBounds(0, 0, if (isExpanded) R.drawable.ic_up_arrow else R.drawable.ic_drop_down_arrow, 0)
+
+            binding.root.setOnClickListener {
+                if (isExpanded) {
+                    expandedProperties.remove(property.propertyName)
+                } else {
+                    expandedProperties.add(property.propertyName)
+                }
+                notifyDataSetChanged()
+            }
         }
     }
 
-    class RoomViewHolder(private val binding: ItemPropertyCardBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+    inner class RoomViewHolder(private val binding: ItemPropertyCardBinding, private val context: Context) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(room: TakeRentActivity.RoomItem) {
             binding.roomId.text = room.roomId
             binding.address.text = room.address
             binding.monthlyRent.text = "₹${room.monthlyRent}"
             binding.tvDepositAmount.text = "₹${room.securityAmount}"
+
             binding.btnRcvPayment.setOnClickListener {
                 startActivity(context, Intent(context, ReceivePaymentActivity::class.java), null)
             }
         }
+    }
+
+    private fun getDisplayList(): List<Any> {
+        val displayList = mutableListOf<Any>()
+        for (property in propertyList) {
+            displayList.add(property)
+            if (expandedProperties.contains(property.propertyName)) {
+                displayList.addAll(property.rooms)
+            }
+        }
+        return displayList
     }
 }
