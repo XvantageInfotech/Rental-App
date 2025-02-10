@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 
@@ -14,6 +15,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AuthModule {
 
+    @Singleton
+    @Provides
+    fun provideOpenApiAuthService(retrofitBuilder: Retrofit.Builder): APIInterface {
+        return retrofitBuilder
+            .build()
+            .create(APIInterface::class.java)
+    }
     @Singleton
     @Provides
     fun provideApiInterface(): APIInterface {
