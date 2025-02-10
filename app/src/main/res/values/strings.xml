@@ -167,5 +167,8 @@
     <string name="payment_received">Payment Received</string>
 
 
+    <string name="invoice_history">Invoice History</string>
+    <string name="rent_invoice">Rent Invoice</string>
+
 
 </resources>

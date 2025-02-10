@@ -1,4 +1,4 @@
-package com.xvantage.rental.ui.takeRent.activity
+package com.xvantage.rental.ui.rentInvoice
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,22 +7,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityReceivePaymentBinding
-import com.xvantage.rental.databinding.ActivityTakeRentBinding
-import com.xvantage.rental.ui.takeRent.adapter.PropertyRoomAdapter
+import com.xvantage.rental.databinding.ActivityRentInvoiceBinding
 import com.xvantage.rental.utils.AppPreference
 
-class ReceivePaymentActivity : AppCompatActivity() {
-    private lateinit var layoutBinding: ActivityReceivePaymentBinding
+class RentInvoiceActivity : AppCompatActivity() {
+    private lateinit var layoutBinding: ActivityRentInvoiceBinding
     lateinit var appPreference: AppPreference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_receive_payment)
+        layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_rent_invoice)
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        layoutBinding.toolbar.tvTitle.setText(R.string.receive_payment)
+        layoutBinding.toolbar.tvTitle.setText(R.string.rent_invoice)
         layoutBinding.toolbar.back.setOnClickListener {
             onBackPressed()
         }

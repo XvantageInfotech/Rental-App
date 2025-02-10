@@ -11,6 +11,7 @@ import androidx.core.view.WindowCompat
 import com.xvantage.rental.databinding.ActivitySplashBinding
 import com.xvantage.rental.ui.auth.AuthActivity
 import com.xvantage.rental.ui.dashboard.DashboardActivity
+import com.xvantage.rental.ui.invoiceHistory.InvoiceHistoryActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
 import com.xvantage.rental.ui.takeRent.activity.TakeRentActivity
 import com.xvantage.rental.utils.AppPreference
@@ -37,15 +38,15 @@ class SplashActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-//        startActivity(Intent(this, TakeRentActivity::class.java))
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = when {
-                appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)
-                !appPreference.isFirstTimePreview() -> Intent(this, BoardingScreenActivity::class.java)
-                else -> Intent(this, AuthActivity::class.java)
-            }
-            intent.flags = INTENT_FLAGS
-            startActivity(intent)
-        }, SPLASH_DELAY)
+        startActivity(Intent(this, InvoiceHistoryActivity::class.java))
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            val intent = when {
+//                appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)
+//                !appPreference.isFirstTimePreview() -> Intent(this, BoardingScreenActivity::class.java)
+//                else -> Intent(this, AuthActivity::class.java)
+//            }
+//            intent.flags = INTENT_FLAGS
+//            startActivity(intent)
+//        }, SPLASH_DELAY)
     }
 }
