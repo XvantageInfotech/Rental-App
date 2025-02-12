@@ -15,8 +15,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AuthModule {
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideOpenApiAuthService(retrofitBuilder: Retrofit.Builder): APIInterface {
         return retrofitBuilder
             .build()
@@ -28,10 +28,9 @@ object AuthModule {
         return APIClient.appInterfaceServerUser()
     }
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideAuthRepository(apiInterface: APIInterface): AuthRepository {
         return AuthRepository(apiInterface)
     }
 }
-

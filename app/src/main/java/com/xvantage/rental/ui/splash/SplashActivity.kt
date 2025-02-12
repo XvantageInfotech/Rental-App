@@ -16,7 +16,6 @@ import com.xvantage.rental.utils.AppPreference
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var layoutBinding: ActivitySplashBinding

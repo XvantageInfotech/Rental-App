@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 //    alias(libs.plugins.google.gms.google.services)
 
-//    alias(libs.plugins.dagger.hilt.plugin)
+    alias(libs.plugins.dagger.hilt.plugin)
 }
 
 android {
@@ -62,7 +62,12 @@ android {
             buildConfigField("boolean", "IS_DEBUG", "false")
         }
     }
-
+    packaging {
+        resources {
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+            excludes.add("META-INF/gradle/incremental.annotation.processors")
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -113,7 +118,7 @@ dependencies {
     implementation(libs.overlap.avatar)
 
     implementation(libs.dagger.hilt)
-//    implementation(libs.hilt.compiler)
+    implementation(libs.hilt.compiler)
 //    implementation(libs.snackbar.android)
 
 
