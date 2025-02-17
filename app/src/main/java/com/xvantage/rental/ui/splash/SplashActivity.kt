@@ -11,9 +11,7 @@ import androidx.core.view.WindowCompat
 import com.xvantage.rental.databinding.ActivitySplashBinding
 import com.xvantage.rental.ui.auth.AuthActivity
 import com.xvantage.rental.ui.dashboard.DashboardActivity
-import com.xvantage.rental.ui.invoiceHistory.InvoiceHistoryActivity
 import com.xvantage.rental.ui.onboarding.BoardingScreenActivity
-import com.xvantage.rental.ui.takeRent.activity.TakeRentActivity
 import com.xvantage.rental.utils.AppPreference
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -11,10 +11,7 @@ import com.xvantage.rental.databinding.HomeTenantsItemBinding
 import com.xvantage.rental.utils.AppPreference
 
 
-interface OnTenantsActionListener {
-    fun onDeleteClicked(billInvoice: Property)
-    fun onMoreClicked(billInvoice: Property)
-}
+
 
 class TenantsAdapter(
     private val context: Context,
@@ -22,11 +19,11 @@ class TenantsAdapter(
 
     private lateinit var appPreference: AppPreference
     private var readImagePermission: String? = null
-    private lateinit var billInvoiceList: List<Tenant>
+    private lateinit var tenantList: List<Tenant>
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItems(billInvoiceList: List<Tenant>) {
-        this.billInvoiceList = billInvoiceList
+    fun addItems(tenantList: List<Tenant>) {
+        this.tenantList = tenantList
         notifyDataSetChanged()
     }
 
@@ -50,10 +47,10 @@ class TenantsAdapter(
     }
 
     override fun onBindViewHolder(holder: TenantDetailsViewHolder, position: Int) {
-        val data = billInvoiceList[position]
+        val data = tenantList[position]
         appPreference = AppPreference(context)
         holder.setData(data, position)
     }
 
-    override fun getItemCount(): Int = billInvoiceList.size
+    override fun getItemCount(): Int = tenantList.size
 }
