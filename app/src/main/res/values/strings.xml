@@ -169,6 +169,11 @@
 
     <string name="invoice_history">Invoice History</string>
     <string name="rent_invoice">Rent Invoice</string>
+    <string name="rent_amount_required">Please enter the rent amount</string>
+    <string name="rent_receive_date_required">Please enter the rent receive date</string>
+    <string name="from_date_required">Please enter the from date</string>
+    <string name="to_date_required">Please enter the to date</string>
+    <string name="note_required">Please enter a note</string>
 
 
 </resources>

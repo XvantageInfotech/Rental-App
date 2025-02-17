@@ -78,8 +78,8 @@
                                 android:textColor="@color/text_dark_blue"
                                 android:textSize="16sp" />
 
-                            <TextView
-                                android:id="@+id/tv_rent_rcv_date"
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/et_rent_rcv_date"
                                 style="@style/EditText"
                                 android:background="@drawable/grey_border_background"
                                 android:drawableEnd="@drawable/ic_calender"
@@ -114,8 +114,8 @@
                                 android:textColor="@color/text_dark_blue"
                                 android:textSize="16sp" />
 
-                            <TextView
-                                android:id="@+id/tv_from_date"
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/et_from_date"
                                 style="@style/EditText"
                                 android:background="@drawable/grey_border_background"
                                 android:drawableEnd="@drawable/ic_calender"
@@ -143,8 +143,8 @@
                                 android:textColor="@color/text_dark_blue"
                                 android:textSize="16sp" />
 
-                            <TextView
-                                android:id="@+id/tv_to_date"
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/et_to_date"
                                 style="@style/EditText"
                                 android:background="@drawable/grey_border_background"
                                 android:drawableEnd="@drawable/ic_calender"
@@ -171,7 +171,7 @@
                         android:textSize="16sp" />
 
                     <RadioGroup
-                        android:id="@+id/rg_lease_type"
+                        android:id="@+id/rg_payment_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
@@ -237,7 +237,7 @@
 
 
                     <Button
-                        android:id="@+id/receivePaymentButton"
+                        android:id="@+id/btn_rcv_payment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="8dp"
