@@ -254,4 +254,14 @@
         <item name="colorAccent">#1A4BFF</item>
         <item name="android:textColorSecondary">@android:color/black</item>
     </style>
+
+
+    <style name="MyDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/midnight_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/gray</item>
+    </style>
+
 </resources>
