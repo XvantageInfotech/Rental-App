@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ItemPropertyCardBinding
 import com.xvantage.rental.databinding.ItemPropertyHeaderBinding
+import com.xvantage.rental.ui.invoiceHistory.InvoiceHistoryActivity
 import com.xvantage.rental.ui.takeRent.activity.ReceivePaymentActivity
 import com.xvantage.rental.ui.takeRent.activity.TakeRentActivity
 
@@ -85,6 +86,9 @@ class PropertyRoomAdapter(
 
             binding.btnRcvPayment.setOnClickListener {
                 startActivity(context, Intent(context, ReceivePaymentActivity::class.java), null)
+            }
+            binding.btnGenerateInvoice.setOnClickListener {
+                startActivity(context, Intent(context, InvoiceHistoryActivity::class.java), null)
             }
         }
     }

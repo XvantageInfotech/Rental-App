@@ -16,7 +16,6 @@ import com.xvantage.rental.utils.CommonFunction
 class ReceivePaymentActivity : AppCompatActivity() {
     private lateinit var layoutBinding: ActivityReceivePaymentBinding
     private lateinit var appPreference: AppPreference
-
     private lateinit var rentAmount: String
     private lateinit var rentRcvDate: String
     private lateinit var fromDate: String
