@@ -62,14 +62,22 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
 
-        layoutBinding.navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.more_apps_tv -> Toast.makeText(this, "More Apps", Toast.LENGTH_SHORT).show()
-                R.id.premium_tv -> Toast.makeText(this, "Premium", Toast.LENGTH_SHORT).show()
-            }
+        layoutBinding.navigationView.findViewById<View>(R.id.more_apps_tv)?.setOnClickListener {
+            Toast.makeText(this, "More Apps", Toast.LENGTH_SHORT).show()
             drawerLayout.closeDrawer(GravityCompat.START)
-            true
         }
+
+        layoutBinding.navigationView.findViewById<View>(R.id.premium_tv)?.setOnClickListener {
+            Toast.makeText(this, "Premium", Toast.LENGTH_SHORT).show()
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        layoutBinding.navigationView.findViewById<View>(R.id.rate_us_tv)?.setOnClickListener {
+            CommonFunction().showRatingDialog(this)
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+
         layoutBinding.bottomNavigation.selectedItemId = R.id.home
         updateBottomNavigationIcons(R.id.home)
         layoutBinding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
