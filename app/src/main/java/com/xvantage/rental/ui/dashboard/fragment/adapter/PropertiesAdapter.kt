@@ -11,10 +11,7 @@ import com.xvantage.rental.data.source.sample.Property
 import com.xvantage.rental.databinding.HomePropertiesItemBinding
 import com.xvantage.rental.utils.AppPreference
 
-interface OnPropertyActionListener {
-    fun onDeleteClicked(billInvoice: Property)
-    fun onMoreClicked(billInvoice: Property)
-}
+
 
 class PropertiesAdapter(
     private val context: Context,
@@ -22,11 +19,11 @@ class PropertiesAdapter(
 
     private lateinit var appPreference: AppPreference
     private var readImagePermission: String? = null
-    private lateinit var billInvoiceList: List<Property>
+    private lateinit var propertiesList: List<Property>
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItems(billInvoiceList: List<Property>) {
-        this.billInvoiceList = billInvoiceList
+    fun addItems(propertiesList: List<Property>) {
+        this.propertiesList = propertiesList
         notifyDataSetChanged()
     }
 
@@ -41,17 +38,17 @@ class PropertiesAdapter(
             itemBinding.tvPropertyAddress.text = data.address
             val totalTenants = data.rooms.count { it.tenant != null }
             itemBinding.tenantsValue.text = totalTenants.toString()
-            if (!data.rooms[position].occupied) {
-                itemBinding.tvStatus.setText("Vacant")
-                itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
-            } else {
-                itemBinding.tvStatus.setText("Occupied")
-                itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
-            }
 
+            if (position < data.rooms.size) {
+                if (!data.rooms[position].occupied) {
+                    itemBinding.tvStatus.setText("Vacant")
+                    itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
+                } else {
+                    itemBinding.tvStatus.setText("Occupied")
+                    itemBinding.tvStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
+                }
+            } 
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyDetailsViewHolder {
@@ -60,10 +57,10 @@ class PropertiesAdapter(
     }
 
     override fun onBindViewHolder(holder: PropertyDetailsViewHolder, position: Int) {
-        val data = billInvoiceList[position]
+        val data = propertiesList[position]
         appPreference = AppPreference(context)
         holder.setData(data, position)
     }
 
-    override fun getItemCount(): Int = billInvoiceList.size
+    override fun getItemCount(): Int = propertiesList.size
 }

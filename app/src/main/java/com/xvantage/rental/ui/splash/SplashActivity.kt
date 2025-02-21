@@ -35,6 +35,7 @@ class SplashActivity : AppCompatActivity() {
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
+//        startActivity(Intent(this, InvoiceHistoryActivity::class.java))
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = when {
                 appPreference.isUserLoginFirstTime() -> Intent(this, DashboardActivity::class.java)

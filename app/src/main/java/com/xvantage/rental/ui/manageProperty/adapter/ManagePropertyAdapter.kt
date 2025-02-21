@@ -21,8 +21,8 @@ class ManagePropertyAdapter(
     }
 
     interface OnRoomItemClickListener {
-        fun onRoomClick(roomNumber: String, position: Int) // Room click
-        fun onAddTenantClick(roomNumber: String, position: Int) // Add tenant click
+        fun onRoomClick(roomNumber: String, position: Int)
+        fun onAddTenantClick(roomNumber: String, position: Int)
     }
 
     inner class ManagePropertyViewHolder(private val itemBinding: PropertyRoomItemsBinding) :
@@ -31,7 +31,7 @@ class ManagePropertyAdapter(
         fun setData(data: String, position: Int) {
             itemBinding.tvRoomNumber.text = data
 
-            // Set click listeners
+
             itemBinding.root.setOnClickListener {
                 listener.onRoomClick(data, position)
             }

@@ -20,6 +20,8 @@
             </Target>
           </targets>
         </DialogSelection>
+      <SelectionState runConfigName="Rental_App.app">
+        <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
   </component>

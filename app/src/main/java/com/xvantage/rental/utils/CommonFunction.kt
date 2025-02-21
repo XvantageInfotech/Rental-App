@@ -15,8 +15,6 @@ import java.util.Locale
 
 class CommonFunction {
 
-    var invoiceDatePicker: Calendar = Calendar.getInstance()
-
     fun navigation(context: Context, activity: Class<out Activity>) {
         val intent = Intent(context, activity)
         context.startActivity(intent)

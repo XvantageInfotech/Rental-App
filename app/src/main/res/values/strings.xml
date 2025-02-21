@@ -66,6 +66,7 @@
     <string name="active_tenant">Active Tenants</string>
     <string name="total_property">Total Property</string>
     <string name="total_payments">Total Payments</string>
+    <string name="take_rent">Take A Rent</string>
     <string name="no_properties_tip"><![CDATA[
     <font color="#6E7800">Tip:</font> Once you add a property, you can start managing tenants and billing.
 ]]></string>
@@ -137,6 +138,42 @@
     <string name="fixed_define">Fixed Define</string>
     <string name="until_leave">Until Leave</string>
     <string name="electricity_water">Electricity &amp; Water Details</string>
+
+
+    <!-- Take A Rent -->
+    <string name="monthly_rent_label">Monthly Rent:</string>
+    <string name="rent_start_date_label">Rent Start Date:</string>
+    <string name="security_amount_label">Security Amount:</string>
+    <string name="rent_settled_till_label">Rent Settled Till:</string>
+    <string name="next_due_date">Next Due Date</string>
+    <string name="advance">Advance</string>
+    <string name="payment_due">Payment Due</string>
+    <string name="receive_payment">Receive Payment</string>
+    <string name="generate_invoice">Generate Invoice</string>
+    <string name="rent_rcv_date">Rent Received Date</string>
+    <string name="enter_rent_rcv">Select Rent Received Date</string>
+
+    <string name="enter_from_date">Select Rent From Date</string>
+    <string name="enter_to_date">Select Rent To Date</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="payment_mode">Payment Mode</string>
+
+    <string name="cash">Cash</string>
+    <string name="upi">UPI</string>
+    <string name="net_banking">Net Banking</string>
+    <string name="note">Note</string>
+    <string name="enter_note">Enter Note Here</string>
+    <string name="payment_received">Payment Received</string>
+
+
+    <string name="invoice_history">Invoice History</string>
+    <string name="rent_invoice">Rent Invoice</string>
+    <string name="rent_amount_required">Please enter the rent amount</string>
+    <string name="rent_receive_date_required">Please enter the rent receive date</string>
+    <string name="from_date_required">Please enter the from date</string>
+    <string name="to_date_required">Please enter the to date</string>
+    <string name="note_required">Please enter a note</string>
 
 
 </resources>

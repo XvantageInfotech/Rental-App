@@ -13,11 +13,12 @@ import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityAuthBinding
 import com.xvantage.rental.ui.auth.fragment.sealed.AuthScreen
 import com.xvantage.rental.ui.auth.fragment.sealed.AuthState
+import com.xvantage.rental.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : BaseActivity() {
 
     private lateinit var navController: NavController
     private lateinit var binding: ActivityAuthBinding

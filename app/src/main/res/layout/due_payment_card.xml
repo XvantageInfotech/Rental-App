@@ -11,8 +11,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/whisper_gray">
+        android:layout_height="match_parent">
 
         <!-- Icon -->
         <ImageView
@@ -22,7 +21,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:src="@drawable/ic_exclamation"
+            android:src="@drawable/ic_total_due"
              />
 
         <!-- Title Text -->
