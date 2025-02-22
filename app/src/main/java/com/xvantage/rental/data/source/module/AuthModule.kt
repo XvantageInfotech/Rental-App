@@ -8,9 +8,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
-
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -24,12 +24,15 @@ object AuthModule {
             .build()
             .create(APIInterface::class.java)
     }
+
     @Provides
     @Singleton
     fun provideRetrofitBuilder(): Retrofit.Builder {
         return Retrofit.Builder()
-            .baseUrl("https://your-base-url.com/") 
+            .baseUrl("https://api.rental.xvantageinfotech.com/api/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
     }
+
     @Singleton
     @Provides
     @Named("default")

@@ -12,6 +12,8 @@ import com.xvantage.rental.network.response.LoginResponse
 import com.xvantage.rental.network.response.SignupResponse
 import com.xvantage.rental.network.response.VerifyOTPResponse
 import com.xvantage.rental.network.utils.ApiLogger
+import okhttp3.Request
+import retrofit2.Response
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(private val apiInterface: APIInterface) {
@@ -19,21 +21,30 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
     // Login API
     suspend fun login(email: String, password: String): ResultWrapper<LoginResponse> {
         val request = LoginRequest(email, password)
+        val retrofitRequest = apiInterface.login(request).raw().request
 
         return try {
+            ApiLogger.logRequest(request, retrofitRequest)
             val response = apiInterface.login(request)
+            ApiLogger.logResponse(response, retrofitRequest)
             NetworkHelper.handleApiResponse(response)
         } catch (e: Exception) {
+            ApiLogger.logError(e, retrofitRequest)
             ResultWrapper.Error("Network error: ${e.localizedMessage}")
         }
     }
 
     // Google Login API
     suspend fun loginWithGoogle(googleData: GoogleLoginRequest): ResultWrapper<LoginResponse> {
+        val retrofitRequest = apiInterface.googleLogin(googleData).raw().request
+
         return try {
+            ApiLogger.logRequest(googleData, retrofitRequest)
             val response = apiInterface.googleLogin(googleData)
+            ApiLogger.logResponse(response, retrofitRequest)
             NetworkHelper.handleApiResponse(response)
         } catch (e: Exception) {
+            ApiLogger.logError(e, retrofitRequest)
             ResultWrapper.Error("Network error: ${e.localizedMessage}")
         }
     }
@@ -41,10 +52,15 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
     // Signup API
     suspend fun signUp(email: String, password: String): ResultWrapper<SignupResponse> {
         val request = SignupRequest(email, password)
+        val retrofitRequest = apiInterface.signUp(request).raw().request
+
         return try {
+            ApiLogger.logRequest(request, retrofitRequest)
             val response = apiInterface.signUp(request)
+            ApiLogger.logResponse(response, retrofitRequest)
             NetworkHelper.handleApiResponse(response)
         } catch (e: Exception) {
+            ApiLogger.logError(e, retrofitRequest)
             ResultWrapper.Error("Network error: ${e.localizedMessage}")
         }
     }
@@ -52,10 +68,15 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
     // Verify OTP API
     suspend fun verifyOtp(email: String, otp: String, type: String): ResultWrapper<VerifyOTPResponse> {
         val request = VerifyOTPRequest(email, otp, type)
+        val retrofitRequest = apiInterface.verifyOtp(request).raw().request
+
         return try {
+            ApiLogger.logRequest(request, retrofitRequest)
             val response = apiInterface.verifyOtp(request)
+            ApiLogger.logResponse(response, retrofitRequest)
             NetworkHelper.handleApiResponse(response)
         } catch (e: Exception) {
+            ApiLogger.logError(e, retrofitRequest)
             ResultWrapper.Error("Network error: ${e.localizedMessage}")
         }
     }
@@ -63,8 +84,12 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
     // Forgot Password API
     suspend fun forgotPassword(email: String): ResultWrapper<JsonObject> {
         val params = mapOf("email" to email)
+        val retrofitRequest = apiInterface.post("forgotPassword", params).request()
+
         return try {
+            ApiLogger.logRequest(params, retrofitRequest)
             val response = apiInterface.post("forgotPassword", params).execute()
+            ApiLogger.logResponse(response, retrofitRequest)
             if (response.isSuccessful) {
                 ResultWrapper.Success(response.body() ?: JsonObject())
             } else {
@@ -75,6 +100,7 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
                 )
             }
         } catch (e: Exception) {
+            ApiLogger.logError(e, retrofitRequest)
             ResultWrapper.Error("Network error: ${e.localizedMessage}")
         }
     }

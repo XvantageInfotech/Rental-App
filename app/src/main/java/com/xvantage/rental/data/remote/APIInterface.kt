@@ -36,7 +36,7 @@ interface APIInterface {
     @POST("auth/google-login")
     suspend fun googleLogin(@Body request: GoogleLoginRequest): Response<LoginResponse>
 
-    @POST("auth/signup")
+    @POST("auth/sign-up")
     suspend fun signUp(@Body request: SignupRequest): Response<SignupResponse>
 
     @POST("auth/verify-otp")
@@ -56,7 +56,7 @@ interface APIInterface {
         @Part file: MultipartBody.Part
     ): Call<JsonObject>
 
-    @POST("auth/login")
+    @POST("landlord/auth/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
     @Multipart
