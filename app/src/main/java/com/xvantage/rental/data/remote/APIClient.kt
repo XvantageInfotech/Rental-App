@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object APIClient {
 
     fun appInterfaceServerUser(): APIInterface {
-        return getClient(BuildConfig.SERVER_USER).create(APIInterface::class.java)
+        return getClient("BuildConfig.SERVER_USER").create(APIInterface::class.java)
     }
 
     private fun getClient(baseUrl: String): Retrofit {

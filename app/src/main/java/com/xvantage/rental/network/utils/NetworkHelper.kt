@@ -26,8 +26,8 @@ sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T) : ResultWrapper<T>()
     data class Error(
         val message: String,
-        val statusCode: Int? = null, // HTTP status code
-        val errorBody: String? = null // Optional raw error body
+        val statusCode: Int? = null,
+        val errorBody: String? = null
     ) : ResultWrapper<Nothing>()
     object Loading : ResultWrapper<Nothing>()
 }

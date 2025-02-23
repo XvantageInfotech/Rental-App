@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import com.xvantage.rental.data.remote.APIInterface
 import com.xvantage.rental.network.utils.NetworkHelper
 import com.xvantage.rental.network.utils.ResultWrapper
-import com.xvantage.rental.network.request.LoginRequest
+import com.xvantage.rental.network.request.auth.LoginRequest
 import com.xvantage.rental.network.request.auth.GoogleLoginRequest
 import com.xvantage.rental.network.request.auth.SignupRequest
 import com.xvantage.rental.network.request.auth.VerifyOTPRequest
@@ -12,8 +12,6 @@ import com.xvantage.rental.network.response.LoginResponse
 import com.xvantage.rental.network.response.SignupResponse
 import com.xvantage.rental.network.response.VerifyOTPResponse
 import com.xvantage.rental.network.utils.ApiLogger
-import okhttp3.Request
-import retrofit2.Response
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(private val apiInterface: APIInterface) {
