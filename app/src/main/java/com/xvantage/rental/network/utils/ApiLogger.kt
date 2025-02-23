@@ -41,7 +41,7 @@ object ApiLogger {
     }
 
     private fun buildBlockLog(title: String, endpoint: String, body: String?, code: Int? = null): String {
-        val line = "──────────────────────────────────"
+        val line = "──────────────────────────────────────────────────────────────────────────────────"
         return """
         |$line
         |$title
