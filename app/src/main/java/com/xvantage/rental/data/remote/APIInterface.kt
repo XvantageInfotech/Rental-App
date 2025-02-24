@@ -32,13 +32,13 @@ interface APIInterface {
     fun post(@Url url: String, @FieldMap params: Map<String, String>): Call<JsonObject>
 
 
-    @POST("auth/google-login")
+    @POST("auth/sign-up")
     suspend fun googleLogin(@Body request: GoogleLoginRequest): Response<LoginResponse>
 
     @POST("auth/sign-up")
     suspend fun signUp(@Body request: SignupRequest): Response<SignupResponse>
 
-    @POST("auth/verify-otp")
+    @POST("auth/verify")
     suspend fun verifyOtp(@Body request: VerifyOTPRequest): Response<VerifyOTPResponse>
     @POST("landlord/auth/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>

@@ -32,10 +32,8 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
         }
     }
 
-    // Google Login API
-    suspend fun loginWithGoogle(googleData: GoogleLoginRequest): ResultWrapper<LoginResponse> {
+    suspend fun signUpWithGoogle(googleData: GoogleLoginRequest): ResultWrapper<LoginResponse> {
         val retrofitRequest = apiInterface.googleLogin(googleData).raw().request
-
         return try {
             ApiLogger.logRequest(googleData, retrofitRequest)
             val response = apiInterface.googleLogin(googleData)
@@ -46,6 +44,7 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
             ResultWrapper.Error("Network error: ${e.localizedMessage}")
         }
     }
+
 
     // Signup API
     suspend fun signUp(email: String, password: String): ResultWrapper<SignupResponse> {

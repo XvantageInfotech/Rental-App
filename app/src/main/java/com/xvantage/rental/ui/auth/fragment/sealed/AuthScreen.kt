@@ -11,7 +11,7 @@ package com.xvantage.rental.ui.auth.fragment.sealed
 sealed class AuthScreen {
     object SignIn : AuthScreen()
     object SignUp : AuthScreen()
-    object VerifyOtp : AuthScreen()
+    data class VerifyOtp(val email: String) : AuthScreen()
     object ForgotPassword : AuthScreen()
     object Dashboard : AuthScreen()
 }

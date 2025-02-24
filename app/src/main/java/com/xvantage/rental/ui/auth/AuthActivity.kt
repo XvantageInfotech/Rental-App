@@ -58,11 +58,16 @@ class AuthActivity : BaseActivity() {
         lifecycleScope.launch {
             viewModel.currentScreen.collect { screen ->
                 when (screen) {
-                    AuthScreen.SignIn -> navController.navigate(R.id.signInFragment)
-                    AuthScreen.SignUp -> navController.navigate(R.id.signUpFragment)
-                    AuthScreen.VerifyOtp -> navController.navigate(R.id.verifyOtpFragment)
-                    AuthScreen.ForgotPassword -> navController.navigate(R.id.forgotPasswordFragment)
-                    AuthScreen.Dashboard -> navController.navigate(R.id.dashboardActivity)
+                    is AuthScreen.SignIn -> navController.navigate(R.id.signInFragment)
+                    is AuthScreen.SignUp -> navController.navigate(R.id.signUpFragment)
+                    is AuthScreen.VerifyOtp -> {
+                        val bundle = Bundle().apply {
+                            putString("email", screen.email)
+                        }
+                        navController.navigate(R.id.verifyOtpFragment, bundle)
+                    }
+                    is AuthScreen.ForgotPassword -> navController.navigate(R.id.forgotPasswordFragment)
+                    is AuthScreen.Dashboard -> navController.navigate(R.id.dashboardActivity)
                 }
             }
         }

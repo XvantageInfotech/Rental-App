@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val repository: AuthRepository
@@ -35,12 +34,12 @@ class AuthViewModel @Inject constructor(
             when (val response = repository.login(email, password)) {
                 is ResultWrapper.Success -> {
                     authStateFlow.value = AuthState.Success(response.value.data?.token)
-                    currentScreenFlow.value = AuthScreen.VerifyOtp
+                    currentScreenFlow.value = AuthScreen.VerifyOtp(email)
                 }
                 is ResultWrapper.Error -> {
                     authStateFlow.value = AuthState.Error(response.message ?: "Login failed")
                 }
-                ResultWrapper.Loading -> TODO()
+                ResultWrapper.Loading -> Unit
             }
         }
     }
@@ -51,12 +50,28 @@ class AuthViewModel @Inject constructor(
             when (val response = repository.signUp(email, password)) {
                 is ResultWrapper.Success -> {
                     authStateFlow.value = AuthState.Success("Signup successful")
-                    currentScreenFlow.value = AuthScreen.VerifyOtp
+                    currentScreenFlow.value = AuthScreen.VerifyOtp(email)
                 }
                 is ResultWrapper.Error -> {
                     authStateFlow.value = AuthState.Error(response.message ?: "Signup failed")
                 }
-                ResultWrapper.Loading -> TODO()
+                ResultWrapper.Loading -> Unit
+            }
+        }
+    }
+
+    fun signUpWithGoogle(googleData: GoogleLoginRequest) {
+        viewModelScope.launch {
+            authStateFlow.value = AuthState.Loading
+            when (val response = repository.signUpWithGoogle(googleData)) {
+                is ResultWrapper.Success -> {
+                    authStateFlow.value = AuthState.Success(response.value.data?.token ?: "Signup successful")
+                    currentScreenFlow.value = AuthScreen.VerifyOtp(googleData.googleData.email)
+                }
+                is ResultWrapper.Error -> {
+                    authStateFlow.value = AuthState.Error(response.message ?: "Google Signup failed")
+                }
+                ResultWrapper.Loading -> Unit
             }
         }
     }
@@ -72,7 +87,7 @@ class AuthViewModel @Inject constructor(
                 is ResultWrapper.Error -> {
                     authStateFlow.value = AuthState.Error(response.message ?: "Invalid OTP")
                 }
-                ResultWrapper.Loading -> TODO()
+                ResultWrapper.Loading -> Unit
             }
         }
     }
@@ -87,23 +102,7 @@ class AuthViewModel @Inject constructor(
                 is ResultWrapper.Error -> {
                     authStateFlow.value = AuthState.Error(response.message ?: "Invalid email")
                 }
-                ResultWrapper.Loading -> TODO()
-            }
-        }
-    }
-
-    fun loginWithGoogle(googleData: GoogleLoginRequest) {
-        viewModelScope.launch {
-            authStateFlow.value = AuthState.Loading
-            when (val response = repository.loginWithGoogle(googleData)) {
-                is ResultWrapper.Success -> {
-                    authStateFlow.value = AuthState.Success(response.value.data?.token)
-                    currentScreenFlow.value = AuthScreen.VerifyOtp
-                }
-                is ResultWrapper.Error -> {
-                    authStateFlow.value = AuthState.Error(response.message ?: "Google Login failed")
-                }
-                ResultWrapper.Loading -> TODO()
+                ResultWrapper.Loading -> Unit
             }
         }
     }

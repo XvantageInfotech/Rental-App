@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="45dp">
+                android:padding="35dp">
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -87,9 +87,9 @@
                         app:otp_filledTextSize="24sp"
                         app:otp_highlightedBackgroundImage="@drawable/otp_background_highlighted"
                         app:otp_highlightedTextSize="24sp"
-                        app:otp_itemCount="4"
+                        app:otp_itemCount="6"
                         app:otp_itemHeight="56sp"
-                        app:otp_itemWidth="48sp"
+                        app:otp_itemWidth="40sp"
                         app:otp_marginBetween="8dp"
                         app:otp_showCursor="true"
                         app:otp_textColor="@color/black_cole"

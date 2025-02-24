@@ -9,8 +9,8 @@ package com.xvantage.rental.network.request.auth
  */
 
 
-
 data class SignupRequest(
     val email: String,
-    val password: String
+    val password: String,
+    val deviceType: String = "android"
 )

@@ -63,15 +63,20 @@ class GoogleAuthClient(
             credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
         ) {
             val tokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+            val email = tokenCredential.id
+
             Log.d("GoogleAuthClient", "Google ID: ${tokenCredential.id}")
             Log.d("GoogleAuthClient", "Display Name: ${tokenCredential.displayName.orEmpty()}")
             Log.d("GoogleAuthClient", "Profile Picture URL: ${tokenCredential.profilePictureUri}")
+            Log.d("GoogleAuthClient", "Email: $email")
             Log.d("GoogleAuthClient", "Raw ID Token: ${credential.data}")
 
             SignInResult.Success(
                 id = tokenCredential.id,
                 username = tokenCredential.displayName.orEmpty(),
-                avatarUrl = tokenCredential.profilePictureUri.toString()
+                avatarUrl = tokenCredential.profilePictureUri.toString(),
+                idToken = tokenCredential.idToken,
+                email = email
             )
         } else {
             SignInResult.ErrorTypeCredentials

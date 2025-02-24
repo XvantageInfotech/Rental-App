@@ -13,5 +13,11 @@ sealed interface SignInResult {
     data object Cancelled : SignInResult
     data object NoCredentials : SignInResult
     data object ErrorTypeCredentials : SignInResult
-    data class Success(val id: String, val username: String, val avatarUrl: String) : SignInResult
+    data class Success(
+        val id: String,
+        val username: String,
+        val avatarUrl: String,
+        val idToken: String,
+        val email: String
+    ) : SignInResult
 }
