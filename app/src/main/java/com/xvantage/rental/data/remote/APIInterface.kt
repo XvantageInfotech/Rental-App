@@ -26,7 +26,7 @@ interface APIInterface {
     @POST
     fun post(@Url url: String, @FieldMap params: Map<String, String>): Call<JsonObject>
 
-    @POST("auth/login")
+    @POST("landlord/auth/login")
     suspend fun googleLogin(@Body request: GoogleLoginRequest): Response<LoginResponse>
 
     @POST("auth/sign-up")
