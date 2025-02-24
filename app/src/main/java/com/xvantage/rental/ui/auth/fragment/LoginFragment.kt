@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.xvantage.rental.databinding.FragmentLoginBinding
+import com.xvantage.rental.network.request.auth.GoogleLoginRequest
 import com.xvantage.rental.ui.auth.fragment.sealed.AuthScreen
 import com.xvantage.rental.ui.auth.AuthViewModel
 import com.xvantage.rental.ui.auth.GoogleAuthClient
@@ -44,12 +45,16 @@ class LoginFragment : BaseFragment() {
         appPreference = AppPreference(requireContext())
         googleAuthClient = GoogleAuthClient(requireActivity())
 
-        layoutBinding.btnSignin.setOnClickListener {
-            val email = /*binding.etEmail.text.toString()*/ "jh"
-            val password = /*binding.etPassword.text.toString()*/ "jhh"
-            viewModel.signIn(email, password)
-        }
 
+        layoutBinding.btnSignin.setOnClickListener {
+            val email = layoutBinding.etSignUpEmail.text.toString().trim()
+            val password = layoutBinding.etSignUpPassword.text.toString().trim()
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                viewModel.signIn(email, password)
+            } else {
+                Toast.makeText(context, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            }
+        }
         layoutBinding.forgotPassword.setOnClickListener {
             viewModel.setCurrentScreen(AuthScreen.ForgotPassword)
         }
@@ -57,30 +62,46 @@ class LoginFragment : BaseFragment() {
             lifecycleScope.launch {
                 when (val result = googleAuthClient.signIn()) {
                     is SignInResult.Cancelled -> {
-                        Log.d("LoginFragment", "Sign-in cancelled")
-                        Toast.makeText(context, "Sign-in cancelled", Toast.LENGTH_SHORT).show()
+                        Log.d("SignUpFragment", "Google sign-up cancelled")
+                        Toast.makeText(context, "Google sign-up cancelled", Toast.LENGTH_SHORT).show()
                     }
                     is SignInResult.ErrorTypeCredentials -> {
-                        Log.d("LoginFragment", "Error with credentials")
-                        Toast.makeText(context, "Error with credentials", Toast.LENGTH_SHORT).show()
+                        Log.d("SignUpFragment", "Error with Google credentials")
+                        Toast.makeText(context, "Error with Google credentials", Toast.LENGTH_SHORT).show()
                     }
                     is SignInResult.Failure -> {
-                        Log.d("LoginFragment", "Sign-in failed")
-                        Toast.makeText(context, "Sign-in failed", Toast.LENGTH_SHORT).show()
+                        Log.d("SignUpFragment", "Google sign-up failed")
+                        Toast.makeText(context, "Google sign-up failed", Toast.LENGTH_SHORT).show()
                     }
                     is SignInResult.NoCredentials -> {
-                        Log.d("LoginFragment", "No credentials found")
-                        Toast.makeText(context, "No credentials found", Toast.LENGTH_SHORT).show()
+                        Log.d("SignUpFragment", "No Google credentials found")
+                        Toast.makeText(context, "No Google credentials found", Toast.LENGTH_SHORT).show()
                     }
                     is SignInResult.Success -> {
-                        Log.d("LoginFragment", "Sign-in successful")
-                        Toast.makeText(context, "Sign-in successful", Toast.LENGTH_SHORT).show()
-                        // Handle successful sign-in, e.g., navigate to another screen
+                        Log.d("SignUpFragment", "Google sign-up successful")
+                        Toast.makeText(context, "Google sign-up successful", Toast.LENGTH_SHORT).show()
+                        val email = result.email
+                        if (email.isNullOrEmpty()) {
+                            Toast.makeText(context, "Google sign-in did not return an email", Toast.LENGTH_SHORT).show()
+                            return@launch
+                        }
+
+                        val googleData = GoogleLoginRequest.GoogleData(
+                            email = email,
+                            firstName = result.username,
+                            profilePic = result.avatarUrl,
+                            socialId = result.id,
+                            deviceToken = result.idToken,
+                            deviceType = "android"
+                        )
+                        val googleLoginRequest = GoogleLoginRequest(
+                            googleData = googleData
+                        )
+                        viewModel.signUpWithGoogle(googleLoginRequest)
                     }
                 }
             }
         }
-
         layoutBinding.tvSignUp.setOnClickListener {
             viewModel.setCurrentScreen(AuthScreen.SignUp)
         }

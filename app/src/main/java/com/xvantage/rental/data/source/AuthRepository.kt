@@ -18,7 +18,7 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
 
     // Login API
     suspend fun login(email: String, password: String): ResultWrapper<LoginResponse> {
-        val request = LoginRequest(email, password)
+        val request = LoginRequest(email, password, "email")
         val retrofitRequest = apiInterface.login(request).raw().request
 
         return try {
