@@ -15,20 +15,30 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object APIClient {
 
+    private var jwtToken: String? = null
+
+    fun setToken(token: String?) {
+        jwtToken = token
+    }
+
     fun appInterfaceServerUser(): APIInterface {
-        return getClient("https://api.rental.xvantageinfotech.com/api/v1/").create(APIInterface::class.java)
+        return getClient("https://api.rental.xvantageinfotech.com/api/v1/")
+            .create(APIInterface::class.java)
     }
 
     private fun getClient(baseUrl: String): Retrofit {
         val httpClient = OkHttpClient.Builder()
 
         httpClient.addInterceptor { chain ->
-            val request = chain.request().newBuilder().apply {
+            val requestBuilder = chain.request().newBuilder().apply {
                 addHeader(ApiConstant.HEADER_CONTENT_TYPE, ApiConstant.CONTENT_TYPE_JSON)
                 addHeader("roletype", "landlord")
                 addHeader("requesttoken", "610904831af1a01c5251e5437c53421338a01032a0c01bcc7db9da73368e339b")
-            }.build()
-            chain.proceed(request)
+            }
+            jwtToken?.let { token ->
+                requestBuilder.addHeader("Authorization", "Bearer $token")
+            }
+            chain.proceed(requestBuilder.build())
         }
 
         httpClient.addInterceptor(

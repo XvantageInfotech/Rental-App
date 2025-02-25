@@ -3,14 +3,15 @@ package com.xvantage.rental.utils
 import android.content.Context
 import android.content.SharedPreferences
 
-
 class AppPreference(context: Context) {
 
     private var appSharedPrefs: SharedPreferences =
         context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-
     private val editor: SharedPreferences.Editor = appSharedPrefs.edit()
 
+    companion object {
+        private const val KEY_JWT_TOKEN = "jwt_token"
+    }
 
     fun isUserLoginFirstTime(): Boolean {
         return appSharedPrefs.getBoolean("isUserLoginFirstTime", false)
@@ -39,7 +40,6 @@ class AppPreference(context: Context) {
         editor.commit()
     }
 
-    /*......*/
     fun isFirst(): Boolean {
         return appSharedPrefs.getBoolean("isFirst", false)
     }
@@ -60,6 +60,15 @@ class AppPreference(context: Context) {
 
     fun getUId(): String? {
         return appSharedPrefs.getString("UId", "")
+    }
+
+    fun setToken(token: String?) {
+        editor.putString(KEY_JWT_TOKEN, token)
+        editor.commit()
+    }
+
+    fun getToken(): String? {
+        return appSharedPrefs.getString(KEY_JWT_TOKEN, null)
     }
 
     fun clearPreferences() {

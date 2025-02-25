@@ -7,6 +7,7 @@ import com.xvantage.rental.network.request.auth.GoogleLoginRequest
 import com.xvantage.rental.network.utils.ResultWrapper
 import com.xvantage.rental.ui.auth.fragment.sealed.AuthScreen
 import com.xvantage.rental.ui.auth.fragment.sealed.AuthState
+import com.xvantage.rental.utils.AppPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val appPreference: AppPreference
+
 ) : ViewModel() {
     private val authStateFlow = MutableStateFlow<AuthState>(AuthState.Idle)
     val authState: StateFlow<AuthState> = authStateFlow.asStateFlow()
@@ -27,6 +30,13 @@ class AuthViewModel @Inject constructor(
     fun setCurrentScreen(screen: AuthScreen) {
         currentScreenFlow.value = screen
     }
+    fun storeJwtToken(token: String) {
+        appPreference.setToken(token)
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        return !appPreference.getToken().isNullOrEmpty()
+    }
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
@@ -34,6 +44,7 @@ class AuthViewModel @Inject constructor(
             when (val response = repository.login(email, password)) {
                 is ResultWrapper.Success -> {
                     authStateFlow.value = AuthState.Success(response.value.data?.token)
+                    storeJwtToken(response.value.data?.token ?: "")
                     currentScreenFlow.value = AuthScreen.VerifyOtp(email)
                 }
                 is ResultWrapper.Error -> {
@@ -66,6 +77,8 @@ class AuthViewModel @Inject constructor(
             when (val response = repository.signUpWithGoogle(googleData)) {
                 is ResultWrapper.Success -> {
                     authStateFlow.value = AuthState.Success(response.value.data?.token ?: "Signup successful")
+                    storeJwtToken(response.value.data?.token ?: "")
+
                     currentScreenFlow.value = AuthScreen.VerifyOtp(googleData.googleData.email)
                 }
                 is ResultWrapper.Error -> {
@@ -82,6 +95,8 @@ class AuthViewModel @Inject constructor(
             when (val response = repository.verifyOtp(email, otp, type)) {
                 is ResultWrapper.Success -> {
                     authStateFlow.value = AuthState.Success("OTP Verified")
+                    storeJwtToken(response.value.data?.token ?: "")
+
                     currentScreenFlow.value = AuthScreen.Dashboard
                 }
                 is ResultWrapper.Error -> {

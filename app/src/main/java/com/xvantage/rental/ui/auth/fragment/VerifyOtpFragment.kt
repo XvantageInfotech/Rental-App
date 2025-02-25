@@ -11,6 +11,7 @@ import com.xvantage.rental.databinding.FragmentVerifyOtpBinding
 import com.xvantage.rental.ui.auth.AuthViewModel
 import com.xvantage.rental.utils.AppPreference
 import dagger.hilt.android.AndroidEntryPoint
+
 @AndroidEntryPoint
 class VerifyOtpFragment : Fragment() {
     private lateinit var layoutBinding: FragmentVerifyOtpBinding
