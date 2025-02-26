@@ -78,8 +78,7 @@ class AuthViewModel @Inject constructor(
                 is ResultWrapper.Success -> {
                     authStateFlow.value = AuthState.Success(response.value.data?.token ?: "Signup successful")
                     storeJwtToken(response.value.data?.token ?: "")
-
-                    currentScreenFlow.value = AuthScreen.VerifyOtp(googleData.googleData.email)
+                    currentScreenFlow.value = AuthScreen.Dashboard
                 }
                 is ResultWrapper.Error -> {
                     authStateFlow.value = AuthState.Error(response.message ?: "Google Signup failed")
