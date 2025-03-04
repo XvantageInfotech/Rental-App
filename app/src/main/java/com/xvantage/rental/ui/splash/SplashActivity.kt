@@ -40,12 +40,19 @@ class SplashActivity : AppCompatActivity() {
                 !appPreference.getToken().isNullOrEmpty() -> {
                     Intent(this, DashboardActivity::class.java)
                 }
+                else -> {
+                    Intent(this, DashboardActivity::class.java)
+                }
+                /*
+                !appPreference.getToken().isNullOrEmpty() -> {
+                    Intent(this, DashboardActivity::class.java)
+                }
                 !appPreference.isFirstTimePreview() -> {
                     Intent(this, BoardingScreenActivity::class.java)
                 }
                 else -> {
                     Intent(this, AuthActivity::class.java)
-                }
+                }*/
             }
             intent.flags = INTENT_FLAGS
             startActivity(intent)

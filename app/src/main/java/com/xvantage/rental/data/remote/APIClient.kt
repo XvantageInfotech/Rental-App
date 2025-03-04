@@ -1,7 +1,6 @@
 package com.xvantage.rental.data.remote
 
 import com.google.gson.GsonBuilder
-import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.utils.constants.ApiConstant
 import com.xvantage.rental.utils.libs.loggingInterceptor.Level
 import com.xvantage.rental.utils.libs.loggingInterceptor.LoggingInterceptor

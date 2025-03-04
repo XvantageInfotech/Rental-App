@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 class AuthRepository @Inject constructor(private val apiInterface: APIInterface) {
 
-    // Login API
     suspend fun login(email: String, password: String): ResultWrapper<LoginResponse> {
         val request = LoginRequest(email, password, "email")
         val retrofitRequest = apiInterface.login(request).raw().request
@@ -46,7 +45,6 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
     }
 
 
-    // Signup API
     suspend fun signUp(email: String, password: String): ResultWrapper<SignupResponse> {
         val request = SignupRequest(email, password)
         val retrofitRequest = apiInterface.signUp(request).raw().request
@@ -62,7 +60,6 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
         }
     }
 
-    // Verify OTP API
     suspend fun verifyOtp(email: String, otp: String, type: String): ResultWrapper<VerifyOTPResponse> {
         val request = VerifyOTPRequest(email, otp, type)
         val retrofitRequest = apiInterface.verifyOtp(request).raw().request
@@ -78,7 +75,6 @@ class AuthRepository @Inject constructor(private val apiInterface: APIInterface)
         }
     }
 
-    // Forgot Password API
     suspend fun forgotPassword(email: String): ResultWrapper<JsonObject> {
         val params = mapOf("email" to email)
         val retrofitRequest = apiInterface.post("forgotPassword", params).request()
