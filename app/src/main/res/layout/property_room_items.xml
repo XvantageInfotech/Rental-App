@@ -1,23 +1,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-    </data>
-
+    <data></data>
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="@dimen/_3sdp"
         android:layout_margin="@dimen/_10sdp"
-        android:backgroundTint="@color/whisper_gray"
-        >
+        android:backgroundTint="@color/whisper_gray">
 
         <RelativeLayout
             android:layout_width="158dp"
             android:layout_height="150dp">
 
-            <!-- Image with Overlaid Title, Subtitle, and Status -->
             <RelativeLayout
                 android:id="@+id/rl_image"
                 android:layout_width="match_parent"
@@ -60,13 +55,8 @@
                     app:iconGravity="textStart"
                     app:iconPadding="10dp"
                     android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:text="Add a Tenant"
-                    />
-
-
+                    android:text="Add a Tenant" />
             </RelativeLayout>
-
         </RelativeLayout>
-
     </androidx.cardview.widget.CardView>
 </layout>
