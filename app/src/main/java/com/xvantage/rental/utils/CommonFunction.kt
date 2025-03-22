@@ -3,12 +3,18 @@ package com.xvantage.rental.utils
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.text.format.Formatter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.RatingBar
+import com.xvantage.rental.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -76,6 +82,45 @@ class CommonFunction {
             initialDate.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
+    }
+
+    fun showRatingDialog(context: Context) {
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.dialog_rating)
+
+        val window = dialog.window
+        val layoutParams = window?.attributes
+        layoutParams?.width = LinearLayout.LayoutParams.MATCH_PARENT
+        layoutParams?.height = LinearLayout.LayoutParams.WRAP_CONTENT
+        window?.attributes = layoutParams
+
+        val ratingBar = dialog.findViewById<RatingBar>(R.id.ratingBar)
+        val reviewText = dialog.findViewById<EditText>(R.id.etReview)
+        val cancelButton = dialog.findViewById<Button>(R.id.btn_cancel)
+        val submitButton = dialog.findViewById<Button>(R.id.btn_submit)
+
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        submitButton.setOnClickListener {
+            val rating = ratingBar.rating
+            val review = reviewText.text.toString()
+
+            if (rating >= 4) {
+//                val intent = Intent(
+//                    Intent.ACTION_VIEW,
+//                    Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp")
+//                )
+//                context.startActivity(intent)
+                CommonFunction().toast(context, "Thanks for your feedback!")
+            } else {
+                CommonFunction().toast(context, "Thanks for your feedback!")
+            }
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
 
