@@ -8,12 +8,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -27,222 +27,223 @@ import com.xvantage.rental.databinding.ActivityAddTenantBinding
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
 import java.io.File
-import java.util.Calendar
 
+/**
+ * Activity to add a tenant.
+ *
+ * This activity uses static data and performs all UI logic for tenant data and image management.
+ * In future iterations, a [TenantViewModel] will be integrated to supply dynamic data using MVVM.
+ */
 class AddTenantActivity : AppCompatActivity() {
 
-    private lateinit var layoutBinding: ActivityAddTenantBinding
-    lateinit var appPreference: AppPreference
-    private var frontAdharImageUri: Uri?=null
-    private var backAdharImageUri: Uri?=null
-    private var tenantImageUri: Uri?=null
-    private lateinit var llTenantPhoto:View
-    private lateinit var llFrontAdharPhoto:View
-    private lateinit var llBackAdharPhoto:View
+    private lateinit var binding: ActivityAddTenantBinding
+    private lateinit var appPreference: AppPreference
+
+    // Future integration: Use TenantViewModel to manage tenant data dynamically
+//    private val tenantViewModel: TenantViewModel by viewModels()
+
+    // Image URIs for various photos
+    private var tenantImageUri: Uri? = null
+    private var frontAdharImageUri: Uri? = null
+    private var backAdharImageUri: Uri? = null
+
+    // Views for displaying selected images
+    private lateinit var llTenantPhoto: View
+    private lateinit var llFrontAdharPhoto: View
+    private lateinit var llBackAdharPhoto: View
+
     private val PERMISSION_REQUEST_CODE = 101
-    private var selectedPicker=1
+    private var selectedPicker = 1
+
+    // Flags for expandable sections
     private var tenantDetailExpanded = true
     private var rentDetailExpanded = false
     private var waterBillDetailExpanded = false
-    val spinnerElecAndWaterOptions = arrayOf("No cost", "Fixed", "Metered")
+
+    // Spinner options for electricity and water charges
+    private val spinnerElecAndWaterOptions = arrayOf("No cost", "Fixed", "Metered")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_tenant)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_tenant)
         appPreference = AppPreference(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        layoutBinding.toolbar.tvTitle.setText(R.string.add_tenant_property)
+
+        // Set toolbar title
+        binding.toolbar.tvTitle.setText(R.string.add_tenant_property)
+
+        // Initialize views for selected images
         llTenantPhoto = findViewById(R.id.ll_selected_tenant_photo)
         llFrontAdharPhoto = findViewById(R.id.ll_selected_front_adhar_photo)
         llBackAdharPhoto = findViewById(R.id.ll_selected_back_adhar_photo)
 
-       onClickEvents()
+        // Setup click events and UI interactions
+        setupClickEvents()
+        setupSpinners()
 
-
+        // Future integration: Bind ViewModel to UI
+//        binding.viewModel = tenantViewModel
+        binding.lifecycleOwner = this
     }
 
-    private fun onClickEvents() {
-        layoutBinding.llAddTenantPhoto.setOnClickListener {
-            selectedPicker=1
+    /**
+     * Sets up click event listeners for the activity.
+     */
+    private fun setupClickEvents() {
+        // Photo selection click listeners
+        binding.llAddTenantPhoto.setOnClickListener {
+            selectedPicker = 1
             checkPermissionsAndOpenOptions()
         }
-        layoutBinding.llAddFrontAdhar.setOnClickListener {
-            selectedPicker=2
+        binding.llAddFrontAdhar.setOnClickListener {
+            selectedPicker = 2
             checkPermissionsAndOpenOptions()
         }
-        layoutBinding.llAddBackAdhar.setOnClickListener {
-            selectedPicker=3
+        binding.llAddBackAdhar.setOnClickListener {
+            selectedPicker = 3
             checkPermissionsAndOpenOptions()
-        }
-        layoutBinding.toolbar.back.setOnClickListener {
-            onBackPressed()
-        }
-        layoutBinding.llSelectedTenantPhoto.btnClose.setOnClickListener {
-            tenantImageUri=null
-            llTenantPhoto.visibility=View.GONE
-            layoutBinding.llAddTenantPhoto.visibility=View.VISIBLE
-        }
-        layoutBinding.llSelectedFrontAdharPhoto.btnClose.setOnClickListener {
-            frontAdharImageUri=null
-            llFrontAdharPhoto.visibility=View.GONE
-            layoutBinding.llAddFrontAdhar.visibility=View.VISIBLE
-        }
-        layoutBinding.llSelectedBackAdharPhoto.btnClose.setOnClickListener {
-            backAdharImageUri=null
-            llBackAdharPhoto.visibility=View.GONE
-            layoutBinding.llAddBackAdhar.visibility=View.VISIBLE
-        }
-        layoutBinding.llRentFinanceDetail.tvMoveInDate.setOnClickListener {
-            CommonFunction().showDatePickerDialog(
-                context = this,
-                onDateSelected = { selectedDate ->
-                    layoutBinding.llRentFinanceDetail.tvMoveInDate.text = selectedDate
-                }
-            )
-        }
-        layoutBinding.llRentFinanceDetail.tvRentStartDate.setOnClickListener {
-            CommonFunction().showDatePickerDialog(
-                context = this,
-                onDateSelected = { selectedDate ->
-                    layoutBinding.llRentFinanceDetail.tvRentStartDate.text = selectedDate
-                }
-            )
-        }
-        layoutBinding.llRentFinanceDetail.tvRentDueDate.setOnClickListener {
-            CommonFunction().showDatePickerDialog(
-                context = this,
-                onDateSelected = { selectedDate ->
-                    layoutBinding.llRentFinanceDetail.tvRentDueDate.text = selectedDate
-                }
-            )
         }
 
-        layoutBinding.llRentFinanceDetail.tvAggreementStartDate.setOnClickListener {
-            CommonFunction().showDatePickerDialog(
-                context = this,
-                onDateSelected = { selectedDate ->
-                    layoutBinding.llRentFinanceDetail.tvAggreementStartDate.text = selectedDate
-                }
-            )
+        // Toolbar back click listener
+        binding.toolbar.back.setOnClickListener { onBackPressed() }
+
+        // Photo removal listeners
+        binding.llSelectedTenantPhoto.btnClose.setOnClickListener {
+            tenantImageUri = null
+            llTenantPhoto.visibility = View.GONE
+            binding.llAddTenantPhoto.visibility = View.VISIBLE
         }
-        layoutBinding.llRentFinanceDetail.tvAggreementEndDate.setOnClickListener {
-            CommonFunction().showDatePickerDialog(
-                context = this,
-                onDateSelected = { selectedDate ->
-                    layoutBinding.llRentFinanceDetail.tvAggreementEndDate.text = selectedDate
-                }
-            )
+        binding.llSelectedFrontAdharPhoto.btnClose.setOnClickListener {
+            frontAdharImageUri = null
+            llFrontAdharPhoto.visibility = View.GONE
+            binding.llAddFrontAdhar.visibility = View.VISIBLE
+        }
+        binding.llSelectedBackAdharPhoto.btnClose.setOnClickListener {
+            backAdharImageUri = null
+            llBackAdharPhoto.visibility = View.GONE
+            binding.llAddBackAdhar.visibility = View.VISIBLE
         }
 
-        layoutBinding.llRentFinanceDetail.rgLeaseType.setOnCheckedChangeListener { group, checkedId ->
+        // Date picker click listeners for rent finance details
+        binding.llRentFinanceDetail.tvMoveInDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(this) { selectedDate ->
+                binding.llRentFinanceDetail.tvMoveInDate.text = selectedDate
+            }
+        }
+        binding.llRentFinanceDetail.tvRentStartDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(this) { selectedDate ->
+                binding.llRentFinanceDetail.tvRentStartDate.text = selectedDate
+            }
+        }
+        binding.llRentFinanceDetail.tvRentDueDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(this) { selectedDate ->
+                binding.llRentFinanceDetail.tvRentDueDate.text = selectedDate
+            }
+        }
+        binding.llRentFinanceDetail.tvAggreementStartDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(this) { selectedDate ->
+                binding.llRentFinanceDetail.tvAggreementStartDate.text = selectedDate
+            }
+        }
+        binding.llRentFinanceDetail.tvAggreementEndDate.setOnClickListener {
+            CommonFunction().showDatePickerDialog(this) { selectedDate ->
+                binding.llRentFinanceDetail.tvAggreementEndDate.text = selectedDate
+            }
+        }
+
+        // Lease type radio group change listener
+        binding.llRentFinanceDetail.rgLeaseType.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rb_until_leave -> {
-                    layoutBinding.llRentFinanceDetail.llLeaseDateSelection.visibility=View.GONE
+                    binding.llRentFinanceDetail.llLeaseDateSelection.visibility = View.GONE
                     Toast.makeText(this, "Until Leave selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.rb_fixed_define -> {
-                    // Handle "Fixed Define" option selected
-                    layoutBinding.llRentFinanceDetail.llLeaseDateSelection.visibility=View.VISIBLE
+                    binding.llRentFinanceDetail.llLeaseDateSelection.visibility = View.VISIBLE
                 }
             }
         }
 
-        layoutBinding.tvTitleTenantDetail.setOnClickListener {
-            if (tenantDetailExpanded) {
-                layoutBinding.llTenantDetail.visibility = View.GONE
-                layoutBinding.tvTitleTenantDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_drop_down_arrow, 0)
-            } else {
-                layoutBinding.llTenantDetail.visibility = View.VISIBLE
-                layoutBinding.tvTitleTenantDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up_arrow, 0)
-            }
-            tenantDetailExpanded = !tenantDetailExpanded
+        // Toggle section listeners
+        binding.tvTitleTenantDetail.setOnClickListener {
+            tenantDetailExpanded = toggleSection(binding.llTenantDetail, binding.tvTitleTenantDetail, tenantDetailExpanded)
         }
-
-        layoutBinding.tvTitleRentDetail.setOnClickListener {
-            if (rentDetailExpanded) {
-                layoutBinding.llRentDetail.visibility = View.GONE
-                layoutBinding.tvTitleRentDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_drop_down_arrow, 0)
-            } else {
-                layoutBinding.llRentDetail.visibility = View.VISIBLE
-                layoutBinding.tvTitleRentDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up_arrow, 0)
-            }
-            rentDetailExpanded = !rentDetailExpanded
+        binding.tvTitleRentDetail.setOnClickListener {
+            rentDetailExpanded = toggleSection(binding.llRentDetail, binding.tvTitleRentDetail, rentDetailExpanded)
         }
-        layoutBinding.tvTitleElectWaterDetail.setOnClickListener {
-            if (waterBillDetailExpanded) {
-                layoutBinding.llEleWaterDetail.visibility = View.GONE
-                layoutBinding.tvTitleElectWaterDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_drop_down_arrow, 0)
-            } else {
-                layoutBinding.llEleWaterDetail.visibility = View.VISIBLE
-                layoutBinding.tvTitleElectWaterDetail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up_arrow, 0)
-            }
-            waterBillDetailExpanded = !waterBillDetailExpanded
+        binding.tvTitleElectWaterDetail.setOnClickListener {
+            waterBillDetailExpanded = toggleSection(binding.llEleWaterDetail, binding.tvTitleElectWaterDetail, waterBillDetailExpanded)
         }
-
-        val adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            spinnerElecAndWaterOptions
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
-        layoutBinding.llElectricityFinanceDetail.spElectricity.adapter = adapter
-        layoutBinding.llWaterFinanceDetail.spWater.adapter = adapter
-
-        layoutBinding.llElectricityFinanceDetail.spElectricity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = parentView?.getItemAtPosition(position) as String
-
-                when(position){
-                    0->{
-                        layoutBinding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility=View.GONE
-                        layoutBinding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility=View.GONE
-                    }
-                    1->{
-                        layoutBinding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility=View.VISIBLE
-                        layoutBinding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility=View.GONE
-                    }
-                    2->{
-                        layoutBinding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility=View.VISIBLE
-                        layoutBinding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility=View.GONE
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-            }
-        }
-
-        layoutBinding.llWaterFinanceDetail.spWater.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = parentView?.getItemAtPosition(position) as String
-
-                when(position){
-                    0->{
-                        layoutBinding.llWaterFinanceDetail.llDefaultWaterDetails.visibility=View.GONE
-                        layoutBinding.llWaterFinanceDetail.llWaterMeterDetails.visibility=View.GONE
-                    }
-                    1->{
-                        layoutBinding.llWaterFinanceDetail.llDefaultWaterDetails.visibility=View.VISIBLE
-                        layoutBinding.llWaterFinanceDetail.llWaterMeterDetails.visibility=View.GONE
-                    }
-                    2->{
-                        layoutBinding.llWaterFinanceDetail.llWaterMeterDetails.visibility=View.VISIBLE
-                        layoutBinding.llWaterFinanceDetail.llDefaultWaterDetails.visibility=View.GONE
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-            }
-        }
-
-
-
-
-
     }
 
+    /**
+     * Helper method to toggle section visibility and update the drawable.
+     */
+    private fun toggleSection(section: View, titleView: View, expanded: Boolean): Boolean {
+        return if (expanded) {
+            section.visibility = View.GONE
+            (titleView as? android.widget.TextView)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_drop_down_arrow, 0)
+            false
+        } else {
+            section.visibility = View.VISIBLE
+            (titleView as? android.widget.TextView)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_up_arrow, 0)
+            true
+        }
+    }
 
+    /**
+     * Sets up the spinners for electricity and water finance details.
+     */
+    private fun setupSpinners() {
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerElecAndWaterOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
+        binding.llElectricityFinanceDetail.spElectricity.adapter = adapter
+        binding.llWaterFinanceDetail.spWater.adapter = adapter
+
+        binding.llElectricityFinanceDetail.spElectricity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when (position) {
+                    0 -> {
+                        binding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility = View.GONE
+                        binding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility = View.GONE
+                    }
+                    1 -> {
+                        binding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility = View.VISIBLE
+                        binding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility = View.GONE
+                    }
+                    2 -> {
+                        binding.llElectricityFinanceDetail.llElectricityMeterDetails.visibility = View.VISIBLE
+                        binding.llElectricityFinanceDetail.llDefaultElectricityDetails.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        binding.llWaterFinanceDetail.spWater.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when (position) {
+                    0 -> {
+                        binding.llWaterFinanceDetail.llDefaultWaterDetails.visibility = View.GONE
+                        binding.llWaterFinanceDetail.llWaterMeterDetails.visibility = View.GONE
+                    }
+                    1 -> {
+                        binding.llWaterFinanceDetail.llDefaultWaterDetails.visibility = View.VISIBLE
+                        binding.llWaterFinanceDetail.llWaterMeterDetails.visibility = View.GONE
+                    }
+                    2 -> {
+                        binding.llWaterFinanceDetail.llWaterMeterDetails.visibility = View.VISIBLE
+                        binding.llWaterFinanceDetail.llDefaultWaterDetails.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    /**
+     * Displays a dialog to choose between capturing a photo via camera or selecting one from the gallery.
+     */
     private fun showOptionsDialog() {
         val options = arrayOf("Open Camera", "Choose from Gallery")
         MaterialAlertDialogBuilder(this)
@@ -256,42 +257,33 @@ class AddTenantActivity : AppCompatActivity() {
             .show()
     }
 
+    /**
+     * Opens the camera to capture an image.
+     */
     private fun openCamera() {
         val photoFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_${System.currentTimeMillis()}.jpg")
-        var intent:Intent?=null
-        when(selectedPicker){
-            1->{
-                tenantImageUri= FileProvider.getUriForFile(
-                    this,
-                    "${BuildConfig.APPLICATION_ID}.fileprovider",
-                    photoFile
-                )
+        var intent: Intent? = null
+
+        when (selectedPicker) {
+            1 -> {
+                tenantImageUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", photoFile)
                 intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
                     putExtra(MediaStore.EXTRA_OUTPUT, tenantImageUri)
                 }
             }
-            2->{
-                frontAdharImageUri= FileProvider.getUriForFile(
-                    this,
-                    "${BuildConfig.APPLICATION_ID}.fileprovider",
-                    photoFile
-                )
+            2 -> {
+                frontAdharImageUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", photoFile)
                 intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
                     putExtra(MediaStore.EXTRA_OUTPUT, frontAdharImageUri)
                 }
             }
-            3->{
-                backAdharImageUri= FileProvider.getUriForFile(
-                    this,
-                    "${BuildConfig.APPLICATION_ID}.fileprovider",
-                    photoFile
-                )
+            3 -> {
+                backAdharImageUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", photoFile)
                 intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
                     putExtra(MediaStore.EXTRA_OUTPUT, backAdharImageUri)
                 }
             }
         }
-
 
         if (intent?.resolveActivity(packageManager) != null) {
             cameraLauncher.launch(intent)
@@ -300,55 +292,92 @@ class AddTenantActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Opens the gallery to select an image.
+     */
+    private fun openGallery() {
+        galleryLauncher.launch("image/*")
+    }
 
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            when(selectedPicker){
-                1->{
-                    tenantImageUri=uri
-                }
-                2->{
-                    frontAdharImageUri=uri
-                }
-                3->{
-                    backAdharImageUri=uri
-                }
+    /**
+     * Checks for required permissions before proceeding to open camera/gallery.
+     */
+    private fun checkPermissionsAndOpenOptions() {
+        val permissions = mutableListOf<String>()
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.CAMERA)
+        }
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+
+        if (permissions.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissions.toTypedArray(), PERMISSION_REQUEST_CODE)
+        } else {
+            showOptionsDialog()
+        }
+    }
+
+    /**
+     * Updates the UI with the selected or captured image.
+     */
+    private fun updateUi(photoUri: Uri) {
+        when (selectedPicker) {
+            1 -> {  // Tenant photo
+                binding.llSelectedTenantPhoto.ivThumbnail.setImageURI(photoUri)
+                val fileName = CommonFunction().getFileName(this, photoUri)
+                binding.llSelectedTenantPhoto.tvFileName.text = fileName
+                val fileSize = CommonFunction().getFileSize(this, photoUri)
+                binding.llSelectedTenantPhoto.tvFileSize.text = fileSize
+                tenantImageUri = photoUri
+                llTenantPhoto.visibility = View.VISIBLE
+                binding.llAddTenantPhoto.visibility = View.GONE
             }
-
-            if (uri != null) {
-                updateUi(uri)
-            } else {
-                Toast.makeText(this, "Failed to upload photo!", Toast.LENGTH_SHORT).show()
+            2 -> {  // Front Aadhar photo
+                binding.llSelectedFrontAdharPhoto.ivThumbnail.setImageURI(photoUri)
+                val fileName = CommonFunction().getFileName(this, photoUri)
+                binding.llSelectedFrontAdharPhoto.tvFileName.text = fileName
+                val fileSize = CommonFunction().getFileSize(this, photoUri)
+                binding.llSelectedFrontAdharPhoto.tvFileSize.text = fileSize
+                frontAdharImageUri = photoUri
+                llFrontAdharPhoto.visibility = View.VISIBLE
+                binding.llAddFrontAdhar.visibility = View.GONE
+            }
+            3 -> {  // Back Aadhar photo
+                binding.llSelectedBackAdharPhoto.ivThumbnail.setImageURI(photoUri)
+                val fileName = CommonFunction().getFileName(this, photoUri)
+                binding.llSelectedBackAdharPhoto.tvFileName.text = fileName
+                val fileSize = CommonFunction().getFileSize(this, photoUri)
+                binding.llSelectedBackAdharPhoto.tvFileSize.text = fileSize
+                backAdharImageUri = photoUri
+                llBackAdharPhoto.visibility = View.VISIBLE
+                binding.llAddBackAdhar.visibility = View.GONE
             }
         }
     }
+
+    // ActivityResultLauncher for gallery selection
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            when (selectedPicker) {
+                1 -> tenantImageUri = it
+                2 -> frontAdharImageUri = it
+                3 -> backAdharImageUri = it
+            }
+            updateUi(it)
+        } ?: Toast.makeText(this, "Failed to upload photo!", Toast.LENGTH_SHORT).show()
+    }
+
+    // ActivityResultLauncher for camera capture
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
-
-           when(selectedPicker){
-               1->{
-                   tenantImageUri?.let {
-                        updateUi(it)
-                   } ?: run {
-                       Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
-                   }
-               }
-               2->{
-                   frontAdharImageUri?.let {
-                        updateUi(it)
-                   } ?: run {
-                       Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
-                   }
-               }
-               3->{
-                   backAdharImageUri?.let {
-                        updateUi(it)
-                   } ?: run {
-                       Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
-                   }
-               }
-           }
-
+            when (selectedPicker) {
+                1 -> tenantImageUri?.let { updateUi(it) } ?: Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+                2 -> frontAdharImageUri?.let { updateUi(it) } ?: Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+                3 -> backAdharImageUri?.let { updateUi(it) } ?: Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+            }
         } else {
             Toast.makeText(this, "Photo capture cancelled!", Toast.LENGTH_SHORT).show()
         }
@@ -362,67 +391,6 @@ class AddTenantActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Permissions are required to proceed", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    private fun openGallery() {
-        galleryLauncher.launch("image/*")
-    }
-
-    private fun checkPermissionsAndOpenOptions() {
-        val permissions = mutableListOf<String>()
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.CAMERA)
-        }
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-        ) {
-            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-
-        if (permissions.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, permissions.toTypedArray(),
-                PERMISSION_REQUEST_CODE
-            )
-        } else {
-            showOptionsDialog()
-        }
-    }
-
-    private fun updateUi(photoUri: Uri) {
-
-        when (selectedPicker) {
-            1 -> {      //Tennant photo
-                layoutBinding.llSelectedTenantPhoto.ivThumbnail.setImageURI(photoUri)
-                val fileName = CommonFunction().getFileName(this, photoUri)
-                layoutBinding.llSelectedTenantPhoto.tvFileName.text = fileName
-                val fileSize = CommonFunction().getFileSize(this, photoUri)
-                layoutBinding.llSelectedTenantPhoto.tvFileSize.text = fileSize
-                tenantImageUri = photoUri
-                llTenantPhoto.visibility = View.VISIBLE
-                layoutBinding.llAddTenantPhoto.visibility = View.GONE
-            }
-            2 -> {  //Front Adhar photo
-                layoutBinding.llSelectedFrontAdharPhoto.ivThumbnail.setImageURI(photoUri)
-                val fileName = CommonFunction().getFileName(this, photoUri)
-                layoutBinding.llSelectedFrontAdharPhoto.tvFileName.text = fileName
-                val fileSize = CommonFunction().getFileSize(this, photoUri)
-                layoutBinding.llSelectedFrontAdharPhoto.tvFileSize.text = fileSize
-                frontAdharImageUri = photoUri
-                llFrontAdharPhoto.visibility = View.VISIBLE
-                layoutBinding.llAddFrontAdhar.visibility = View.GONE
-            }
-            3 -> {      //Back Adhar photo
-                layoutBinding.llSelectedBackAdharPhoto.ivThumbnail.setImageURI(photoUri)
-                val fileName = CommonFunction().getFileName(this, photoUri)
-                layoutBinding.llSelectedBackAdharPhoto.tvFileName.text = fileName
-                val fileSize = CommonFunction().getFileSize(this, photoUri)
-                layoutBinding.llSelectedBackAdharPhoto.tvFileSize.text = fileSize
-                backAdharImageUri = photoUri
-                llBackAdharPhoto.visibility = View.VISIBLE
-                layoutBinding.llAddBackAdhar.visibility = View.GONE
-            }
-
         }
     }
 }
