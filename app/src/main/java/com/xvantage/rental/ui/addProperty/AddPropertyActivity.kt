@@ -32,291 +32,293 @@ import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
 import java.io.File
 
+
 class AddPropertyActivity : AppCompatActivity() {
 
-    private lateinit var layoutBinding: ActivityAddPropertyBinding
-    lateinit var appPreference: AppPreference
-    private var currentNumber = 0
-    private lateinit var llAppartment: View
+    private lateinit var binding: ActivityAddPropertyBinding
+    private lateinit var appPreference: AppPreference
+
+    private lateinit var llApartment: View
     private lateinit var llPG: View
     private lateinit var llLand: View
-    private lateinit var llRentHouse:View
-    private lateinit var llPropertyImage:View
-    private var propertyImage:Uri?=null
+    private lateinit var llRentHouse: View
+    private lateinit var llPropertyImage: View
+
+    private var currentNumber = 0
+
+    private var propertyImage: Uri? = null
+
+    // private val viewModel: AddPropertyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_property)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_property)
         appPreference = AppPreference(this)
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        layoutBinding.toolbar.tvTitle.setText(R.string.add_property_bottom_n)
-        llAppartment = findViewById(R.id.ll_appartment)
+
+        binding.toolbar.tvTitle.setText(R.string.add_property_bottom_n)
+
+        llApartment = findViewById(R.id.ll_appartment)
         llPG = findViewById(R.id.ll_pg_rooms)
         llLand = findViewById(R.id.ll_land_detail)
         llRentHouse = findViewById(R.id.ll_rent_house)
         llPropertyImage = findViewById(R.id.ll_property_photo)
-        initView()
-        clickEvents()
+
+        initViews()
+        initClickEvents()
     }
 
-    private fun clickEvents() {
-        layoutBinding.toolbar.back.setOnClickListener {
-            onBackPressed()
+    /**
+     * Initialize click event listeners for UI components.
+     */
+    private fun initClickEvents() {
+        binding.toolbar.back.setOnClickListener { onBackPressed() }
+
+        binding.toolbar.btnSave.setOnClickListener {
+            CommonFunction().navigation(this, ManagePropertyActivity::class.java)
         }
-        layoutBinding.toolbar.btnSave.setOnClickListener {
-            CommonFunction().navigation(this,ManagePropertyActivity::class.java)
-        }
 
-        layoutBinding.llAddPhoto.setOnClickListener {
-            checkPermissionsAndOpenOptions()
-        }
-        layoutBinding.llPropertyPhoto.btnClose.setOnClickListener {
-            propertyImage=null
-            llPropertyImage.visibility=View.GONE
-            layoutBinding.llAddPhoto.visibility=View.VISIBLE
+        binding.llAddPhoto.setOnClickListener { checkPermissionsAndOpenOptions() }
+
+        binding.llPropertyPhoto.btnClose.setOnClickListener {
+            propertyImage = null
+            llPropertyImage.visibility = View.GONE
+            binding.llAddPhoto.visibility = View.VISIBLE
         }
     }
 
-    private fun initView() {
-        propertyTypeDropDown()
-        appartmentLayout()
-        PgRoomsLayout()
-        LandDetailLayout()
-        RentHouseLayout()
+    /**
+     * Initialize all views and drop-down menus.
+     */
+    private fun initViews() {
+        setupPropertyTypeSpinner()
+        setupApartmentLayout()
+        setupPgRoomsLayout()
+        setupLandDetailLayout()
+        setupRentHouseLayout()
     }
 
-    private fun RentHouseLayout(){
-        RoomTypeDropDown()
+    /**
+     * Initialize the Rent House layout.
+     */
+    private fun setupRentHouseLayout() {
+        setupRoomTypeSpinner()
     }
 
-    private fun LandDetailLayout(){
-        var landSize=layoutBinding.llLandDetail.etLandSize.text.toString()
-        LandAreaTypeDropDown()
+    /**
+     * Initialize the Land Detail layout.
+     */
+    private fun setupLandDetailLayout() {
+        // Placeholder: You can capture land size if required
+        // val landSize = binding.llLandDetail.etLandSize.text.toString()
+        setupLandAreaTypeSpinner()
     }
-    private fun PgRoomsLayout(){
 
-        layoutBinding.llPgRooms.incRoom.setOnClickListener {
+    /**
+     * Initialize the PG Rooms layout.
+     */
+    private fun setupPgRoomsLayout() {
+        binding.llPgRooms.incRoom.setOnClickListener {
             if (currentNumber < 99) {
                 currentNumber++
-                layoutBinding.llPgRooms.etRoomNumber.setText(String.format("%02d", currentNumber))
+                binding.llPgRooms.etRoomNumber.setText(String.format("%02d", currentNumber))
             }
         }
-
-        layoutBinding.llPgRooms.decRoom.setOnClickListener {
+        binding.llPgRooms.decRoom.setOnClickListener {
             if (currentNumber > 0) {
                 currentNumber--
-                layoutBinding.llPgRooms.etRoomNumber.setText(String.format("%02d", currentNumber))
+                binding.llPgRooms.etRoomNumber.setText(String.format("%02d", currentNumber))
             }
         }
-        layoutBinding.llPgRooms.incBeds.setOnClickListener {
+        binding.llPgRooms.incBeds.setOnClickListener {
             if (currentNumber < 99) {
                 currentNumber++
-                layoutBinding.llPgRooms.etBedNumber.setText(String.format("%02d", currentNumber))
+                binding.llPgRooms.etBedNumber.setText(String.format("%02d", currentNumber))
             }
         }
-
-        layoutBinding.llPgRooms.decBeds.setOnClickListener {
+        binding.llPgRooms.decBeds.setOnClickListener {
             if (currentNumber > 0) {
                 currentNumber--
-                layoutBinding.llPgRooms.etBedNumber.setText(String.format("%02d", currentNumber))
+                binding.llPgRooms.etBedNumber.setText(String.format("%02d", currentNumber))
             }
         }
-
     }
 
-    private fun appartmentLayout() {
-        layoutBinding.llAppartment.buttonUp.setOnClickListener {
+    /**
+     * Initialize the Apartment layout.
+     */
+    private fun setupApartmentLayout() {
+        binding.llAppartment.buttonUp.setOnClickListener {
             if (currentNumber < 99) {
                 currentNumber++
-                layoutBinding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
+                binding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
             }
         }
-
-        layoutBinding.llAppartment.buttonDown.setOnClickListener {
+        binding.llAppartment.buttonDown.setOnClickListener {
             if (currentNumber > 0) {
                 currentNumber--
-                layoutBinding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
+                binding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
             }
         }
-
-        flatTypeDropDown()
+        setupFlatTypeSpinner()
     }
 
-    private fun RoomTypeDropDown() {
+    /**
+     * Helper function to setup a spinner with custom text color.
+     */
+    private fun setupSpinner(
+        spinner: Spinner,
+        items: List<String>,
+        defaultTextColor: Int = Color.GRAY,
+        selectedTextColor: Int = Color.BLACK
+    ) {
+        val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items) {
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as TextView
+                view.setTextColor(if (position == 0) defaultTextColor else selectedTextColor)
+                return view
+            }
+        }
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View?, position: Int, id: Long
+            ) {
+                (view as? TextView)?.setTextColor(if (position == 0) defaultTextColor else selectedTextColor)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+        spinner.setSelection(0)
+    }
+
+    /**
+     * Setup the Room Type spinner for Rent House layout.
+     */
+    private fun setupRoomTypeSpinner() {
         val spinner = findViewById<Spinner>(R.id.spinner_room_type)
-        val propertyTypes = listOf("Select Room Type","BK", "1BHK", "2BHK", "3BHK", "4BHK")
-        val adapter = object : ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_spinner_item,
-            propertyTypes
-        ) {
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getDropDownView(position, convertView, parent) as TextView
-                view.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-                return view
-            }
-        }
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-        spinner.setSelection(0)
+        val roomTypes = listOf("Select Room Type", "BK", "1BHK", "2BHK", "3BHK", "4BHK")
+        setupSpinner(spinner, roomTypes)
     }
 
-    private fun flatTypeDropDown() {
+    /**
+     * Setup the Flat Type spinner for Apartment layout.
+     */
+    private fun setupFlatTypeSpinner() {
         val spinner = findViewById<Spinner>(R.id.spinner_flat_type)
-        val propertyTypes = listOf("Select Flat Type", "1BHK", "2BHK", "3BHK", "4BHK")
-        val adapter = object : ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_spinner_item,
-            propertyTypes
-        ) {
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getDropDownView(position, convertView, parent) as TextView
-                view.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-                return view
-            }
-        }
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-        spinner.setSelection(0)
+        val flatTypes = listOf("Select Flat Type", "1BHK", "2BHK", "3BHK", "4BHK")
+        setupSpinner(spinner, flatTypes)
     }
 
-    private fun LandAreaTypeDropDown() {
+    /**
+     * Setup the Land Area Type spinner for Land Detail layout.
+     */
+    private fun setupLandAreaTypeSpinner() {
         val spinner = findViewById<Spinner>(R.id.spinner_area_type)
-        val propertyTypes = listOf("Sqft", "Sqmt")
-        val adapter = object : ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_spinner_item,
-            propertyTypes
-        ) {
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getDropDownView(position, convertView, parent) as TextView
-                return view
-            }
-        }
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-        spinner.setSelection(0)
+        val areaTypes = listOf("Sqft", "Sqmt")
+        setupSpinner(spinner, areaTypes, defaultTextColor = Color.BLACK, selectedTextColor = Color.BLACK)
     }
 
-    private fun propertyTypeDropDown() {
+    /**
+     * Setup the Property Type spinner and update UI sections based on selection.
+     */
+    private fun setupPropertyTypeSpinner() {
         val spinner = findViewById<Spinner>(R.id.spinner_property_type)
         val propertyTypes = listOf("Select Property Type", "House", "Apartment", "PG", "Rent House", "Land")
-        val adapter = object : ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_spinner_item,
-            propertyTypes
-        ) {
-
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getDropDownView(position, convertView, parent) as TextView
-                view.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-                return view
-            }
-        }
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
+        setupSpinner(spinner, propertyTypes)
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View?, position: Int, id: Long
+            ) {
                 (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-                if (position==1){      //House Section
-                    layoutBinding.llHomeNumber.visibility=View.VISIBLE
-                    llAppartment.visibility = View.GONE
-                    llPG.visibility = View.GONE
-                    llLand.visibility = View.GONE
-                    llRentHouse.visibility = View.GONE
-
-                }
-                else if (position==2){      //Apartment Section
-                    llAppartment.visibility = View.VISIBLE
-                    layoutBinding.llHomeNumber.visibility=View.GONE
-                    llPG.visibility = View.GONE
-                    llLand.visibility = View.GONE
-                    llRentHouse.visibility = View.GONE
-                }
-                else if (position==3){  //PG Section
-                    llPG.visibility = View.VISIBLE
-                    layoutBinding.llHomeNumber.visibility=View.GONE
-                    llAppartment.visibility = View.GONE
-                    llLand.visibility = View.GONE
-                    llRentHouse.visibility = View.GONE
-                }
-                else if (position==4){  //Rent House Section
-                    llRentHouse.visibility = View.VISIBLE
-                    layoutBinding.llHomeNumber.visibility=View.GONE
-                    llAppartment.visibility = View.GONE
-                    llLand.visibility = View.GONE
-                    llPG.visibility = View.GONE
-                }
-                else if(position==5){   //Land Section
-                    llLand.visibility = View.VISIBLE
-                    layoutBinding.llHomeNumber.visibility=View.GONE
-                    llAppartment.visibility = View.GONE
-                    llPG.visibility = View.GONE
-                    llRentHouse.visibility = View.GONE
-                }
-                else{    //Select Property Type Section
-                    layoutBinding.llHomeNumber.visibility=View.GONE
-                    llAppartment.visibility = View.GONE
-                    llPG.visibility = View.GONE
-                    llLand.visibility = View.GONE
-                    llRentHouse.visibility = View.GONE
-                }
-
+                updatePropertySection(position)
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         spinner.setSelection(0)
     }
 
-    private fun checkPermissionsAndOpenOptions() {
-        val permissions = mutableListOf<String>()
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.CAMERA)
-        }
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-        ) {
-            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-
-        if (permissions.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, permissions.toTypedArray(), PERMISSION_REQUEST_CODE)
-        } else {
-            showOptionsDialog()
+    /**
+     * Update the visibility of UI sections based on the selected property type.
+     */
+    private fun updatePropertySection(selectedPosition: Int) {
+        when (selectedPosition) {
+            1 -> { // House
+                binding.llHomeNumber.visibility = View.VISIBLE
+                llApartment.visibility = View.GONE
+                llPG.visibility = View.GONE
+                llLand.visibility = View.GONE
+                llRentHouse.visibility = View.GONE
+            }
+            2 -> { // Apartment
+                llApartment.visibility = View.VISIBLE
+                binding.llHomeNumber.visibility = View.GONE
+                llPG.visibility = View.GONE
+                llLand.visibility = View.GONE
+                llRentHouse.visibility = View.GONE
+            }
+            3 -> { // PG
+                llPG.visibility = View.VISIBLE
+                binding.llHomeNumber.visibility = View.GONE
+                llApartment.visibility = View.GONE
+                llLand.visibility = View.GONE
+                llRentHouse.visibility = View.GONE
+            }
+            4 -> { // Rent House
+                llRentHouse.visibility = View.VISIBLE
+                binding.llHomeNumber.visibility = View.GONE
+                llApartment.visibility = View.GONE
+                llPG.visibility = View.GONE
+                llLand.visibility = View.GONE
+            }
+            5 -> { // Land
+                llLand.visibility = View.VISIBLE
+                binding.llHomeNumber.visibility = View.GONE
+                llApartment.visibility = View.GONE
+                llPG.visibility = View.GONE
+                llRentHouse.visibility = View.GONE
+            }
+            else -> { // Default: No section selected
+                binding.llHomeNumber.visibility = View.GONE
+                llApartment.visibility = View.GONE
+                llPG.visibility = View.GONE
+                llLand.visibility = View.GONE
+                llRentHouse.visibility = View.GONE
+            }
         }
     }
 
-    private fun showOptionsDialog() {
+    /**
+     * Checks required permissions and opens photo options dialog.
+     */
+    private fun checkPermissionsAndOpenOptions() {
+        val requiredPermissions = mutableListOf<String>()
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            requiredPermissions.add(Manifest.permission.CAMERA)
+        }
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            requiredPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+
+        if (requiredPermissions.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, requiredPermissions.toTypedArray(), PERMISSION_REQUEST_CODE)
+        } else {
+            showPhotoOptionsDialog()
+        }
+    }
+
+    /**
+     * Display a dialog to choose between camera and gallery.
+     */
+    private fun showPhotoOptionsDialog() {
         val options = arrayOf("Open Camera", "Choose from Gallery")
         MaterialAlertDialogBuilder(this)
             .setTitle("Add Photo")
@@ -329,44 +331,55 @@ class AddPropertyActivity : AppCompatActivity() {
             .show()
     }
 
-    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            propertyImage?.let {
-                updateUi(it)
-            } ?: run {
-                Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+    // ActivityResultLaunchers for Camera and Gallery
+    private val cameraLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                propertyImage?.let { updatePhotoUI(it) }
+                    ?: Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Photo capture cancelled!", Toast.LENGTH_SHORT).show()
             }
-        } else {
-            Toast.makeText(this, "Photo capture cancelled!", Toast.LENGTH_SHORT).show()
         }
-    }
 
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                propertyImage = uri
+                updatePhotoUI(uri)
+            } ?: Toast.makeText(this, "Failed to upload photo!", Toast.LENGTH_SHORT).show()
+        }
 
-    private fun updateUi(photoUri:Uri) {
-        layoutBinding.llPropertyPhoto.ivThumbnail.setImageURI(photoUri)
-        val fileName = CommonFunction().getFileName(this,photoUri)
-        layoutBinding.llPropertyPhoto.tvFileName.text = fileName
-        val fileSize =CommonFunction(). getFileSize(this,photoUri)
-        layoutBinding.llPropertyPhoto.tvFileSize.text = fileSize
+    /**
+     * Update the UI with the selected or captured photo.
+     */
+    private fun updatePhotoUI(photoUri: Uri) {
+        binding.llPropertyPhoto.ivThumbnail.setImageURI(photoUri)
+        val fileName = CommonFunction().getFileName(this, photoUri)
+        binding.llPropertyPhoto.tvFileName.text = fileName
+        val fileSize = CommonFunction().getFileSize(this, photoUri)
+        binding.llPropertyPhoto.tvFileSize.text = fileSize
+
         propertyImage = photoUri
-        llPropertyImage.visibility=View.VISIBLE
-        layoutBinding.llAddPhoto.visibility=View.GONE
+        llPropertyImage.visibility = View.VISIBLE
+        binding.llAddPhoto.visibility = View.GONE
     }
 
-
+    /**
+     * Opens the device camera to capture a photo.
+     */
     private fun openCamera() {
-        val photoFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_${System.currentTimeMillis()}.jpg")
-
+        val photoFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            "IMG_${System.currentTimeMillis()}.jpg"
+        )
         propertyImage = FileProvider.getUriForFile(
             this,
             "${BuildConfig.APPLICATION_ID}.fileprovider",
             photoFile
         )
-
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
             putExtra(MediaStore.EXTRA_OUTPUT, propertyImage)
         }
-
         if (intent.resolveActivity(packageManager) != null) {
             cameraLauncher.launch(intent)
         } else {
@@ -374,27 +387,20 @@ class AddPropertyActivity : AppCompatActivity() {
         }
     }
 
-
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            propertyImage=uri
-            if (uri != null) {
-                updateUi(uri)
-            } else {
-                Toast.makeText(this, "Failed to upload photo!", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
+    /**
+     * Opens the gallery for image selection.
+     */
     private fun openGallery() {
         galleryLauncher.launch("image/*")
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-                showOptionsDialog()
+                showPhotoOptionsDialog()
             } else {
                 Toast.makeText(this, "Permissions are required to proceed", Toast.LENGTH_SHORT).show()
             }
@@ -404,5 +410,4 @@ class AddPropertyActivity : AppCompatActivity() {
     companion object {
         private const val PERMISSION_REQUEST_CODE = 101
     }
-
 }
