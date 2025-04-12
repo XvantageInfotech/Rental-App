@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xvantage.rental.data.source.sample.PropertyDataRepository
 import com.xvantage.rental.databinding.FragmentHomeBinding
@@ -23,70 +23,86 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 @DelicateCoroutinesApi
 class HomeFragment : Fragment() {
 
-    private lateinit var layoutBinding: FragmentHomeBinding
-    lateinit var appPreference: AppPreference
-    lateinit var propertiesAdapter: PropertiesAdapter
-    lateinit var tenantsAdapter: TenantsAdapter
-
-    private lateinit var landingActivity: DashboardActivity
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var appPreference: AppPreference
+    private lateinit var propertiesAdapter: PropertiesAdapter
+    private lateinit var tenantsAdapter: TenantsAdapter
+    private lateinit var dashboardActivity: DashboardActivity
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        landingActivity = context as DashboardActivity
+        dashboardActivity = context as DashboardActivity
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        layoutBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        intiView()
-        onClickEvents()
-        return layoutBinding.root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun onClickEvents() {
-        layoutBinding.cvTakeRent.root.setOnClickListener {
-            CommonFunction().navigation(requireContext(), TakeRentActivity::class.java)
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initializeViews()
+        setupClickListeners()
+        setupRecyclerViews()
+    }
+
+    private fun initializeViews() {
+        appPreference = AppPreference(requireContext())
+    }
+
+    private fun setupClickListeners() {
+        binding.cvTakeRent.root.setOnClickListener {
+            navigateToTakeRent()
+        }
+    }
+
+    private fun navigateToTakeRent() {
+        CommonFunction().navigation(requireContext(), TakeRentActivity::class.java)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setupRecyclerViews() {
+        setupPropertiesRecyclerView()
+        setupTenantsRecyclerView()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setupPropertiesRecyclerView() {
+        propertiesAdapter = PropertiesAdapter(requireContext()).apply {
+            addItems(PropertyDataRepository.getProperties())
+        }
+
+        binding.horizontalRecyclerView1.apply {
+            adapter = propertiesAdapter
+            layoutManager = createHorizontalLayoutManager()
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun intiView() {
-        appPreference = AppPreference(requireContext())
-        val sampleCars = PropertyDataRepository.getProperties()
-
-        propertiesAdapter = PropertiesAdapter(requireContext())
-
-        propertiesAdapter.addItems(sampleCars)
-
-        layoutBinding.horizontalRecyclerView1.apply {
-            adapter = propertiesAdapter
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    private fun setupTenantsRecyclerView() {
+        tenantsAdapter = TenantsAdapter(requireContext()).apply {
+            addItems(PropertyDataRepository.getAllTenants())
         }
-        val sampleTEnant = PropertyDataRepository.getAllTenants()
 
-        tenantsAdapter = TenantsAdapter(requireContext())
-        tenantsAdapter.addItems(sampleTEnant)
-
-        layoutBinding.horizontalRecyclerView2.apply {
+        binding.horizontalRecyclerView2.apply {
             adapter = tenantsAdapter
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = createHorizontalLayoutManager()
         }
-
-
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onResume() {
-        super.onResume()
-    }
+    private fun createHorizontalLayoutManager() = LinearLayoutManager(
+        requireContext(),
+        LinearLayoutManager.HORIZONTAL,
+        false
+    )
 
     companion object {
-        // Remote Config keys
         const val SERVER_KEY = "PushNotificationServerKey"
     }
 }
