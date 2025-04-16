@@ -37,14 +37,13 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = when {
-                !appPreference.getToken().isNullOrEmpty() -> {
+                /*!appPreference.getToken().isNullOrEmpty() -> {
                     Intent(this, DashboardActivity::class.java)
                 }
                 else -> {
                     Intent(this, DashboardActivity::class.java)
                 }
-                /*
-                !appPreference.getToken().isNullOrEmpty() -> {
+*/                !appPreference.getToken().isNullOrEmpty() -> {
                     Intent(this, DashboardActivity::class.java)
                 }
                 !appPreference.isFirstTimePreview() -> {
@@ -52,7 +51,7 @@ class SplashActivity : AppCompatActivity() {
                 }
                 else -> {
                     Intent(this, AuthActivity::class.java)
-                }*/
+                }
             }
             intent.flags = INTENT_FLAGS
             startActivity(intent)
