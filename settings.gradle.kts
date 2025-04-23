@@ -17,10 +17,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://repository.liferay.com/nexus/content/repositories/public/") }
         mavenCentral()
+        gradlePluginPortal()
     }
 }
-
 rootProject.name = "Rental App"
 include(":app")
  
