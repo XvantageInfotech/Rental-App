@@ -32,7 +32,7 @@
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"
                     android:contentDescription="Close"
-                    android:src="@drawable/ic_drop_down_arrow" />
+                    android:src="@drawable/ic_close" />
             </RelativeLayout>
 
             <!-- Divider -->
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Essential Information"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/primary_blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="Room Name"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
             <Spinner
                 android:id="@+id/spinner_room_name"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Tenant Full Name"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_tenant_name"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Aadhar Card Photo"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/primary_blue"
                 android:textSize="16sp" />
             <ImageView
                 android:id="@+id/iv_aadhar_upload"
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Tenant Photo"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/primary_blue"
                 android:textSize="16sp" />
             <ImageView
                 android:id="@+id/iv_tenant_photo_upload"
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Check-in Date"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/primary_blue"
                 android:textSize="16sp" />
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_checkin_date"
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Rent Start Date"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/primary_blue"
                 android:textSize="16sp" />
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_rent_start_date"
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Rent Submission Date"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/primary_blue"
                 android:textSize="16sp" />
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_rent_submission_date"
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Room Deposit"
-                android:textColor="@color/text_dark_blue"
+                android:textColor="@color/primary_blue"
                 android:textSize="16sp" />
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_room_deposit"
@@ -196,27 +196,32 @@
                 android:textColorHint="@color/grey_hint" />
 
             <!-- Action Buttons -->
+            <!-- Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:gravity="end"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_cancel"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:text="Cancel" />
 
                 <Button
                     android:id="@+id/btn_save"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Save" />
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/primary_blue"
+                    android:text="Save Tenant" />
             </LinearLayout>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

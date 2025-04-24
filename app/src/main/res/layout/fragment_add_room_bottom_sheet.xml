@@ -22,7 +22,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Room"
-                    android:textColor="@color/text_dark_blue"
+                    android:textColor="@color/primary_blue"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"
                     android:contentDescription="Close"
-                    android:src="@drawable/ic_drop_down_arrow" />
+                    android:src="@drawable/ic_close" />
             </RelativeLayout>
 
             <!-- Divider -->
@@ -50,18 +50,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="Room Number"
-                    android:src="@drawable/ic_drop_down_arrow" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Room Number/Name"
-                    android:textColor="@color/text_dark_blue"
+                    android:textColor="@color/primary_blue"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -83,18 +77,14 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="Room Type"
-                    android:src="@drawable/ic_drop_down_arrow" />
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Room Type"
-                    android:textColor="@color/text_dark_blue"
+                    android:textColor="@color/primary_blue"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -130,18 +120,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="Room Rent"
-                    android:src="@drawable/ic_drop_down_arrow" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Room Rent"
-                    android:textColor="@color/text_dark_blue"
+                    android:textColor="@color/primary_blue"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -163,18 +147,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="Meter Reading"
-                    android:src="@drawable/ic_drop_down_arrow" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Last Meter Reading"
-                    android:textColor="@color/text_dark_blue"
+                    android:textColor="@color/primary_blue"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -196,18 +174,13 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="Meter Reading Date"
-                    android:src="@drawable/ic_drop_down_arrow" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Reading Date"
-                    android:textColor="@color/text_dark_blue"
+                    android:textColor="@color/primary_blue"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -234,6 +207,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:text="Cancel" />
@@ -244,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/text_dark_blue"
+                    android:backgroundTint="@color/primary_blue"
                     android:text="Save Room" />
             </LinearLayout>
 

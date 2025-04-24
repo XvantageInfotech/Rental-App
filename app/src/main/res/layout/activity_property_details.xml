@@ -91,8 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
-                app:tabIndicatorColor="@color/text_dark_blue"
-                app:tabSelectedTextColor="@color/text_dark_blue"
+                app:tabIndicatorColor="@color/primary_blue"
+                app:tabSelectedTextColor="@color/primary_blue"
                 app:tabTextColor="@color/grey_hint">
 
                 <com.google.android.material.tabs.TabItem
@@ -129,7 +129,7 @@
             android:layout_margin="16dp"
             android:contentDescription="Add"
             android:src="@android:drawable/ic_input_add"
-            app:backgroundTint="@color/text_dark_blue" />
+            app:backgroundTint="@color/primary_blue" />
 
     </RelativeLayout>
 </layout>
