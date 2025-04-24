@@ -76,7 +76,18 @@ class AddPropertyActivity : AppCompatActivity() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
 
         binding.toolbar.btnSave.setOnClickListener {
-            CommonFunction().navigation(this, ManagePropertyActivity::class.java)
+            val property = Property(
+                name = "Villa Deluxe",
+                type = "Residential",
+                address = "123 Ocean Drive, Miami",
+                imageUrl = "https://example.com/image.jpg"
+            )
+
+            val intent = Intent(this, PropertyDetailsActivity::class.java)
+            intent.putExtra("property", property)
+            startActivity(intent)
+
+//            CommonFunction().navigation(this, PropertyDetailsActivity::class.java)
         }
 
         binding.llAddPhoto.setOnClickListener { checkPermissionsAndOpenOptions() }
