@@ -17,9 +17,8 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                layout="@layout/property_header_toolbar"
+                 />
 
             <!-- Property Summary Card -->
             <androidx.cardview.widget.CardView
@@ -28,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 app:cardCornerRadius="8dp"
+                android:visibility="gone"
                 app:cardElevation="4dp">
 
                 <LinearLayout

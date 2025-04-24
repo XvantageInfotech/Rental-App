@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityPropertyDetailsBinding
+import com.bumptech.glide.Glide
 
 class PropertyDetailsActivity : AppCompatActivity() {
 
@@ -28,33 +29,31 @@ class PropertyDetailsActivity : AppCompatActivity() {
         property = intent.getParcelableExtra("property") ?: Property()
 
         setupToolbar()
-        setupPropertySummary()
+        setupPropertyDetails()
         setupViewPager()
         setupFab()
     }
 
     private fun setupToolbar() {
-        val toolbar = binding.toolbarContainer.findViewById<View>(R.id.back)
-        val title = binding.toolbarContainer.findViewById<AppCompatTextView>(R.id.tv_title)
+        val backButton = binding.toolbarContainer.findViewById<View>(R.id.back)
 
-        title.text = "Property Details"
-
-        toolbar.setOnClickListener {
+        backButton.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
     }
 
-
-    private fun setupPropertySummary() {
-        // Set property details in the summary card
+    private fun setupPropertyDetails() {
+        // Set property details in the header
         binding.tvPropertyName.text = property.name
-        binding.tvPropertyType.text = property.type
         binding.tvPropertyAddress.text = property.address
 
         // Load property image if available
         if (property.imageUrl.isNotEmpty()) {
-            // Use your preferred image loading library here
-            // For example: Glide.with(this).load(property.imageUrl).into(binding.ivPropertyImage)
+            Glide.with(this)
+                .load(property.imageUrl)
+                .placeholder(R.drawable.add_property_no_image)
+                .centerCrop()
+                .into(binding.ivPropertyImage)
         }
     }
 
