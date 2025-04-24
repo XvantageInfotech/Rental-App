@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,9 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -27,7 +23,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.R
@@ -48,22 +43,12 @@ class AddPropertyActivity : AppCompatActivity() {
     private lateinit var llLand: View
     private lateinit var llRentHouse: View
     private lateinit var llPropertyImage: View
-    private lateinit var llRentalAgreement: View
 
     private var currentNumber = 0
 
     private var propertyImage: Uri? = null
-    private var agreementDocument: Uri? = null
 
-    // Define enum for agreement types
-    enum class AgreementType {
-        NONE,
-        DEFAULT,
-        UPLOADED,
-        CUSTOM
-    }
-
-    private var agreementType: AgreementType = AgreementType.NONE
+    // private val viewModel: AddPropertyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +64,6 @@ class AddPropertyActivity : AppCompatActivity() {
         llLand = findViewById(R.id.ll_land_detail)
         llRentHouse = findViewById(R.id.ll_rent_house)
         llPropertyImage = findViewById(R.id.ll_property_photo)
-        llRentalAgreement = findViewById(R.id.ll_rental_agreement_container)
 
         initViews()
         initClickEvents()
@@ -92,9 +76,7 @@ class AddPropertyActivity : AppCompatActivity() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
 
         binding.toolbar.btnSave.setOnClickListener {
-            if (validateInputs()) {
-                CommonFunction().navigation(this, ManagePropertyActivity::class.java)
-            }
+            CommonFunction().navigation(this, ManagePropertyActivity::class.java)
         }
 
         binding.llAddPhoto.setOnClickListener { checkPermissionsAndOpenOptions() }
@@ -104,67 +86,6 @@ class AddPropertyActivity : AppCompatActivity() {
             llPropertyImage.visibility = View.GONE
             binding.llAddPhoto.visibility = View.VISIBLE
         }
-
-        // Agreement upload button click
-        binding.btnUploadAgreement.setOnClickListener {
-            openDocumentPicker()
-        }
-
-        // Agreement create button click
-        binding.btnCreateAgreement.setOnClickListener {
-            // Navigate to create agreement screen or show dialog to create
-            showCreateAgreementDialog()
-        }
-
-        // Add the default agreement button click
-        binding.btnDefaultAgreement.setOnClickListener {
-            useDefaultAgreement()
-        }
-
-        // Close uploaded agreement document
-        // Note: We need to add this to the layout
-        if (::binding.isInitialized && binding.llAgreementDocument != null) {
-            binding.llAgreementDocument.btnClose.setOnClickListener {
-                agreementDocument = null
-                binding.llAgreementDocument.root.visibility = View.GONE
-                binding.agreementUploadContainer.visibility = View.VISIBLE
-                agreementType = AgreementType.NONE
-            }
-        }
-
-        // Change agreement button click
-        // Note: We need to add this to the layout
-        if (::binding.isInitialized && binding.agreementStatusLayout != null) {
-            binding.agreementStatusLayout.btnChangeAgreement.setOnClickListener {
-                showAgreementOptions()
-                binding.agreementStatusLayout.llStatusAgreement.visibility = View.GONE
-                agreementType = AgreementType.NONE
-            }
-        }
-    }
-
-    /**
-     * Validate the input fields.
-     */
-    private fun validateInputs(): Boolean {
-        // Property name and address are optional now, so no validation needed for them
-
-        // Validate property type is selected
-        val propertyTypePosition = binding.spinnerPropertyType.selectedItemPosition
-        if (propertyTypePosition == 0) {
-            Toast.makeText(this, "Please select a property type", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        // Validate that an agreement option is selected
-        if (agreementType == AgreementType.NONE) {
-            Toast.makeText(this, "Please select a rental agreement option", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        // Additional validations based on property type can be added here
-
-        return true
     }
 
     /**
@@ -176,247 +97,7 @@ class AddPropertyActivity : AppCompatActivity() {
         setupPgRoomsLayout()
         setupLandDetailLayout()
         setupRentHouseLayout()
-        setupAgreementSection()
     }
-
-    /**
-     * Initialize the rental agreement section.
-     */
-    private fun setupAgreementSection() {
-        // Add the default agreement button to the layout
-        // This should be added in the XML file but we're adding the view programmatically for now
-
-        if (!::binding.isInitialized) return
-
-        // Initially hide the document preview
-        if (binding.llAgreementDocument != null) {
-            binding.llAgreementDocument.root.visibility = View.GONE
-        }
-
-        // Initially hide the agreement status layout
-        if (binding.agreementStatusLayout != null) {
-            binding.agreementStatusLayout.llStatusAgreement.visibility = View.GONE
-        }
-
-        // Add default agreement button if it doesn't exist
-        if (binding.btnDefaultAgreement == null) {
-            val defaultButton = MaterialButton(this).apply {
-                id = View.generateViewId()
-                text = "Use Default"
-                setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue))
-                layoutParams = LinearLayout.LayoutParams(
-                    0,
-                    resources.getDimensionPixelSize(R.dimen.space8),
-                    1f
-                ).apply {
-                    marginStart = resources.getDimensionPixelSize(R.dimen.space8)
-                }
-                setTextColor(Color.WHITE)
-                isAllCaps = false
-            }
-            defaultButton.setOnClickListener { useDefaultAgreement() }
-
-            // Find the container and add button
-            val buttonContainer = findViewById<LinearLayout>(R.id.ll_rental_agreement_buttons)
-                ?: findViewById<LinearLayout>(R.id.ll_rental_agreement_container)
-
-            if (buttonContainer != null) {
-                buttonContainer.addView(defaultButton)
-            }
-        }
-    }
-
-    /**
-     * Shows agreement options (upload, create, default)
-     */
-    private fun showAgreementOptions() {
-        if (!::binding.isInitialized) return
-
-        binding.agreementUploadContainer?.visibility = View.VISIBLE
-        binding.btnUploadAgreement?.visibility = View.VISIBLE
-        binding.btnCreateAgreement?.visibility = View.VISIBLE
-        binding.btnDefaultAgreement?.visibility = View.VISIBLE
-
-        // Make sure document and status views are hidden
-        binding.llAgreementDocument?.root?.visibility = View.GONE
-        binding.agreementStatusLayout.llStatusAgreement.visibility = View.GONE
-    }
-
-    /**
-     * Hide agreement options
-     */
-    private fun hideAgreementOptions() {
-        if (!::binding.isInitialized) return
-
-        binding.agreementUploadContainer?.visibility = View.GONE
-    }
-
-    /**
-     * Set up default agreement
-     */
-    private fun useDefaultAgreement() {
-        hideAgreementOptions()
-
-        agreementType = AgreementType.DEFAULT
-
-        // Create and show agreement status layout if it doesn't exist
-        showAgreementStatus("Default Agreement Selected",
-            "Standard rental agreement will be used",
-            R.drawable.export)
-    }
-
-    /**
-     * Show the agreement status with custom content
-     */
-    private fun showAgreementStatus(title: String, description: String, iconResId: Int) {
-        // We need to add this layout to the XML file
-        // For now, we'll create it dynamically if needed
-
-        // If we have the status layout in the binding
-        if (::binding.isInitialized && binding.agreementStatusLayout != null) {
-            binding.agreementStatusLayout.tvAgreementStatusTitle.text = title
-            binding.agreementStatusLayout.tvAgreementStatusDesc.text = description
-            binding.agreementStatusLayout.ivAgreementStatusIcon.setImageResource(iconResId)
-            binding.agreementStatusLayout.llStatusAgreement.visibility = View.VISIBLE
-            return
-        }
-
-        // Otherwise, create it dynamically
-        val statusLayout = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            background = ContextCompat.getDrawable(context, R.drawable.grey_border_background)
-            setPadding(16, 16, 16, 16)
-        }
-
-        val iconView = ImageView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(48, 48)
-            setImageResource(iconResId)
-        }
-
-        val textContainer = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            layoutParams = LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1f
-            ).apply {
-                marginStart = 16
-            }
-        }
-
-        val titleView = TextView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            text = title
-            setTextColor(ContextCompat.getColor(context, R.color.text_dark_blue))
-            textSize = 16f
-            setTypeface(typeface, Typeface.BOLD)
-        }
-
-        val descView = TextView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            text = description
-            setTextColor(ContextCompat.getColor(context, R.color.grey_hint))
-            textSize = 14f
-        }
-
-        textContainer.addView(titleView)
-        textContainer.addView(descView)
-
-        val changeButton = ImageButton(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            setImageResource(R.drawable.export)
-            background = ContextCompat.getDrawable(context, android.R.drawable.ic_menu_edit)
-            setOnClickListener {
-                showAgreementOptions()
-                statusLayout.visibility = View.GONE
-                agreementType = AgreementType.NONE
-            }
-        }
-
-        statusLayout.addView(iconView)
-        statusLayout.addView(textContainer)
-        statusLayout.addView(changeButton)
-
-        // Add to parent container
-        val parentContainer = findViewById<LinearLayout>(R.id.ll_rental_agreement_container)
-        parentContainer?.addView(statusLayout)
-    }
-
-    /**
-     * Show dialog to create custom agreement
-     */
-    private fun showCreateAgreementDialog() {
-        // This will be implemented in future
-        Toast.makeText(this, "Create Agreement feature coming soon", Toast.LENGTH_SHORT).show()
-
-        // For now, we'll just simulate the creation process
-        // In a real app, this would open a form or navigate to a new activity
-        agreementType = AgreementType.CUSTOM
-        hideAgreementOptions()
-        showAgreementStatus("Custom Agreement Created",
-            "Your customized rental agreement will be used",
-            R.drawable.export)
-    }
-
-    /**
-     * Update the UI with the selected rental agreement document.
-     */
-    private fun updateAgreementUI(documentUri: Uri) {
-        // Check if the required views are available
-        if (!::binding.isInitialized || binding.llAgreementDocument == null) {
-            Toast.makeText(this, "Document viewer not available", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Set the document thumbnail based on file type
-        val fileName = CommonFunction().getFileName(this, documentUri)
-        val fileExtension = fileName.substringAfterLast('.', "")
-
-        if (fileExtension.equals("pdf", ignoreCase = true)) {
-            binding.llAgreementDocument.ivThumbnail.setImageResource(R.drawable.export)
-        } else {
-            // For image files, try to set the thumbnail
-            binding.llAgreementDocument.ivThumbnail.setImageURI(documentUri)
-        }
-
-        binding.llAgreementDocument.tvFileName.text = fileName
-        val fileSize = CommonFunction().getFileSize(this, documentUri)
-        binding.llAgreementDocument.tvFileSize.text = fileSize
-
-        agreementDocument = documentUri
-        agreementType = AgreementType.UPLOADED
-
-        hideAgreementOptions()
-        binding.llAgreementDocument.root.visibility = View.VISIBLE
-    }
-
-    // Rest of your existing code...
-    // setupRentHouseLayout, setupLandDetailLayout, setupPgRoomsLayout, setupApartmentLayout, etc.
-
-    /**
-     * Opens the document picker for selecting PDF or image files for rental agreement.
-     */
-    private fun openDocumentPicker() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "*/*"
-            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/pdf", "image/*"))
-        }
-        documentPickerLauncher.launch(intent.toString())
-    }
-
 
     /**
      * Initialize the Rent House layout.
@@ -429,6 +110,8 @@ class AddPropertyActivity : AppCompatActivity() {
      * Initialize the Land Detail layout.
      */
     private fun setupLandDetailLayout() {
+        // Placeholder: You can capture land size if required
+        // val landSize = binding.llLandDetail.etLandSize.text.toString()
         setupLandAreaTypeSpinner()
     }
 
@@ -648,8 +331,7 @@ class AddPropertyActivity : AppCompatActivity() {
             .show()
     }
 
-
-    // ActivityResultLaunchers for Camera, Gallery, and Document picker
+    // ActivityResultLaunchers for Camera and Gallery
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -666,14 +348,6 @@ class AddPropertyActivity : AppCompatActivity() {
                 propertyImage = uri
                 updatePhotoUI(uri)
             } ?: Toast.makeText(this, "Failed to upload photo!", Toast.LENGTH_SHORT).show()
-        }
-
-    private val documentPickerLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                agreementDocument = uri
-                updateAgreementUI(uri)
-            } ?: Toast.makeText(this, "Failed to upload document!", Toast.LENGTH_SHORT).show()
         }
 
     /**
