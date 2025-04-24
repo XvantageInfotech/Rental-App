@@ -5,9 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.xvantage.rental.R
-import com.xvantage.rental.Tenant
-import com.xvantage.rental.databinding.FragmentRoomsBinding
 import com.xvantage.rental.databinding.FragmentTenantsBinding
 
 

@@ -1,14 +1,12 @@
-package com.xvantage.rental
+package com.xvantage.rental.ui.addProperty
 
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.xvantage.rental.databinding.FragmentAddTenantBottomSheetBinding
-import com.xvantage.rental.ui.addProperty.Room
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -118,6 +116,7 @@ class AddTenantBottomSheetFragment : BottomSheetDialogFragment() {
         _binding = null
     }
 }
+
 // Data model
 data class Tenant(
     val id: String,

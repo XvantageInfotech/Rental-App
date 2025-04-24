@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.FragmentRoomsBinding
 
@@ -13,15 +14,17 @@ class RoomsFragment : Fragment() {
     private var _binding: FragmentRoomsBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: PropertyDetailsViewModel by activityViewModels()
     private lateinit var roomAdapter: RoomAdapter
     private var propertyId: String = ""
     private val rooms = mutableListOf<Room>()
-
     companion object {
+        private const val ARG_PROPERTY_ID = "propertyId"
+
         fun newInstance(propertyId: String): RoomsFragment {
             val fragment = RoomsFragment()
             val args = Bundle()
-            args.putString("property_id", propertyId)
+            args.putString(ARG_PROPERTY_ID, propertyId)
             fragment.arguments = args
             return fragment
         }
