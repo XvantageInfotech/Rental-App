@@ -47,14 +47,14 @@ class PropertyDetailsActivity : AppCompatActivity() {
         binding.tvPropertyName.text = property.name
         binding.tvPropertyAddress.text = property.address
 
-        // Load property image if available
-        if (property.imageUrl.isNotEmpty()) {
-            Glide.with(this)
-                .load(property.imageUrl)
-                .placeholder(R.drawable.add_property_no_image)
-                .centerCrop()
-                .into(binding.ivPropertyImage)
-        }
+//        // Load property image if available
+//        if (property.imageUrl.isNotEmpty()) {
+//            Glide.with(this)
+//                .load(R.drawable.image)
+//                .placeholder(R.drawable.image)
+//                .centerCrop()
+//                .into(binding.ivPropertyImage)
+//        }
     }
 
     private fun setupViewPager() {
