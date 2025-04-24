@@ -92,7 +92,10 @@
     <string name="number_of_pg">Number of PG Rooms</string>
     <string name="number_of_bed_per_room">Beds/Rooms</string>
 
-
+    <string name="owner_name">Owner Name</string>
+    <string name="enter_owner_name">Enter Owner Name</string>
+    <string name="whatsapp_number">WhatsApp Number</string>
+    <string name="enter_whatsapp_number">Enter WhatsApp Number</string>
     <!-- Manage Property -->
 
     <string name="manage_property">Manage Property</string>

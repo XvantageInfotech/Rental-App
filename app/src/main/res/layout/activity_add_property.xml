@@ -218,7 +218,38 @@
 
 
                 </RelativeLayout>
+ <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="Owner Name"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="16sp" />
 
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_owner_name"
+                    style="@style/EditText"
+                    android:background="@drawable/grey_border_background"
+                    android:hint="Enter Owner Name"
+                    android:padding="@dimen/space8"
+                    android:textColorHint="@color/grey_hint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="WhatsApp Number"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_whatsapp_number"
+                    style="@style/EditText"
+                    android:background="@drawable/grey_border_background"
+                    android:hint="Enter WhatsApp Number"
+                    android:inputType="phone"
+                    android:padding="@dimen/space8"
+                    android:textColorHint="@color/grey_hint" />
                 <include
                     android:id="@+id/ll_property_photo"
                     layout="@layout/selected_image_layout"
