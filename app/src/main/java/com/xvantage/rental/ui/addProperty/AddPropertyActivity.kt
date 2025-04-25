@@ -38,10 +38,7 @@ class AddPropertyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPropertyBinding
     private lateinit var appPreference: AppPreference
 
-    private lateinit var llApartment: View
-    private lateinit var llPG: View
-    private lateinit var llLand: View
-    private lateinit var llRentHouse: View
+
     private lateinit var llPropertyImage: View
 
     private var currentNumber = 0
@@ -59,10 +56,7 @@ class AddPropertyActivity : AppCompatActivity() {
 
         binding.toolbar.tvTitle.setText(R.string.add_property_bottom_n)
 
-        llApartment = findViewById(R.id.ll_appartment)
-        llPG = findViewById(R.id.ll_pg_rooms)
-        llLand = findViewById(R.id.ll_land_detail)
-        llRentHouse = findViewById(R.id.ll_rent_house)
+
         llPropertyImage = findViewById(R.id.ll_property_photo)
 
         initViews()
@@ -104,76 +98,11 @@ class AddPropertyActivity : AppCompatActivity() {
      */
     private fun initViews() {
         setupPropertyTypeSpinner()
-        setupApartmentLayout()
-        setupPgRoomsLayout()
-        setupLandDetailLayout()
-        setupRentHouseLayout()
     }
 
-    /**
-     * Initialize the Rent House layout.
-     */
-    private fun setupRentHouseLayout() {
-        setupRoomTypeSpinner()
-    }
 
-    /**
-     * Initialize the Land Detail layout.
-     */
-    private fun setupLandDetailLayout() {
-        // Placeholder: You can capture land size if required
-        // val landSize = binding.llLandDetail.etLandSize.text.toString()
-        setupLandAreaTypeSpinner()
-    }
 
-    /**
-     * Initialize the PG Rooms layout.
-     */
-    private fun setupPgRoomsLayout() {
-        binding.llPgRooms.incRoom.setOnClickListener {
-            if (currentNumber < 99) {
-                currentNumber++
-                binding.llPgRooms.etRoomNumber.setText(String.format("%02d", currentNumber))
-            }
-        }
-        binding.llPgRooms.decRoom.setOnClickListener {
-            if (currentNumber > 0) {
-                currentNumber--
-                binding.llPgRooms.etRoomNumber.setText(String.format("%02d", currentNumber))
-            }
-        }
-        binding.llPgRooms.incBeds.setOnClickListener {
-            if (currentNumber < 99) {
-                currentNumber++
-                binding.llPgRooms.etBedNumber.setText(String.format("%02d", currentNumber))
-            }
-        }
-        binding.llPgRooms.decBeds.setOnClickListener {
-            if (currentNumber > 0) {
-                currentNumber--
-                binding.llPgRooms.etBedNumber.setText(String.format("%02d", currentNumber))
-            }
-        }
-    }
 
-    /**
-     * Initialize the Apartment layout.
-     */
-    private fun setupApartmentLayout() {
-        binding.llAppartment.buttonUp.setOnClickListener {
-            if (currentNumber < 99) {
-                currentNumber++
-                binding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
-            }
-        }
-        binding.llAppartment.buttonDown.setOnClickListener {
-            if (currentNumber > 0) {
-                currentNumber--
-                binding.llAppartment.etNumber.setText(String.format("%02d", currentNumber))
-            }
-        }
-        setupFlatTypeSpinner()
-    }
 
     /**
      * Helper function to setup a spinner with custom text color.
@@ -205,32 +134,7 @@ class AddPropertyActivity : AppCompatActivity() {
         spinner.setSelection(0)
     }
 
-    /**
-     * Setup the Room Type spinner for Rent House layout.
-     */
-    private fun setupRoomTypeSpinner() {
-        val spinner = findViewById<Spinner>(R.id.spinner_room_type)
-        val roomTypes = listOf("Select Room Type", "BK", "1BHK", "2BHK", "3BHK", "4BHK")
-        setupSpinner(spinner, roomTypes)
-    }
 
-    /**
-     * Setup the Flat Type spinner for Apartment layout.
-     */
-    private fun setupFlatTypeSpinner() {
-        val spinner = findViewById<Spinner>(R.id.spinner_flat_type)
-        val flatTypes = listOf("Select Flat Type", "1BHK", "2BHK", "3BHK", "4BHK")
-        setupSpinner(spinner, flatTypes)
-    }
-
-    /**
-     * Setup the Land Area Type spinner for Land Detail layout.
-     */
-    private fun setupLandAreaTypeSpinner() {
-        val spinner = findViewById<Spinner>(R.id.spinner_area_type)
-        val areaTypes = listOf("Sqft", "Sqmt")
-        setupSpinner(spinner, areaTypes, defaultTextColor = Color.BLACK, selectedTextColor = Color.BLACK)
-    }
 
     /**
      * Setup the Property Type spinner and update UI sections based on selection.
@@ -259,45 +163,21 @@ class AddPropertyActivity : AppCompatActivity() {
         when (selectedPosition) {
             1 -> { // House
                 binding.llHomeNumber.visibility = View.VISIBLE
-                llApartment.visibility = View.GONE
-                llPG.visibility = View.GONE
-                llLand.visibility = View.GONE
-                llRentHouse.visibility = View.GONE
             }
             2 -> { // Apartment
-                llApartment.visibility = View.VISIBLE
                 binding.llHomeNumber.visibility = View.GONE
-                llPG.visibility = View.GONE
-                llLand.visibility = View.GONE
-                llRentHouse.visibility = View.GONE
             }
             3 -> { // PG
-                llPG.visibility = View.VISIBLE
                 binding.llHomeNumber.visibility = View.GONE
-                llApartment.visibility = View.GONE
-                llLand.visibility = View.GONE
-                llRentHouse.visibility = View.GONE
             }
             4 -> { // Rent House
-                llRentHouse.visibility = View.VISIBLE
                 binding.llHomeNumber.visibility = View.GONE
-                llApartment.visibility = View.GONE
-                llPG.visibility = View.GONE
-                llLand.visibility = View.GONE
             }
             5 -> { // Land
-                llLand.visibility = View.VISIBLE
                 binding.llHomeNumber.visibility = View.GONE
-                llApartment.visibility = View.GONE
-                llPG.visibility = View.GONE
-                llRentHouse.visibility = View.GONE
             }
             else -> { // Default: No section selected
                 binding.llHomeNumber.visibility = View.GONE
-                llApartment.visibility = View.GONE
-                llPG.visibility = View.GONE
-                llLand.visibility = View.GONE
-                llRentHouse.visibility = View.GONE
             }
         }
     }
