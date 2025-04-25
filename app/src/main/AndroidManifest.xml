@@ -33,7 +33,7 @@
         android:theme="@style/Theme.RentalApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.addProperty.PropertyDetailsActivity"
+            android:name=".ui.addProperty.activity.PropertyDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.CreateRoomActivity"
@@ -71,7 +71,7 @@
             android:name=".ui.manageProperty.ManagePropertyActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.addProperty.AddPropertyActivity"
+            android:name=".ui.addProperty.activity.AddPropertyActivity"
             android:exported="false" />
         <activity
             android:name=".ui.dashboard.DashboardActivity"

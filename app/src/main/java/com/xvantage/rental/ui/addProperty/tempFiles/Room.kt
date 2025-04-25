@@ -1,4 +1,8 @@
-package com.xvantage.rental.ui.addProperty
+package com.xvantage.rental.ui.addProperty.tempFiles
+
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import java.util.UUID
 
 /**
  * Project: Rental App By XV Team
@@ -7,10 +11,6 @@ package com.xvantage.rental.ui.addProperty
  * <p>
  * Licensed under the Apache License, Version 2.0. See LICENSE file for terms.
  */
-
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import java.util.UUID
 
 @Parcelize
 data class Room(

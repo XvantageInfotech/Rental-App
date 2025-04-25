@@ -1,13 +1,15 @@
-package com.xvantage.rental.ui.addProperty
+package com.xvantage.rental.ui.addProperty.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.xvantage.rental.R
 import com.xvantage.rental.databinding.FragmentRoomsBinding
+import com.xvantage.rental.ui.addProperty.PropertyDetailsViewModel
+import com.xvantage.rental.ui.addProperty.tempFiles.Room
+import com.xvantage.rental.ui.addProperty.adapter.RoomAdapter
 
 class RoomsFragment : Fragment() {
 

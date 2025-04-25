@@ -7,6 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.xvantage.rental.ui.addProperty.bmsheet.Tenant
+import com.xvantage.rental.ui.addProperty.tempFiles.Property
+import com.xvantage.rental.ui.addProperty.tempFiles.PropertyRepository
+import com.xvantage.rental.ui.addProperty.tempFiles.Room
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.launch
 

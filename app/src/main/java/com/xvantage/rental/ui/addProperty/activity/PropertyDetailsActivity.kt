@@ -1,9 +1,8 @@
-package com.xvantage.rental.ui.addProperty
+package com.xvantage.rental.ui.addProperty.activity
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -11,7 +10,12 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityPropertyDetailsBinding
-import com.bumptech.glide.Glide
+import com.xvantage.rental.ui.addProperty.bmsheet.AddRoomBottomSheetFragment
+import com.xvantage.rental.ui.addProperty.bmsheet.AddTenantBottomSheetFragment
+import com.xvantage.rental.ui.addProperty.fragment.FinancialsFragment
+import com.xvantage.rental.ui.addProperty.tempFiles.Property
+import com.xvantage.rental.ui.addProperty.fragment.RoomsFragment
+import com.xvantage.rental.ui.addProperty.fragment.TenantsFragment
 
 class PropertyDetailsActivity : AppCompatActivity() {
 
@@ -151,9 +155,9 @@ class PropertyDetailsActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> RoomsFragment.newInstance(property.id)
-                1 -> TenantsFragment.newInstance(property.id)
-                2 -> FinancialsFragment.newInstance(property.id)
+                0 -> RoomsFragment.Companion.newInstance(property.id)
+                1 -> TenantsFragment.Companion.newInstance(property.id)
+                2 -> FinancialsFragment.Companion.newInstance(property.id)
                 else -> Fragment()
             }
         }

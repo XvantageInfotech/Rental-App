@@ -1,6 +1,6 @@
-package com.xvantage.rental.ui.addProperty
+package com.xvantage.rental.ui.addProperty.bmsheet
 
-
+import android.R
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.xvantage.rental.databinding.FragmentAddRoomBottomSheetBinding
+import com.xvantage.rental.ui.addProperty.tempFiles.Room
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -48,7 +49,7 @@ class AddRoomBottomSheetFragment : BottomSheetDialogFragment() {
         val roomTypes = arrayOf("1BHK", "2BHK", "3BHK", "Single Room", "Studio", "Other")
         val adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
+            R.layout.simple_spinner_dropdown_item,
             roomTypes
         )
         binding.spinnerRoomType.adapter = adapter
@@ -148,4 +149,3 @@ class AddRoomBottomSheetFragment : BottomSheetDialogFragment() {
         _binding = null
     }
 }
-

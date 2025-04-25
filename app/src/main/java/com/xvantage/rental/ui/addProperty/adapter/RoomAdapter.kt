@@ -1,4 +1,16 @@
-package com.xvantage.rental.ui.addProperty
+package com.xvantage.rental.ui.addProperty.adapter
+
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.xvantage.rental.databinding.ItemRoomBinding
+import com.xvantage.rental.ui.addProperty.tempFiles.Room
+import java.text.NumberFormat
+import java.util.Locale
 
 /**
  * Project: Rental App By XV Team
@@ -7,16 +19,6 @@ package com.xvantage.rental.ui.addProperty
  * <p>
  * Licensed under the Apache License, Version 2.0. See LICENSE file for terms.
  */
-
-import android.graphics.Color
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.xvantage.rental.databinding.ItemRoomBinding
-import java.text.NumberFormat
-import java.util.Locale
 
 class RoomAdapter(private val onRoomClicked: (Room) -> Unit) :
     ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomDiffCallback()) {
@@ -64,7 +66,7 @@ class RoomAdapter(private val onRoomClicked: (Room) -> Unit) :
 
             // Set badge background color based on occupancy status
             val badgeColor = if (room.isOccupied) Color.parseColor("#4CAF50") else Color.parseColor("#FF9800")
-            binding.tvStatusBadge.backgroundTintList = android.content.res.ColorStateList.valueOf(badgeColor)
+            binding.tvStatusBadge.backgroundTintList = ColorStateList.valueOf(badgeColor)
         }
     }
 

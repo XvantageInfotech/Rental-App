@@ -1,4 +1,4 @@
-package com.xvantage.rental.ui.addProperty
+package com.xvantage.rental.ui.addProperty.bmsheet
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.xvantage.rental.databinding.FragmentAddTenantBottomSheetBinding
+import com.xvantage.rental.ui.addProperty.tempFiles.Room
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

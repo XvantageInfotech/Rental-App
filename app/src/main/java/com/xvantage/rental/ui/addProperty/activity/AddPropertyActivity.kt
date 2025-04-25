@@ -1,4 +1,4 @@
-package com.xvantage.rental.ui.addProperty
+package com.xvantage.rental.ui.addProperty.activity
 
 import android.Manifest
 import android.content.Intent
@@ -27,11 +27,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityAddPropertyBinding
-import com.xvantage.rental.ui.manageProperty.ManagePropertyActivity
+import com.xvantage.rental.ui.addProperty.tempFiles.Property
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
 import java.io.File
-
 
 class AddPropertyActivity : AppCompatActivity() {
 
@@ -260,7 +259,8 @@ class AddPropertyActivity : AppCompatActivity() {
      * Opens the device camera to capture a photo.
      */
     private fun openCamera() {
-        val photoFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+        val photoFile = File(
+            getExternalFilesDir(Environment.DIRECTORY_PICTURES),
             "IMG_${System.currentTimeMillis()}.jpg"
         )
         propertyImage = FileProvider.getUriForFile(

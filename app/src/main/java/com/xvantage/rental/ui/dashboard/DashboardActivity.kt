@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityDashboardBinding
 import com.xvantage.rental.databinding.ToolbarLayoutBinding
-import com.xvantage.rental.ui.addProperty.AddPropertyActivity
+import com.xvantage.rental.ui.addProperty.activity.AddPropertyActivity
 import com.xvantage.rental.ui.dashboard.fragment.DuesFragment
 import com.xvantage.rental.ui.dashboard.fragment.HomeFragment
 import com.xvantage.rental.utils.CommonFunction
