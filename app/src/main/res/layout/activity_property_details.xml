@@ -128,8 +128,10 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
             android:contentDescription="Add"
-            android:src="@android:drawable/ic_input_add"
-            app:backgroundTint="@color/primary_blue" />
+            app:tint="@android:color/white"
+x            android:backgroundTint="@color/black_cole"
+            android:src="@drawable/baseline_add_24"
+      />
 
     </RelativeLayout>
 </layout>

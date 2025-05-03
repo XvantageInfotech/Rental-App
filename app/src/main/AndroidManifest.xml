@@ -36,9 +36,6 @@
             android:name=".ui.addProperty.activity.PropertyDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.CreateRoomActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.rentInvoice.RentInvoiceActivity"
             android:exported="false" />
         <activity
