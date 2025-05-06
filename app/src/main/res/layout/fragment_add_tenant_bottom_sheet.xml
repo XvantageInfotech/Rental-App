@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Tenant"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="Close"
+                    android:src="@drawable/ic_close" />
+            </RelativeLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_hint"
+                android:alpha="0.3" />
+
+            <!-- Essential Information Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Essential Information"
+                android:textColor="@color/primary_blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Room Name Spinner -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Room Name"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <Spinner
+                android:id="@+id/spinner_room_name"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/grey_border_background"
+                android:paddingStart="12dp"
+                android:spinnerMode="dropdown" />
+
+            <!-- Tenant Full Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Tenant Full Name"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_tenant_name"
+                style="@style/EditText"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/grey_border_background"
+                android:hint="Enter tenant's full name"
+                android:inputType="textPersonName"
+                android:padding="12dp"
+                android:textColorHint="@color/grey_hint" />
+
+
+            <!-- Dates and Financials -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Check-in Date"
+                android:textColor="@color/primary_blue"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_checkin_date"
+                style="@style/EditText"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/grey_border_background"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Select check-in date"
+                android:padding="12dp"
+                android:textColorHint="@color/grey_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Rent Start Date"
+                android:textColor="@color/primary_blue"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_rent_start_date"
+                style="@style/EditText"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/grey_border_background"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Select rent start date"
+                android:padding="12dp"
+                android:textColorHint="@color/grey_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Rent Submission Date"
+                android:textColor="@color/primary_blue"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_rent_submission_date"
+                style="@style/EditText"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/grey_border_background"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Select rent submission date"
+                android:padding="12dp"
+                android:textColorHint="@color/grey_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Room Deposit"
+                android:textColor="@color/primary_blue"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_room_deposit"
+                style="@style/EditText"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/grey_border_background"
+                android:hint="Enter deposit amount"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:textColorHint="@color/grey_hint" />
+            <!-- Aadhar Card Photo Upload -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Aadhar Card Photo"
+                android:textColor="@color/primary_blue"
+                android:textSize="16sp" />
+            <RelativeLayout
+                android:id="@+id/iv_aadhar_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_box">
+
+                <LinearLayout
+                    android:id="@+id/uploadContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/uploadIcon"
+                        android:layout_width="34dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_cloud_upload" />
+
+                    <TextView
+                        android:id="@+id/maxSizeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Max 10 MB files are allowed"
+                        android:textColor="#777777"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/supportedFormats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Only support .jpg, .png files"
+                        android:textColor="@color/dark_grey_hint"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- Tenant Photo Upload -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Tenant Photo"
+                android:textColor="@color/primary_blue"
+                android:textSize="16sp" />
+            <RelativeLayout
+                android:id="@+id/iv_tenant_photo_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_box">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="34dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_cloud_upload" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Max 10 MB files are allowed"
+                        android:textColor="#777777"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Only support .jpg, .png files"
+                        android:textColor="@color/dark_grey_hint"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!-- Action Buttons -->
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="Cancel" />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/primary_blue"
+                    android:text="Save Tenant" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

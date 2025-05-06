@@ -7,6 +7,7 @@
 
     <!-- Collect Cash Card -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_take_rent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="0dp"
         android:layout_height="120dp"
@@ -45,6 +46,7 @@
 
     <!-- Add Tenant Card -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_add_tenant"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="0dp"
         android:layout_height="120dp"
@@ -84,6 +86,7 @@
 
     <!-- Add Property Card -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_add_property"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="0dp"
         android:layout_height="120dp"

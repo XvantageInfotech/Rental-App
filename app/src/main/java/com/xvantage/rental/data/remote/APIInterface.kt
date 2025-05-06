@@ -5,6 +5,7 @@ import com.xvantage.rental.network.request.auth.LoginRequest
 import com.xvantage.rental.network.request.auth.GoogleLoginRequest
 import com.xvantage.rental.network.request.auth.SignupRequest
 import com.xvantage.rental.network.request.auth.VerifyOTPRequest
+import com.xvantage.rental.network.request.property.CreatePropertyRequest
 import com.xvantage.rental.network.response.LoginResponse
 import com.xvantage.rental.network.response.SignupResponse
 import com.xvantage.rental.network.response.VerifyOTPResponse
@@ -34,6 +35,10 @@ interface APIInterface {
 
     @POST("auth/verify")
     suspend fun verifyOtp(@Body request: VerifyOTPRequest): Response<VerifyOTPResponse>
+
     @POST("landlord/auth/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+
+    @POST("landlord/create-property")
+    suspend fun createProperty(@Body request: CreatePropertyRequest): Response<LoginResponse>
 }

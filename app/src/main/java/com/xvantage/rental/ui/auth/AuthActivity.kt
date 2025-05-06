@@ -77,5 +77,4 @@ class AuthActivity : BaseActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-
 }

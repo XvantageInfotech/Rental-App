@@ -12,9 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xvantage.rental.data.source.sample.PropertyDataRepository
 import com.xvantage.rental.databinding.FragmentHomeBinding
+import com.xvantage.rental.ui.addTenant.AddTenantActivity
 import com.xvantage.rental.ui.dashboard.DashboardActivity
 import com.xvantage.rental.ui.dashboard.fragment.adapter.PropertiesAdapter
 import com.xvantage.rental.ui.dashboard.fragment.adapter.TenantsAdapter
+import com.xvantage.rental.ui.manageProperty.ManagePropertyActivity
 import com.xvantage.rental.ui.takeRent.activity.TakeRentActivity
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
@@ -57,9 +59,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.cvTakeRent.root.setOnClickListener {
-            navigateToTakeRent()
+
+        binding.tvViewAllPropperty.setOnClickListener {
+            CommonFunction().navigation(requireContext(), ManagePropertyActivity::class.java)
         }
+        binding.cvQuickAction.cvTakeRent.setOnClickListener {
+            CommonFunction().navigation(requireContext(), TakeRentActivity::class.java)
+        }
+        binding.cvQuickAction.cvAddTenant.setOnClickListener {
+            CommonFunction().navigation(requireContext(), AddTenantActivity::class.java)
+        }
+        binding.cvQuickAction.cvAddProperty.setOnClickListener {
+            CommonFunction().navigation(requireContext(), ManagePropertyActivity::class.java)
+        }
+
     }
 
     private fun navigateToTakeRent() {
