@@ -2,31 +2,32 @@ package com.xvantage.rental.ui.addProperty
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xvantage.rental.data.PropertyRepository
-import com.xvantage.rental.data.model.Property
-import com.xvantage.rental.data.model.PropertyType
-import com.xvantage.rental.network.utils.ApiResponse
+import com.xvantage.rental.data.source.PropertyRepository
+import com.xvantage.rental.network.request.property.CreatePropertyRequest
+import com.xvantage.rental.network.response.CreatePropertyResponse
+import com.xvantage.rental.network.utils.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
-sealed class AddPropertyUiState {
-    object Idle : AddPropertyUiState()
-    object Loading : AddPropertyUiState()
-    data class Success(val property: Property) : AddPropertyUiState()
-    data class Error(val message: String) : AddPropertyUiState()
-}
+/**
+ * Project: Rental App By XV Team
+ * Author: Mujammil x Vipul x XV Team
+ * Date:  06/05/25
+ * <p>
+ * Licensed under the Apache License, Version 2.0. See LICENSE file for terms.
+ */
 
-sealed class PropertyTypesUiState {
-    object Loading : PropertyTypesUiState()
-    data class Success(val propertyTypes: List<PropertyType>) : PropertyTypesUiState()
-    data class Error(val message: String) : PropertyTypesUiState()
-    object Idle : PropertyTypesUiState()
+
+
+sealed class CreatePropertyState {
+    object Idle : CreatePropertyState()
+    object Loading : CreatePropertyState()
+    data class Success(val data: CreatePropertyResponse) : CreatePropertyState()
+    data class Error(val message: String) : CreatePropertyState()
 }
 
 @HiltViewModel
@@ -34,63 +35,21 @@ class AddPropertyViewModel @Inject constructor(
     private val repository: PropertyRepository
 ) : ViewModel() {
 
-    // StateFlow for property types list
-    private val _propertyTypesState = MutableStateFlow<PropertyTypesUiState>(PropertyTypesUiState.Idle)
-    val propertyTypesState: StateFlow<PropertyTypesUiState> = _propertyTypesState.asStateFlow()
+    private val _createPropertyState = MutableStateFlow<CreatePropertyState>(CreatePropertyState.Idle)
+    val createPropertyState: StateFlow<CreatePropertyState> = _createPropertyState.asStateFlow()
 
-    // StateFlow for create property operation result
-    private val _createPropertyState = MutableStateFlow<AddPropertyUiState>(AddPropertyUiState.Idle)
-    val createPropertyState: StateFlow<AddPropertyUiState> = _createPropertyState.asStateFlow()
-
-    // Form state - you can expand this with MutableStateFlow for each field if needed for validation
-    // For simplicity, we'll pass them directly to the createProperty function for now.
-
-    init {
-        fetchPropertyTypes()
-    }
-
-    fun fetchPropertyTypes() {
+    fun createProperty(request: CreatePropertyRequest) {
         viewModelScope.launch {
-            _propertyTypesState.value = PropertyTypesUiState.Loading
-            repository.getPropertyTypes()
-                .catch { e ->
-                    _propertyTypesState.value = PropertyTypesUiState.Error(e.localizedMessage ?: "Failed to load property types")
+            _createPropertyState.value = CreatePropertyState.Loading
+            when (val response = repository.createProperty(request)) {
+                is ResultWrapper.Success -> {
+                    _createPropertyState.value = CreatePropertyState.Success(response.value)
                 }
-                .collect { response ->
-                    when (response) {
-                        is ApiResponse.Success -> _propertyTypesState.value = PropertyTypesUiState.Success(response.data)
-                        is ApiResponse.Error -> _propertyTypesState.value = PropertyTypesUiState.Error(response.message ?: "Unknown error fetching property types")
-                        is ApiResponse.Loading -> _propertyTypesState.value = PropertyTypesUiState.Loading // Already handled by initial emit
-                    }
+                is ResultWrapper.Error -> {
+                    _createPropertyState.value = CreatePropertyState.Error(response.message ?: "Create property failed")
                 }
+                ResultWrapper.Loading -> Unit
+            }
         }
-    }
-
-    fun createProperty(
-        address: String,
-        noOfRoom: String,
-        propertyTypeId: String,
-        waNumber: String,
-        name: String,
-        propertyImageFile: File?
-    ) {
-        viewModelScope.launch {
-            _createPropertyState.value = AddPropertyUiState.Loading
-            repository.createProperty(address, noOfRoom, propertyTypeId, waNumber, name, propertyImageFile)
-                .catch { e ->
-                    _createPropertyState.value = AddPropertyUiState.Error(e.localizedMessage ?: "Failed to create property")
-                }
-                .collect { response ->
-                    when (response) {
-                        is ApiResponse.Success -> _createPropertyState.value = AddPropertyUiState.Success(response.data)
-                        is ApiResponse.Error -> _createPropertyState.value = AddPropertyUiState.Error(response.message ?: "Unknown error creating property")
-                        is ApiResponse.Loading -> _createPropertyState.value = AddPropertyUiState.Loading // Already handled
-                    }
-                }
-        }
-    }
-    
-    fun resetCreatePropertyState(){
-        _createPropertyState.value = AddPropertyUiState.Idle
     }
 }

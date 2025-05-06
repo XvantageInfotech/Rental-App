@@ -1,4 +1,4 @@
-package com.xvantage.rental.data.source.module
+package com.xvantage.rental.di
 
 /**
  * Project: Rental App By XV Team

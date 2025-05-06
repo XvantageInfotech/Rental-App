@@ -1,7 +1,7 @@
 package com.xvantage.rental.di
 
-import com.xvantage.rental.data.PropertyRepository
-import com.xvantage.rental.network.ApiService
+import com.xvantage.rental.data.remote.APIInterface
+import com.xvantage.rental.data.source.AuthRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,11 +10,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+object AuthModule {
 
     @Provides
     @Singleton
-    fun providePropertyRepository(apiService: ApiService): PropertyRepository {
-        return PropertyRepository(apiService)
+    fun provideAuthRepository(apiInterface: APIInterface): AuthRepository {
+        return AuthRepository(apiInterface)
     }
 }

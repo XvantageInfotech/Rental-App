@@ -30,8 +30,8 @@ import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityAddPropertyBinding
 import com.xvantage.rental.network.request.property.CreatePropertyRequest
-import com.xvantage.rental.ui.addProperty.tempFiles.Property
-import com.xvantage.rental.ui.auth.AuthViewModel
+import com.xvantage.rental.ui.addProperty.AddPropertyViewModel
+import com.xvantage.rental.ui.addProperty.CreatePropertyState
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
 import dagger.hilt.android.AndroidEntryPoint
