@@ -9,6 +9,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -36,15 +38,17 @@ import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import java.io.File
+
 @AndroidEntryPoint
 class AddPropertyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPropertyBinding
     private lateinit var appPreference: AppPreference
     private val viewModel: AddPropertyViewModel by viewModels()
-
-
+    private var propertyTypeIds = listOf<String>()
+    private var selectedPropertyTypeId: String = ""
     private lateinit var llPropertyImage: View
 
     private var currentNumber = 0
@@ -74,23 +78,25 @@ class AddPropertyActivity : AppCompatActivity() {
      */
     private fun initClickEvents() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
-
-
+        binding.spinnerPropertyType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+                selectedPropertyTypeId = if (pos > 0) propertyTypeIds[pos - 1] else ""
+                Log.d("AddProperty", "Selected typeId=$selectedPropertyTypeId")
+                updatePropertySection(pos)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
         binding.toolbar.btnSave.setOnClickListener {
-            val name = binding.etSignUpEmail.text.toString().trim()
-            val address = binding.tvTitle.text.toString().trim()
-            val whatsapp = binding.etWhatsappNumber.text.toString().trim()
-            val propertyTypeId = "" // TODO: get selected propertyTypeId from spinner
             val request = CreatePropertyRequest(
-                address = address,
-                noOfRoom = 0,
-                propertyTypeId = propertyTypeId,
-                wa_number = whatsapp,
-                name = name
+                address        = binding.etAddress.text.toString().trim(),
+                noOfRoom       = binding.etHomeNumber.text.toString().toIntOrNull() ?: 0,
+                propertyTypeId = selectedPropertyTypeId,
+                wa_number      = binding.etWhatsappNumber.text.toString().trim(),
+                name           = binding.etOwnerName.text.toString().trim(),
+                propertyImage  = propertyImage?.let { uriToBase64(it) } ?: ""
             )
             viewModel.createProperty(request)
         }
-
         lifecycleScope.launch {
             viewModel.createPropertyState.collect { state ->
                 when (state) {
@@ -126,10 +132,17 @@ class AddPropertyActivity : AppCompatActivity() {
      * Initialize all views and drop-down menus.
      */
     private fun initViews() {
-        setupPropertyTypeSpinner()
+        viewModel.loadPropertyTypes()
+        // 2) Collect and populate spinner
+        lifecycleScope.launchWhenStarted {
+            viewModel.propertyTypes.collect { list ->
+                val names = list.map { it.name }
+                propertyTypeIds = list.map { it.id }
+                // populate spinner, but do NOT call setSelection here
+                setupSpinner(binding.spinnerPropertyType, listOf("Select Property Type") + names)
+            }
+        }
     }
-
-
 
 
 
@@ -169,20 +182,35 @@ class AddPropertyActivity : AppCompatActivity() {
      * Setup the Property Type spinner and update UI sections based on selection.
      */
     private fun setupPropertyTypeSpinner() {
-        val spinner = findViewById<Spinner>(R.id.spinner_property_type)
-        val propertyTypes = listOf("Select Property Type", "House", "Apartment", "PG", "Rent House", "Land")
-        setupSpinner(spinner, propertyTypes)
 
+        val spinner = findViewById<Spinner>(R.id.spinner_property_type)
+        lifecycleScope.launchWhenStarted {
+            viewModel.propertyTypes.collect { list ->
+                val displayNames = list.map { it.name }
+                propertyTypeIds = list.map { it.id }
+                setupSpinner(spinner, listOf("Select…") + displayNames)  // reuse your helper
+            }
+        }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View?, position: Int, id: Long
             ) {
                 (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-                updatePropertySection(position)
+                if (position > 0) {
+                    selectedPropertyTypeId = propertyTypeIds[position - 1]
+                } else {
+                    selectedPropertyTypeId = ""
+                }
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         spinner.setSelection(0)
+    }
+    private fun uriToBase64(uri: Uri): String {
+        return contentResolver.openInputStream(uri)!!.use { stream ->
+            val bytes = stream.readBytes()
+            Base64.encodeToString(bytes, Base64.NO_WRAP)
+        }
     }
 
     /**

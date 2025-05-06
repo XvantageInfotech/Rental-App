@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.xvantage.rental.data.source.PropertyRepository
 import com.xvantage.rental.network.request.property.CreatePropertyRequest
 import com.xvantage.rental.network.response.CreatePropertyResponse
+import com.xvantage.rental.network.response.PropertyType
 import com.xvantage.rental.network.utils.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +38,17 @@ class AddPropertyViewModel @Inject constructor(
 
     private val _createPropertyState = MutableStateFlow<CreatePropertyState>(CreatePropertyState.Idle)
     val createPropertyState: StateFlow<CreatePropertyState> = _createPropertyState.asStateFlow()
+
+    private val _propertyTypes = MutableStateFlow<List<PropertyType>>(emptyList())
+    val propertyTypes: StateFlow<List<PropertyType>> = _propertyTypes.asStateFlow()
+
+    fun loadPropertyTypes() = viewModelScope.launch {
+        when(val res = repository.getPropertyTypes()) {
+            is ResultWrapper.Success -> _propertyTypes.value = res.value
+            is ResultWrapper.Error   -> _createPropertyState.value = CreatePropertyState.Error(res.message)
+            else -> Unit
+        }
+    }
 
     fun createProperty(request: CreatePropertyRequest) {
         viewModelScope.launch {

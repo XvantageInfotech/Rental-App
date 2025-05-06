@@ -10,20 +10,22 @@ import com.xvantage.rental.network.response.CreatePropertyResponse
 import com.xvantage.rental.network.response.LoginResponse
 import com.xvantage.rental.network.response.SignupResponse
 import com.xvantage.rental.network.response.VerifyOTPResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Url
 
 interface APIInterface {
-
     @GET
-    fun get(@Url url: String): Call<JsonObject>
-
+    suspend fun get(@Url url: String): Response<JsonObject>
     @FormUrlEncoded
     @POST
     fun post(@Url url: String, @FieldMap params: Map<String, String>): Call<JsonObject>
@@ -40,7 +42,15 @@ interface APIInterface {
     @POST("landlord/auth/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
-
+    @Multipart
     @POST("landlord/create-property")
-    suspend fun createProperty(@Body request: CreatePropertyRequest): Response<CreatePropertyResponse>
+    suspend fun createProperty(
+        @Part("address") address: RequestBody,
+        @Part("noOfRoom") noOfRoom: RequestBody,
+        @Part("propertyTypeId") propertyTypeId: RequestBody,
+        @Part("wa_number") wa_number: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): Response<CreatePropertyResponse>
+
 }
