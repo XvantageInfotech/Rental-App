@@ -118,19 +118,19 @@ class PropertyDetailsActivity : AppCompatActivity() {
         val bottomSheet = AddRoomBottomSheetFragment()
         bottomSheet.setOnRoomAddedListener { room ->
             // Notify rooms fragment about the new room
-            val roomsFragment = supportFragmentManager.fragments.find { it is RoomsFragment } as? RoomsFragment
-            roomsFragment?.addRoom(room)
+//            val roomsFragment = supportFragmentManager.fragments.find { it is RoomsFragment } as? RoomsFragment
+//            roomsFragment?.addRoom(room)
         }
         bottomSheet.show(supportFragmentManager, "AddRoomBottomSheet")
     }
 
     private fun showAddTenantBottomSheet() {
         val bottomSheet = AddTenantBottomSheetFragment()
-        bottomSheet.setOnTenantAddedListener { tenant ->
-            // Notify tenants fragment about the new tenant
-            val tenantsFragment = supportFragmentManager.fragments.find { it is TenantsFragment } as? TenantsFragment
-            tenantsFragment?.addRoom(tenant)
-        }
+//        bottomSheet.setOnTenantAddedListener { tenant ->
+//            // Notify tenants fragment about the new tenant
+//            val tenantsFragment = supportFragmentManager.fragments.find { it is TenantsFragment } as? TenantsFragment
+//            tenantsFragment?.addRoom(tenant)
+//        }
         bottomSheet.show(supportFragmentManager, "AddTenantBottomSheet")
     }
 

@@ -2,7 +2,7 @@ package com.xvantage.rental.ui.addProperty.tempFiles
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.xvantage.rental.ui.addProperty.PropertyFinancials
+//import com.xvantage.rental.ui.addProperty.PropertyFinancials
 import com.xvantage.rental.ui.addProperty.bmsheet.Tenant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -28,7 +28,7 @@ class PropertyRepository private constructor() {
     private val properties = ConcurrentHashMap<String, Property>()
     private val rooms = ConcurrentHashMap<String, MutableList<Room>>()
     private val tenants = ConcurrentHashMap<String, MutableList<Tenant>>()
-    private val financials = ConcurrentHashMap<String, PropertyFinancials>()
+//    private val financials = ConcurrentHashMap<String, PropertyFinancials>()
 
     /**
      * Gets a property by its ID
@@ -65,18 +65,18 @@ class PropertyRepository private constructor() {
             tenants[propertyId] ?: emptyList()
         }
     }
-
-    /**
-     * Gets financial data for a specific property
-     */
-    suspend fun getPropertyFinancials(propertyId: String): PropertyFinancials {
-        return withContext(Dispatchers.IO) {
-            // Simulate network delay
-            delay(400)
-
-            financials[propertyId] ?: PropertyFinancials(propertyId)
-        }
-    }
+//
+//    /**
+//     * Gets financial data for a specific property
+//     */
+//    suspend fun getPropertyFinancials(propertyId: String): PropertyFinancials {
+//        return withContext(Dispatchers.IO) {
+//            // Simulate network delay
+//            delay(400)
+//
+//            financials[propertyId] ?: PropertyFinancials(propertyId)
+//        }
+//    }
 
     /**
      * Adds a new property
@@ -91,7 +91,7 @@ class PropertyRepository private constructor() {
             // Initialize empty collections for this property
             rooms[property.id] = mutableListOf()
             tenants[property.id] = mutableListOf()
-            financials[property.id] = PropertyFinancials(property.id)
+//            financials[property.id] = PropertyFinancials(property.id)
 
             property
         }
@@ -274,15 +274,15 @@ class PropertyRepository private constructor() {
             )
 
             // Update financials
-            val newFinancials = PropertyFinancials(
-                propertyId = propertyId,
-                totalIncome = totalIncome,
-                totalExpenses = totalExpenses,
-                monthlyRevenue = monthlyRevenue,
-                lastUpdated = LocalDateTime.now().toString()
-            )
-
-            financials[propertyId] = newFinancials
+//            val newFinancials = PropertyFinancials(
+//                propertyId = propertyId,
+//                totalIncome = totalIncome,
+//                totalExpenses = totalExpenses,
+//                monthlyRevenue = monthlyRevenue,
+//                lastUpdated = LocalDateTime.now().toString()
+//            )
+//
+//            financials[propertyId] = newFinancials
         }
     }
 
