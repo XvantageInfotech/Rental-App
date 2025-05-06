@@ -9,13 +9,10 @@ package com.xvantage.rental.network.request.property
  */
 
 data class CreatePropertyRequest(
-    val name: String,
-    val ownerName: String,
     val address: String,
-    val propertyType: String,
-    val noOfRoom: String,
-    val propertyImage: String,
+    val noOfRoom: Int,
     val propertyTypeId: String,
-    val whatsappNumber: String,
-    val roomNumber: List<String>
+    val wa_number: String,
+    val name: String,
+    val propertyImage: String = ""
 )

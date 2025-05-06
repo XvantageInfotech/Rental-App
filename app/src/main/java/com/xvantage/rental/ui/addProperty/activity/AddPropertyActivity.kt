@@ -17,25 +17,32 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityAddPropertyBinding
+import com.xvantage.rental.network.request.property.CreatePropertyRequest
 import com.xvantage.rental.ui.addProperty.tempFiles.Property
+import com.xvantage.rental.ui.auth.AuthViewModel
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.File
-
+@AndroidEntryPoint
 class AddPropertyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPropertyBinding
     private lateinit var appPreference: AppPreference
+    private val viewModel: AddPropertyViewModel by viewModels()
 
 
     private lateinit var llPropertyImage: View
@@ -68,19 +75,42 @@ class AddPropertyActivity : AppCompatActivity() {
     private fun initClickEvents() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
 
+
         binding.toolbar.btnSave.setOnClickListener {
-            val property = Property(
-                name = "Villa Deluxe",
-                type = "Residential",
-                address = "123 Ocean Drive, Miami",
-                imageUrl = "https://example.com/image.jpg"
+            val name = binding.etSignUpEmail.text.toString().trim()
+            val address = binding.tvTitle.text.toString().trim()
+            val whatsapp = binding.etWhatsappNumber.text.toString().trim()
+            val propertyTypeId = "" // TODO: get selected propertyTypeId from spinner
+            val request = CreatePropertyRequest(
+                address = address,
+                noOfRoom = 0,
+                propertyTypeId = propertyTypeId,
+                wa_number = whatsapp,
+                name = name
             )
+            viewModel.createProperty(request)
+        }
 
-            val intent = Intent(this, PropertyDetailsActivity::class.java)
-            intent.putExtra("property", property)
-            startActivity(intent)
-
-//            CommonFunction().navigation(this, PropertyDetailsActivity::class.java)
+        lifecycleScope.launch {
+            viewModel.createPropertyState.collect { state ->
+                when (state) {
+                    is CreatePropertyState.Loading -> {
+                        // TODO: show loading indicator
+                    }
+                    is CreatePropertyState.Success -> {
+                        Toast.makeText(
+                            this@AddPropertyActivity,
+                            "Property created: ${state.data.data.id}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finish()
+                    }
+                    is CreatePropertyState.Error -> {
+                        Toast.makeText(this@AddPropertyActivity, state.message, Toast.LENGTH_SHORT).show()
+                    }
+                    is CreatePropertyState.Idle -> Unit
+                }
+            }
         }
 
         binding.llAddPhoto.setOnClickListener { checkPermissionsAndOpenOptions() }
