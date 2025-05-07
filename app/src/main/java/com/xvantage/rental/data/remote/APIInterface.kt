@@ -8,6 +8,7 @@ import com.xvantage.rental.network.request.auth.VerifyOTPRequest
 import com.xvantage.rental.network.request.property.CreatePropertyRequest
 import com.xvantage.rental.network.response.CreatePropertyResponse
 import com.xvantage.rental.network.response.LoginResponse
+import com.xvantage.rental.network.response.PropertyDetailsResponse
 import com.xvantage.rental.network.response.SignupResponse
 import com.xvantage.rental.network.response.VerifyOTPResponse
 import okhttp3.MultipartBody
@@ -42,6 +43,8 @@ interface APIInterface {
     @POST("landlord/auth/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
+    @GET
+    suspend fun getProperty(@Url url: String): Response<PropertyDetailsResponse>
     @Multipart
     @POST("landlord/property/create")
     suspend fun createProperty(

@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
 
+
 @AndroidEntryPoint
 class AddPropertyActivity : AppCompatActivity() {
 
@@ -78,25 +79,26 @@ class AddPropertyActivity : AppCompatActivity() {
             viewModel.createPropertyState.collectLatest { state ->
                 when (state) {
                     is CreatePropertyState.Loading -> {
-                        // Show loading indicator
-//                        binding.progressBar?.visibility = View.VISIBLE
                     }
                     is CreatePropertyState.Success -> {
-//                        binding.progressBar?.visibility = View.GONE
                         Toast.makeText(
                             this@AddPropertyActivity,
                             "Property created successfully",
                             Toast.LENGTH_SHORT
                         ).show()
+
+                        val property = state.data.data.id
+
+                        val intent = Intent(this@AddPropertyActivity, PropertyDetailsActivity::class.java).apply {
+                            putExtra("property", property)
+                        }
+                        startActivity(intent)
                         finish()
                     }
                     is CreatePropertyState.Error -> {
-//                        binding.progressBar?.visibility = View.GONE
                         Toast.makeText(this@AddPropertyActivity, state.message, Toast.LENGTH_SHORT).show()
                     }
-                    is CreatePropertyState.Idle -> {
-//                        binding.progressBar?.visibility = View.GONE
-                    }
+                    else -> { /* Idle – no op */ }
                 }
             }
         }
@@ -109,9 +111,14 @@ class AddPropertyActivity : AppCompatActivity() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
 
         binding.toolbar.btnSave.setOnClickListener {
-            if (validateInputs()) {
-                submitProperty()
+            val intent = Intent(this@AddPropertyActivity, PropertyDetailsActivity::class.java).apply {
+                putExtra("property", "property")
             }
+            startActivity(intent)
+            finish()
+            /*if (validateInputs()) {
+                submitProperty()
+            }*/
         }
 
         binding.llAddPhoto.setOnClickListener { checkPermissionsAndOpenOptions() }

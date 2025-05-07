@@ -17,4 +17,4 @@ data class CreatePropertyRequest(
     val wa_number: String,
     val name: String,
     val imageUri: Uri? = null
-)
+)   

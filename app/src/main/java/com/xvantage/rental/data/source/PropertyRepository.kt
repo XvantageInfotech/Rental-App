@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken
 import com.xvantage.rental.data.remote.APIInterface
 import com.xvantage.rental.network.request.property.CreatePropertyRequest
 import com.xvantage.rental.network.response.CreatePropertyResponse
+import com.xvantage.rental.network.response.PropertyDetailsResponse
 import com.xvantage.rental.network.response.PropertyType
 import com.xvantage.rental.network.utils.ApiLogger
 import com.xvantage.rental.network.utils.NetworkHelper
@@ -27,6 +28,7 @@ import java.io.File
  * <p>
  * Licensed under the Apache License, Version 2.0. See LICENSE file for terms.
  */
+
 class PropertyRepository @Inject constructor(private val apiInterface: APIInterface) {
 
     suspend fun createProperty(request: CreatePropertyRequest): ResultWrapper<CreatePropertyResponse> {
@@ -111,6 +113,14 @@ class PropertyRepository @Inject constructor(private val apiInterface: APIInterf
                 is ResultWrapper.Error -> wrapper
                 else -> ResultWrapper.Error("Unexpected response type")
             }
+        } catch (e: Exception) {
+            ResultWrapper.Error("Network error: ${e.localizedMessage}")
+        }
+    }
+    suspend fun getPropertyDetails(id: String): ResultWrapper<PropertyDetailsResponse> {
+        return try {
+            val response = apiInterface.getProperty("landlord/property/$id/details")
+            NetworkHelper.handleApiResponse(response)
         } catch (e: Exception) {
             ResultWrapper.Error("Network error: ${e.localizedMessage}")
         }
