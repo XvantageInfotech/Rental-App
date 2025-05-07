@@ -1,6 +1,7 @@
 package com.xvantage.rental.di
 
 import com.xvantage.rental.data.remote.APIInterface
+import com.xvantage.rental.data.remote.AuthInterceptor
 import com.xvantage.rental.utils.AppPreference
 import dagger.Module
 import dagger.Provides

@@ -1,4 +1,4 @@
-package com.xvantage.rental.di
+package com.xvantage.rental.data.remote
 
 
 import com.xvantage.rental.utils.AppPreference
@@ -12,7 +12,7 @@ class AuthInterceptor @Inject constructor(
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
-        val urlPath = original.url.encodedPath  
+        val urlPath = original.url.encodedPath
 
         val builder = original.newBuilder()
             .header(ApiConstant.HEADER_CONTENT_TYPE, ApiConstant.CONTENT_TYPE_JSON)
