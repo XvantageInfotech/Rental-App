@@ -1,5 +1,7 @@
 package com.xvantage.rental.network.request.property
 
+import android.net.Uri
+
 /**
  * Project: Rental App By XV Team
  * Author: Mujammil x Vipul x XV Team
@@ -14,5 +16,5 @@ data class CreatePropertyRequest(
     val propertyTypeId: String,
     val wa_number: String,
     val name: String,
-    val propertyImage: String = ""
+    val imageUri: Uri? = null
 )

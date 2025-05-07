@@ -43,14 +43,13 @@ interface APIInterface {
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
     @Multipart
-    @POST("landlord/create-property")
+    @POST("landlord/property/create")
     suspend fun createProperty(
         @Part("address") address: RequestBody,
         @Part("noOfRoom") noOfRoom: RequestBody,
         @Part("propertyTypeId") propertyTypeId: RequestBody,
         @Part("wa_number") wa_number: RequestBody,
         @Part("name") name: RequestBody,
-        @Part image: MultipartBody.Part?
+        @Part propertyImage: MultipartBody.Part?
     ): Response<CreatePropertyResponse>
-
 }
