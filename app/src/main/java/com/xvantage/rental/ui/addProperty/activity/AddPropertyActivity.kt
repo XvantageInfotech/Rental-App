@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -17,34 +18,42 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xvantage.rental.BuildConfig
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityAddPropertyBinding
-import com.xvantage.rental.ui.addProperty.tempFiles.Property
+import com.xvantage.rental.network.request.property.CreatePropertyRequest
+import com.xvantage.rental.ui.addProperty.AddPropertyViewModel
+import com.xvantage.rental.ui.addProperty.CreatePropertyState
 import com.xvantage.rental.utils.AppPreference
 import com.xvantage.rental.utils.CommonFunction
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.io.File
+import java.io.IOException
 
+
+@AndroidEntryPoint
 class AddPropertyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPropertyBinding
     private lateinit var appPreference: AppPreference
-
-
+    private val viewModel: AddPropertyViewModel by viewModels()
+    private var propertyTypeIds = listOf<String>()
+    private var selectedPropertyTypeId: String = ""
     private lateinit var llPropertyImage: View
 
-    private var currentNumber = 0
-
     private var propertyImage: Uri? = null
-
-    // private val viewModel: AddPropertyViewModel by viewModels()
+    private var imageFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +64,44 @@ class AddPropertyActivity : AppCompatActivity() {
 
         binding.toolbar.tvTitle.setText(R.string.add_property_bottom_n)
 
-
         llPropertyImage = findViewById(R.id.ll_property_photo)
 
         initViews()
         initClickEvents()
+        observeViewModelStates()
+    }
+
+    /**
+     * Observe ViewModel states for data updates and API responses
+     */
+    private fun observeViewModelStates() {
+        lifecycleScope.launch {
+            viewModel.createPropertyState.collectLatest { state ->
+                when (state) {
+                    is CreatePropertyState.Loading -> {
+                    }
+                    is CreatePropertyState.Success -> {
+                        Toast.makeText(
+                            this@AddPropertyActivity,
+                            "Property created successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        val property = state.data.data.id
+
+                        val intent = Intent(this@AddPropertyActivity, PropertyDetailsActivity::class.java).apply {
+                            putExtra("property", property)
+                        }
+                        startActivity(intent)
+                        finish()
+                    }
+                    is CreatePropertyState.Error -> {
+                        Toast.makeText(this@AddPropertyActivity, state.message, Toast.LENGTH_SHORT).show()
+                    }
+                    else -> { /* Idle – no op */ }
+                }
+            }
+        }
     }
 
     /**
@@ -69,39 +111,111 @@ class AddPropertyActivity : AppCompatActivity() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
 
         binding.toolbar.btnSave.setOnClickListener {
-            val property = Property(
-                name = "Villa Deluxe",
-                type = "Residential",
-                address = "123 Ocean Drive, Miami",
-                imageUrl = "https://example.com/image.jpg"
-            )
-
-            val intent = Intent(this, PropertyDetailsActivity::class.java)
-            intent.putExtra("property", property)
+            val intent = Intent(this@AddPropertyActivity, PropertyDetailsActivity::class.java).apply {
+                putExtra("property", "property")
+            }
             startActivity(intent)
-
-//            CommonFunction().navigation(this, PropertyDetailsActivity::class.java)
+            finish()
+            /*if (validateInputs()) {
+                submitProperty()
+            }*/
         }
 
         binding.llAddPhoto.setOnClickListener { checkPermissionsAndOpenOptions() }
 
         binding.llPropertyPhoto.btnClose.setOnClickListener {
             propertyImage = null
+            imageFile = null
             llPropertyImage.visibility = View.GONE
             binding.llAddPhoto.visibility = View.VISIBLE
         }
     }
 
     /**
+     * Validate all required inputs before submission
+     */
+    private fun validateInputs(): Boolean {
+        // Validate property type selection
+        if (selectedPropertyTypeId.isEmpty()) {
+            Toast.makeText(this, "Please select a property type", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        // Validate address
+        if (binding.etAddress.text.toString().trim().isEmpty()) {
+            binding.etAddress.error = "Please enter property address"
+            binding.etAddress.requestFocus()
+            return false
+        }
+
+        // Validate owner name
+        if (binding.etOwnerName.text.toString().trim().isEmpty()) {
+            binding.etOwnerName.error = "Please enter owner name"
+            binding.etOwnerName.requestFocus()
+            return false
+        }
+
+        // Validate WhatsApp number
+        if (binding.etWhatsappNumber.text.toString().trim().isEmpty()) {
+            binding.etWhatsappNumber.error = "Please enter WhatsApp number"
+            binding.etWhatsappNumber.requestFocus()
+            return false
+        }
+
+        return true
+    }
+
+    /**
+     * Create and submit property data
+     */
+    private fun submitProperty() {
+        val request = CreatePropertyRequest(
+            address = binding.etAddress.text.toString().trim(),
+            noOfRoom = binding.etHomeNumber.text.toString().toIntOrNull() ?: 0,
+            propertyTypeId = selectedPropertyTypeId,  // This should now be properly set
+            wa_number = binding.etWhatsappNumber.text.toString().trim(),
+            name = binding.etOwnerName.text.toString().trim(),
+            imageUri = propertyImage
+        )
+
+        Log.d("AddProperty", "Submitting with typeId: $selectedPropertyTypeId")
+        viewModel.createProperty(request)
+    }
+
+    /**
      * Initialize all views and drop-down menus.
      */
     private fun initViews() {
-        setupPropertyTypeSpinner()
+        viewModel.loadPropertyTypes()
+
+        // Set up property type spinner with listener
+        lifecycleScope.launch {
+            viewModel.propertyTypes.collect { list ->
+                if (list.isNotEmpty()) {
+                    val names = list.map { it.name }
+                    propertyTypeIds = list.map { it.id }
+                    setupSpinner(binding.spinnerPropertyType, listOf("Select Property Type") + names)
+                }
+            }
+        }
+
+        // Add item selection listener after spinner is populated
+        binding.spinnerPropertyType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+                if (pos > 0 && propertyTypeIds.isNotEmpty()) {
+                    selectedPropertyTypeId = propertyTypeIds[pos - 1]
+                    Log.d("AddProperty", "Selected typeId=$selectedPropertyTypeId at position $pos")
+                } else {
+                    selectedPropertyTypeId = ""
+                }
+                updatePropertySection(pos)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                selectedPropertyTypeId = ""
+            }
+        }
     }
-
-
-
-
 
     /**
      * Helper function to setup a spinner with custom text color.
@@ -121,64 +235,13 @@ class AddPropertyActivity : AppCompatActivity() {
         }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View?, position: Int, id: Long
-            ) {
-                (view as? TextView)?.setTextColor(if (position == 0) defaultTextColor else selectedTextColor)
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-        spinner.setSelection(0)
-    }
-
-
-
-    /**
-     * Setup the Property Type spinner and update UI sections based on selection.
-     */
-    private fun setupPropertyTypeSpinner() {
-        val spinner = findViewById<Spinner>(R.id.spinner_property_type)
-        val propertyTypes = listOf("Select Property Type", "House", "Apartment", "PG", "Rent House", "Land")
-        setupSpinner(spinner, propertyTypes)
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View?, position: Int, id: Long
-            ) {
-                (view as? TextView)?.setTextColor(if (position == 0) Color.GRAY else Color.BLACK)
-                updatePropertySection(position)
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-        spinner.setSelection(0)
     }
 
     /**
      * Update the visibility of UI sections based on the selected property type.
      */
     private fun updatePropertySection(selectedPosition: Int) {
-        when (selectedPosition) {
-            1 -> { // House
-                binding.llHomeNumber.visibility = View.VISIBLE
-            }
-            2 -> { // Apartment
-                binding.llHomeNumber.visibility = View.GONE
-            }
-            3 -> { // PG
-                binding.llHomeNumber.visibility = View.GONE
-            }
-            4 -> { // Rent House
-                binding.llHomeNumber.visibility = View.GONE
-            }
-            5 -> { // Land
-                binding.llHomeNumber.visibility = View.GONE
-            }
-            else -> { // Default: No section selected
-                binding.llHomeNumber.visibility = View.GONE
-            }
-        }
+        binding.llHomeNumber.visibility = if (selectedPosition == 1) View.VISIBLE else View.GONE
     }
 
     /**
@@ -225,8 +288,17 @@ class AddPropertyActivity : AppCompatActivity() {
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                propertyImage?.let { updatePhotoUI(it) }
-                    ?: Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
+                propertyImage?.let {
+                    try {
+                        // Make sure the image exists and is readable
+                        contentResolver.openInputStream(it)?.close()
+                        updatePhotoUI(it)
+                    } catch (e: IOException) {
+                        Log.e("AddProperty", "Camera image file not accessible", e)
+                        Toast.makeText(this, "Failed to process photo: ${e.message}", Toast.LENGTH_SHORT).show()
+                        propertyImage = null
+                    }
+                } ?: Toast.makeText(this, "Failed to capture photo!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Photo capture cancelled!", Toast.LENGTH_SHORT).show()
             }
@@ -235,46 +307,75 @@ class AddPropertyActivity : AppCompatActivity() {
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                propertyImage = uri
-                updatePhotoUI(uri)
-            } ?: Toast.makeText(this, "Failed to upload photo!", Toast.LENGTH_SHORT).show()
+                try {
+                    // Create a local copy of the file from the content URI
+                    val inputStream = contentResolver.openInputStream(uri)
+                    if (inputStream != null) {
+                        // Create a new file in app's cache directory
+                        imageFile = File(cacheDir, "image_${System.currentTimeMillis()}.jpg")
+                        imageFile?.outputStream()?.use { fileOut ->
+                            inputStream.copyTo(fileOut)
+                        }
+                        inputStream.close()
+
+                        // Use the local file URI instead of content URI
+                        propertyImage = Uri.fromFile(imageFile)
+                        updatePhotoUI(propertyImage!!)
+                    } else {
+                        Toast.makeText(this, "Cannot access selected image", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: IOException) {
+                    Log.e("AddProperty", "Error copying gallery image", e)
+                    Toast.makeText(this, "Failed to process selected image: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            } ?: Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
         }
 
     /**
      * Update the UI with the selected or captured photo.
      */
     private fun updatePhotoUI(photoUri: Uri) {
-        binding.llPropertyPhoto.ivThumbnail.setImageURI(photoUri)
-        val fileName = CommonFunction().getFileName(this, photoUri)
-        binding.llPropertyPhoto.tvFileName.text = fileName
-        val fileSize = CommonFunction().getFileSize(this, photoUri)
-        binding.llPropertyPhoto.tvFileSize.text = fileSize
+        try {
+            binding.llPropertyPhoto.ivThumbnail.setImageURI(photoUri)
+            val fileName = CommonFunction().getFileName(this, photoUri)
+            binding.llPropertyPhoto.tvFileName.text = fileName ?: "photo.jpg"
+            val fileSize = CommonFunction().getFileSize(this, photoUri)
+            binding.llPropertyPhoto.tvFileSize.text = fileSize ?: "Unknown size"
 
-        propertyImage = photoUri
-        llPropertyImage.visibility = View.VISIBLE
-        binding.llAddPhoto.visibility = View.GONE
+            llPropertyImage.visibility = View.VISIBLE
+            binding.llAddPhoto.visibility = View.GONE
+        } catch (e: Exception) {
+            Log.e("AddProperty", "Error updating photo UI", e)
+            Toast.makeText(this, "Error displaying image: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**
      * Opens the device camera to capture a photo.
      */
     private fun openCamera() {
-        val photoFile = File(
-            getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-            "IMG_${System.currentTimeMillis()}.jpg"
-        )
-        propertyImage = FileProvider.getUriForFile(
-            this,
-            "${BuildConfig.APPLICATION_ID}.fileprovider",
-            photoFile
-        )
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-            putExtra(MediaStore.EXTRA_OUTPUT, propertyImage)
-        }
-        if (intent.resolveActivity(packageManager) != null) {
-            cameraLauncher.launch(intent)
-        } else {
-            Toast.makeText(this, "No camera app available", Toast.LENGTH_SHORT).show()
+        try {
+            val photoFile = File(
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                "IMG_${System.currentTimeMillis()}.jpg"
+            )
+            imageFile = photoFile
+            propertyImage = FileProvider.getUriForFile(
+                this,
+                "${BuildConfig.APPLICATION_ID}.fileprovider",
+                photoFile
+            )
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                putExtra(MediaStore.EXTRA_OUTPUT, propertyImage)
+            }
+            if (intent.resolveActivity(packageManager) != null) {
+                cameraLauncher.launch(intent)
+            } else {
+                Toast.makeText(this, "No camera app available", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            Log.e("AddProperty", "Error opening camera", e)
+            Toast.makeText(this, "Error opening camera: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 

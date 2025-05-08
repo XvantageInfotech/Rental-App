@@ -64,6 +64,7 @@
 
                     <androidx.appcompat.widget.AppCompatEditText
                         style="@style/EditText"
+                        android:id="@+id/etAddress"
                         android:background="@drawable/grey_border_background"
                         android:hint="@string/enter_property_address"
                         android:padding="@dimen/space8"

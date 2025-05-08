@@ -2,26 +2,38 @@ package com.xvantage.rental.ui.addProperty.activity
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.xvantage.rental.R
 import com.xvantage.rental.databinding.ActivityPropertyDetailsBinding
+import com.xvantage.rental.network.response.PropertyDetailsResponse
+import com.xvantage.rental.ui.addProperty.PropertyDetailsViewModel
 import com.xvantage.rental.ui.addProperty.bmsheet.AddRoomBottomSheetFragment
 import com.xvantage.rental.ui.addProperty.bmsheet.AddTenantBottomSheetFragment
 import com.xvantage.rental.ui.addProperty.fragment.FinancialsFragment
 import com.xvantage.rental.ui.addProperty.tempFiles.Property
 import com.xvantage.rental.ui.addProperty.fragment.RoomsFragment
 import com.xvantage.rental.ui.addProperty.fragment.TenantsFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class PropertyDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPropertyDetailsBinding
     private lateinit var property: Property
     private lateinit var tabLayoutMediator: TabLayoutMediator
+    private val viewModel by viewModels<PropertyDetailsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +45,7 @@ class PropertyDetailsActivity : AppCompatActivity() {
         property = intent.getParcelableExtra("property") ?: Property()
 
         setupToolbar()
-        setupPropertyDetails()
+//        setupPropertyDetails()
         setupViewPager()
         setupFab()
     }
@@ -47,18 +59,46 @@ class PropertyDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupPropertyDetails() {
-        // Set property details in the header
-        binding.tvPropertyName.text = property.name
-        binding.tvPropertyAddress.text = property.address
+        viewModel.loadPropertyDetails(property.id)
 
-//        // Load property image if available
-//        if (property.imageUrl.isNotEmpty()) {
-//            Glide.with(this)
-//                .load(R.drawable.image)
-//                .placeholder(R.drawable.image)
-//                .centerCrop()
-//                .into(binding.ivPropertyImage)
-//        }
+        // observe the state & update UI
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect { state ->
+                    when (state) {
+                        is PropertyDetailsViewModel.State.Loading -> {
+//                            binding.progressBar.visibility = View.VISIBLE
+                        }
+                        is PropertyDetailsViewModel.State.Success -> {
+//                            binding.progressBar.visibility = View.GONE
+//                            bindHeader(state.details)
+                        }
+                        is PropertyDetailsViewModel.State.Error -> {
+//                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(this@PropertyDetailsActivity, state.message, Toast.LENGTH_SHORT).show()
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun bindHeader(details: PropertyDetailsResponse) {
+        // text fields
+        binding.tvPropertyName.text    = details.data?.name ?: ""
+        binding.tvPropertyAddress.text = details.data?.email ?: ""
+
+        // image (with Glide)
+        if (!details.data?.email.isNullOrBlank()) {
+            Glide.with(this)
+                .load(details.data?.email)
+                .placeholder(R.drawable.image)
+                .error(R.drawable.image)
+                .centerCrop()
+                .into(binding.ivPropertyImage)
+        } else {
+            binding.ivPropertyImage.setImageResource(R.drawable.image)
+        }
     }
 
     private fun setupViewPager() {
@@ -118,19 +158,19 @@ class PropertyDetailsActivity : AppCompatActivity() {
         val bottomSheet = AddRoomBottomSheetFragment()
         bottomSheet.setOnRoomAddedListener { room ->
             // Notify rooms fragment about the new room
-            val roomsFragment = supportFragmentManager.fragments.find { it is RoomsFragment } as? RoomsFragment
-            roomsFragment?.addRoom(room)
+//            val roomsFragment = supportFragmentManager.fragments.find { it is RoomsFragment } as? RoomsFragment
+//            roomsFragment?.addRoom(room)
         }
         bottomSheet.show(supportFragmentManager, "AddRoomBottomSheet")
     }
 
     private fun showAddTenantBottomSheet() {
         val bottomSheet = AddTenantBottomSheetFragment()
-        bottomSheet.setOnTenantAddedListener { tenant ->
-            // Notify tenants fragment about the new tenant
-            val tenantsFragment = supportFragmentManager.fragments.find { it is TenantsFragment } as? TenantsFragment
-            tenantsFragment?.addRoom(tenant)
-        }
+//        bottomSheet.setOnTenantAddedListener { tenant ->
+//            // Notify tenants fragment about the new tenant
+//            val tenantsFragment = supportFragmentManager.fragments.find { it is TenantsFragment } as? TenantsFragment
+//            tenantsFragment?.addRoom(tenant)
+//        }
         bottomSheet.show(supportFragmentManager, "AddTenantBottomSheet")
     }
 

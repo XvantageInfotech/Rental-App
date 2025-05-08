@@ -129,7 +129,7 @@
             android:layout_margin="16dp"
             android:contentDescription="Add"
             app:tint="@android:color/white"
-x            android:backgroundTint="@color/black_cole"
+            android:backgroundTint="@color/black_cole"
             android:src="@drawable/baseline_add_24"
       />
 

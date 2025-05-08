@@ -1,4 +1,4 @@
-package com.xvantage.rental.data.source.module
+package com.xvantage.rental.di
 
 import com.xvantage.rental.data.remote.APIInterface
 import com.xvantage.rental.data.source.AuthRepository

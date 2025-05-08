@@ -1,7 +1,7 @@
-package com.xvantage.rental.data.source.module
+package com.xvantage.rental.di
 
-import com.xvantage.rental.data.remote.APIClient
 import com.xvantage.rental.data.remote.APIInterface
+import com.xvantage.rental.data.source.PropertyRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,19 +11,18 @@ import javax.inject.Singleton
 /**
  * Project: Rental App By XV Team
  * Author: Mujammil x Vipul x XV Team
- * Date:  24/02/25
+ * Date:  06/05/25
  * <p>
  * Licensed under the Apache License, Version 2.0. See LICENSE file for terms.
  */
 
-
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+object PropertyModule {
 
     @Provides
     @Singleton
-    fun provideApiInterface(): APIInterface {
-        return APIClient.appInterfaceServerUser()
+    fun providePropertyRepository(apiInterface: APIInterface): PropertyRepository {
+        return PropertyRepository(apiInterface)
     }
 }

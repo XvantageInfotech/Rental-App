@@ -14,10 +14,10 @@ class TenantsFragment : Fragment() {
 
     private var _binding: FragmentTenantsBinding? = null
     private val binding get() = _binding!!
+    private val rooms = mutableListOf<Room>()
 
     private lateinit var roomAdapter: RoomAdapter
     private var propertyId: String = ""
-    private val rooms = mutableListOf<Room>()
 
     companion object {
         fun newInstance(propertyId: String): TenantsFragment {

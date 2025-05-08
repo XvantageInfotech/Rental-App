@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.xvantage.rental.databinding.FragmentRoomsBinding
-import com.xvantage.rental.ui.addProperty.PropertyDetailsViewModel
 import com.xvantage.rental.ui.addProperty.tempFiles.Room
 import com.xvantage.rental.ui.addProperty.adapter.RoomAdapter
 
@@ -16,7 +15,6 @@ class RoomsFragment : Fragment() {
     private var _binding: FragmentRoomsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: PropertyDetailsViewModel by activityViewModels()
     private lateinit var roomAdapter: RoomAdapter
     private var propertyId: String = ""
     private val rooms = mutableListOf<Room>()
