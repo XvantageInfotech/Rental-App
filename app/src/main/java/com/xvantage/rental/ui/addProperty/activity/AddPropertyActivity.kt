@@ -90,7 +90,7 @@ class AddPropertyActivity : AppCompatActivity() {
                         val property = state.data.data.id
 
                         val intent = Intent(this@AddPropertyActivity, PropertyDetailsActivity::class.java).apply {
-                            putExtra("property", property)
+                            putExtra("property_id", property)
                         }
                         startActivity(intent)
                         finish()
@@ -111,14 +111,14 @@ class AddPropertyActivity : AppCompatActivity() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
 
         binding.toolbar.btnSave.setOnClickListener {
-            val intent = Intent(this@AddPropertyActivity, PropertyDetailsActivity::class.java).apply {
-                putExtra("property", "property")
-            }
-            startActivity(intent)
-            finish()
-            /*if (validateInputs()) {
+//            val intent = Intent(this@AddPropertyActivity, PropertyDetailsActivity::class.java).apply {
+//                putExtra("property", "property")
+//            }
+//            startActivity(intent)
+//            finish()
+            if (validateInputs()) {
                 submitProperty()
-            }*/
+            }
         }
 
         binding.llAddPhoto.setOnClickListener { checkPermissionsAndOpenOptions() }

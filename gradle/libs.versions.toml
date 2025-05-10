@@ -1,6 +1,7 @@
 [versions]
 agp = "8.3.0"
 kotlin = "1.9.0"
+jKotlin = "1.9.10"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -79,7 +80,7 @@ hilt-lifecycle-viewmodel = { group = "androidx.hilt", name = "hilt-lifecycle-vie
 hilt-compiler-androidx = { group = "androidx.hilt", name = "hilt-compiler", version = "hiltPlugin" }
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "jKotlin" }
 org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 dagger-hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltPlugin" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }

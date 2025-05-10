@@ -31,7 +31,8 @@ import kotlinx.coroutines.launch
 class PropertyDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPropertyDetailsBinding
-    private lateinit var property: Property
+//    private lateinit var property: Property
+    private lateinit var propertyId: String
     private lateinit var tabLayoutMediator: TabLayoutMediator
     private val viewModel by viewModels<PropertyDetailsViewModel>()
 
@@ -42,10 +43,14 @@ class PropertyDetailsActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         // Get property data from intent
-        property = intent.getParcelableExtra("property") ?: Property()
+//        property = intent.getParcelableExtra("property") ?: Property()
+//
+
+//      Get property id from intent
+        propertyId = intent.getStringExtra("property_id") ?: ""
 
         setupToolbar()
-//        setupPropertyDetails()
+        setupPropertyDetails()
         setupViewPager()
         setupFab()
     }
@@ -59,7 +64,7 @@ class PropertyDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupPropertyDetails() {
-        viewModel.loadPropertyDetails(property.id)
+        viewModel.loadPropertyDetails(propertyId)
 
         // observe the state & update UI
         lifecycleScope.launch {
@@ -195,9 +200,9 @@ class PropertyDetailsActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> RoomsFragment.Companion.newInstance(property.id)
-                1 -> TenantsFragment.Companion.newInstance(property.id)
-                2 -> FinancialsFragment.Companion.newInstance(property.id)
+                0 -> RoomsFragment.Companion.newInstance(propertyId)
+                1 -> TenantsFragment.Companion.newInstance(propertyId)
+                2 -> FinancialsFragment.Companion.newInstance(propertyId)
                 else -> Fragment()
             }
         }
